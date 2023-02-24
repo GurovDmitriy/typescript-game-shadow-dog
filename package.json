@@ -1,0 +1,56 @@
+{
+  "name": "typescript-game-shadow-dog",
+  "description": "Learn TypeScript - Game Shadow Dog",
+  "version": "1.0.0",
+  "author": "Gurov Dmitriy",
+  "license": "ISC",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build",
+    "prepare": "husky install",
+    "lint": "npm run lint:eslint && npm run lint:stylelint && npm run lint:prettier",
+    "lint:eslint": "eslint --fix --ext \".jsx,.js,.ts,.tsx\" --ignore-path .eslintignore .",
+    "lint:prettier": "prettier --write \"**/*.{jsx,js,ts,tsx,css,less,scss,html,md}\" --ignore-path .prettierignore",
+    "lint:stylelint": "stylelint --fix \"**/*.{css,less,scss}\" --ignore-path .stylelintignore"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@parcel/config-default": "^2.8.3",
+    "@parcel/transformer-raw": "^2.8.3",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
+    "parcel": "^2.8.3",
+    "prettier": "2.8.4",
+    "prettier-plugin-organize-imports": "^3.2.2",
+    "stylelint": "^15.2.0",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-rational-order-fix": "^0.1.9",
+    "stylelint-config-standard-scss": "^7.0.1",
+    "stylelint-order": "^6.0.2"
+  },
+  "lint-staged": {
+    "src/**/*.{jsx,js,ts,tsx}": "eslint --fix",
+    "src/**/*.{css,less,scss}": "stylelint --fix",
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      "defaults"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "volta": {
+    "node": "18.14.2"
+  }
+}
