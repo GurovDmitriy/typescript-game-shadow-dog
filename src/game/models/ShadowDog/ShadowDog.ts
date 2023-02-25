@@ -1,9 +1,7 @@
-import config from "./config"
-// const downloadUrl = new URL('download.zip', import.meta.url);
-//
-// document.body.innerHTML = `<a href="${downloadUrl}">Download</a>`;
-
 import { getClone } from "../../../../helpers/utils/getClone"
+import { getImage } from "../../../../helpers/utils/getImage"
+import config from "./config"
+import imageUrl from "./images/shadow_dog.png"
 import {
   ActionShadowDog,
   Animation,
@@ -12,21 +10,18 @@ import {
   MapAnimation,
 } from "./types"
 
-const imageUrl = new URL(
-  "./shadow_dog.png",
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  import.meta.url
-) as unknown as string
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const image = getImage(imageUrl)
 
 class ShadowDog {
-  private _image: HTMLImageElement = new Image()
+  readonly _image: HTMLImageElement
   private _mapAnimation: MapAnimation
   private _ctx: CanvasRenderingContext2D
   private _config: Config
 
   constructor(ctx: CanvasRenderingContext2D) {
-    this._image.src = imageUrl
+    this._image = image
     this._config = config
     this._mapAnimation = this._getMapAnimation(config.animation)
     this._ctx = ctx
