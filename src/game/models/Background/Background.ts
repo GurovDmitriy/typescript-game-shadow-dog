@@ -17,8 +17,40 @@ const config = {
     height: 700,
   },
 
-  gameSpeed: 5,
+  speedGame: 1,
 }
+
+const configBackgrounds = [
+  {
+    image: image1,
+    speedGame: config.speedGame,
+    speedModifier: 0,
+  },
+
+  {
+    image: image3,
+    speedGame: config.speedGame,
+    speedModifier: 0.1,
+  },
+
+  {
+    image: image2,
+    speedGame: config.speedGame,
+    speedModifier: 0.2,
+  },
+
+  {
+    image: image4,
+    speedGame: config.speedGame,
+    speedModifier: 0.4,
+  },
+
+  {
+    image: image5,
+    speedGame: config.speedGame,
+    speedModifier: 0.6,
+  },
+]
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement
 const ctx = canvas.getContext("2d")
@@ -26,10 +58,78 @@ const ctx = canvas.getContext("2d")
 canvas.width = config.canvas.width
 canvas.height = config.canvas.height
 
+const x = 0
+const x2 = 2400
+
+class Background {
+  private _x: number
+  private _y: number
+  private _width: number
+  private _height: number
+  private _x2: number
+  private _speed: number
+  private _speedGame: number
+  private _speedModifier: number
+  private _image: HTMLImageElement
+
+  constructor(image, speedGame, speedModifier) {
+    this._x = 0
+    this._y = 0
+    this._width = 2400
+    this._height = 700
+    this._x2 = this._width
+    this._image = image
+    this._speed = speedGame
+    this._speedGame = speedGame
+    this._speedModifier = speedModifier
+  }
+
+  public update() {
+    this._speed = this._speedGame * this._speedModifier
+
+    if (this._x <= -this._width) {
+      this._x = this._width + this._x2 - this._speed
+    }
+
+    if (this._x2 <= -this._width) {
+      this._x2 = this._width + this._x - this._speed
+    }
+
+    this._x = this._x - this._speed
+    this._x2 = this._x2 - this._speed
+  }
+
+  public draw(ctx: CanvasRenderingContext2D) {
+    ctx.drawImage(this._image, this._x, this._y, this._width, this._height)
+    ctx.drawImage(this._image, this._x2, this._y, this._width, this._height)
+  }
+
+  static getBackgrounds(
+    config: {
+      image: HTMLImageElement
+      speedGame: number
+      speedModifier: number
+    }[]
+  ) {
+    const backgrounds = config.map(
+      (item) => new Background(item.image, item.speedGame, item.speedModifier)
+    )
+
+    return backgrounds
+  }
+}
+
+const backgrounds = Background.getBackgrounds(configBackgrounds)
+
 function animate() {
   if (!ctx) throw Error("Error getting context canvas")
 
-  ctx.drawImage(image5, 0, 0)
+  ctx.clearRect(0, 0, config.canvas.width, config.canvas.height)
+
+  backgrounds.forEach((bg) => {
+    bg.update()
+    bg.draw(ctx)
+  })
 
   requestAnimationFrame(animate)
 }
