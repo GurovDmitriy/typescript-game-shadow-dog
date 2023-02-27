@@ -1,12 +1,11 @@
 import { getImage } from "../../../../helpers/utils/getImage"
-import GameCharacter from "../../Prototypes/GameCharacter/GameCharacter"
+import AnimatorCharacter from "../../prototypes/AnimatorCharacter/AnimatorCharacter"
 import config from "./config"
 import imageUrl from "./images/enemy2.png"
-import { ActionEnemy2 } from "./types"
 
 const image = getImage(imageUrl)
 
-class Enemy2 extends GameCharacter {
+class Enemy2 extends AnimatorCharacter {
   constructor(ctx: CanvasRenderingContext2D, speed) {
     super(ctx, image, config, speed)
   }
@@ -14,6 +13,10 @@ class Enemy2 extends GameCharacter {
   public plain(): void {
     this.animate(ActionEnemy2.plain)
   }
+}
+
+export enum ActionEnemy2 {
+  plain = "plain",
 }
 
 export default Enemy2

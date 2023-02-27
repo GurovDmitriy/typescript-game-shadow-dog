@@ -61,6 +61,8 @@ canvas.height = config.canvas.height
 const x = 0
 const x2 = 2400
 
+// TODO: separate to prototype class
+
 class Background {
   private _x: number
   private _y: number
