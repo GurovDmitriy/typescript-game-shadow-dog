@@ -1,11 +1,12 @@
 import { getImage } from "../../../../helpers/utils/getImage"
-import AnimatorCharacter from "../../prototypes/AnimatorCharacter/AnimatorCharacter"
+import Character from "../../prototypes/Character/Character"
 import config from "./config"
 import imageUrl from "./images/shadow_dog.png"
+import { ActionShadowDog } from "./types"
 
 const image = getImage(imageUrl)
 
-class ShadowDog extends AnimatorCharacter {
+class ShadowDog extends Character {
   constructor(ctx: CanvasRenderingContext2D, speed) {
     super(ctx, image, config, speed)
   }
@@ -49,19 +50,6 @@ class ShadowDog extends AnimatorCharacter {
   public struck(): void {
     this.animate(ActionShadowDog.struck)
   }
-}
-
-export enum ActionShadowDog {
-  plain = "plain",
-  jump = "jump",
-  fall = "fall",
-  run = "run",
-  dizzy = "dizzy",
-  sit = "sit",
-  roll = "roll",
-  bite = "bite",
-  ko = "ko",
-  struck = "struck",
 }
 
 export default ShadowDog
