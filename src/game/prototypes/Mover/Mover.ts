@@ -25,22 +25,22 @@ class Mover extends Maper {
     this.y += y * speed
   }
 
-  public moveUp(speed = 1): void {
+  protected moveUp(speed = 1): void {
     this.x += 0 * speed
     this.y += -1 * speed
   }
 
-  public moveDown(speed = 1): void {
+  protected moveDown(speed = 1): void {
     this.x += 0 * speed
     this.y += 1 * speed
   }
 
-  public moveRight(speed = 1): void {
+  protected moveRight(speed = 1): void {
     this.x += 1 * speed
     this.y += 0 * speed
   }
 
-  public moveLeft(speed = 1): void {
+  protected moveLeft(speed = 1): void {
     this.x += -1 * speed
     this.y += 0 * speed
   }
