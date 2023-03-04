@@ -1,7 +1,7 @@
 import Layer from "../Layer/Layer"
-import { Config } from "./types"
+import { Config, ILayerPack } from "./types"
 
-class LayerPack {
+class LayerPack implements ILayerPack {
   private layerPack: Layer[]
   private config: Config[]
   private speedGame: number

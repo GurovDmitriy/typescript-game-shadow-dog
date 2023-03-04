@@ -1,7 +1,8 @@
 import { Config } from "../Maper/types"
 import Mover from "../Mover/Mover"
+import { IAnimator } from "./types"
 
-class Animator extends Mover {
+class Animator extends Mover implements IAnimator {
   private ctx: CanvasRenderingContext2D
   private image: HTMLImageElement
   private speed: number

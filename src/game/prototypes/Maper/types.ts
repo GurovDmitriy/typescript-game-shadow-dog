@@ -1,3 +1,8 @@
+export interface IMaper {
+  mapAnimation: MapAnimation
+  configAnimation: Config
+}
+
 export type Config = {
   image: {
     width: number

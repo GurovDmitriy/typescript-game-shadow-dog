@@ -1,6 +1,6 @@
-import { Config } from "./types"
+import { Config, ILayer } from "./types"
 
-class Layer {
+class Layer implements ILayer {
   private x: number
   private y: number
   private x2: number
@@ -54,7 +54,7 @@ class Layer {
     this.x2 = this.x2 - this.speed
   }
 
-  public updateSpeed(speedGame, speedModifier) {
+  public updateSpeed(speedGame: number, speedModifier: number) {
     this.speedGame = speedGame
     this.speedModifier = speedModifier
   }

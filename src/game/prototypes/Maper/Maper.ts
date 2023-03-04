@@ -1,6 +1,6 @@
-import { Config, Frames, MapAnimation } from "./types"
+import { Config, Frames, IMaper, MapAnimation } from "./types"
 
-class Maper {
+class Maper implements IMaper {
   private map: MapAnimation
   private config: Config
 
