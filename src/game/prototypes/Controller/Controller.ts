@@ -3,11 +3,14 @@ import { IMover } from "../Mover/types"
 class Controller<T extends IMover> {
   private x: number
   private y: number
+  private angle: number
+
   public character: T
 
   constructor(character: T) {
     this.x = 0
     this.y = 0
+    this.angle = 0
 
     this.character = character
   }
@@ -21,24 +24,29 @@ class Controller<T extends IMover> {
   }
 
   public random() {
-    this.x += this.randomIntegerT(-1, 1)
-    this.y += this.randomIntegerT(-1, 1)
+    this.x += this.randomIntegerC(-1, 1)
+    this.y += this.randomIntegerC(-1, 1)
 
     this.character.move(this.x, this.y)
 
     return this
   }
 
-  // public xSyn() {
-  //   console.log("xSyn")
-  // }
+  public xSyn() {
+    this.y = Math.sin(this.angle) * 60
+    this.angle += 0.01
 
-  private randomIntegerT(min, max): number {
+    this.character.move(this.x, this.y)
+
+    return this
+  }
+
+  private randomIntegerC(min, max): number {
     const rand = min - 0.5 + Math.random() * (max - min + 1)
     return Math.round(rand)
   }
 
-  private randomT(min, max): number {
+  private randomC(min, max): number {
     return min + Math.random() * (max - min)
   }
 }
