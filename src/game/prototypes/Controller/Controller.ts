@@ -32,13 +32,32 @@ class Controller<T extends IMover> {
     return this
   }
 
-  public xSyn() {
-    this.y = Math.sin(this.angle) * 60
-    this.angle += 0.01
+  public ySyn() {
+    this.y = Math.sin(this.angle) * 20
+    this.angle += 0.02
 
-    this.character.move(this.x, this.y)
+    this.move()
+
+    // if (this.angle > 2 * Math.PI) this.angle = 0
+    if (this.angle >= (5 / 2) * Math.PI) this.angle = (1 / 2) * Math.PI
 
     return this
+  }
+
+  public xSyn() {
+    this.x = Math.sin(this.angle) * 20
+    this.angle += 0.02
+
+    this.move()
+
+    // if (this.angle > 2 * Math.PI) this.angle = 0
+    if (this.angle >= (5 / 2) * Math.PI) this.angle = (1 / 2) * Math.PI
+
+    return this
+  }
+
+  private move() {
+    this.character.move(this.x, this.y)
   }
 
   private randomIntegerC(min, max): number {
