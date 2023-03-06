@@ -20,7 +20,7 @@ function animate() {
 
   ctx.clearRect(0, 0, 1000, 600)
 
-  controller.xSyn().character.plain()
+  controller.round().character.plain()
 
   // enemy1.plain()
   // trajectory.random(-1, 1)

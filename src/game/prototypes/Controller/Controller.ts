@@ -4,6 +4,8 @@ class Controller<T extends IMover> {
   private x: number
   private y: number
   private angle: number
+  private angleX: number
+  private angleY: number
 
   public character: T
 
@@ -11,6 +13,8 @@ class Controller<T extends IMover> {
     this.x = 0
     this.y = 0
     this.angle = 0
+    this.angleX = 0
+    this.angleY = 0
 
     this.character = character
   }
@@ -32,8 +36,8 @@ class Controller<T extends IMover> {
     return this
   }
 
-  public ySyn() {
-    this.y = Math.sin(this.angle) * 20
+  public synAxis(axis: "x" | "y" = "x") {
+    this[axis] = Math.sin(this.angle) * 20
     this.angle += 0.02
 
     this.move()
@@ -44,8 +48,22 @@ class Controller<T extends IMover> {
     return this
   }
 
-  public xSyn() {
+  public syn(vector: 1 | -1 = 1) {
     this.x = Math.sin(this.angle) * 20
+    this.y = Math.sin(this.angle) * 20 * 1
+    this.angle += 0.02
+
+    this.move()
+
+    // if (this.angle > 2 * Math.PI) this.angle = 0
+    if (this.angle >= (5 / 2) * Math.PI) this.angle = (1 / 2) * Math.PI
+
+    return this
+  }
+
+  public round(vector: 1 | -1 = 1) {
+    this.x = Math.sin(this.angle) * 40
+    this.y = Math.cos(this.angle) * 40 * vector
     this.angle += 0.02
 
     this.move()
