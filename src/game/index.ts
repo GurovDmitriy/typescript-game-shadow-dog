@@ -7,10 +7,16 @@ const ctx = canvas.getContext("2d")
 // TODO: change create Character
 // TODO: crete controller trajectory with interface Character
 
-const enemy = new Enemy2(ctx, 6)
-enemy.create()
+const enemy1 = new Enemy2(ctx, 6)
+const enemy2 = new Enemy2(ctx, 6)
+const enemy3 = new Enemy2(ctx, 6)
+enemy1.create()
+enemy2.create()
+enemy3.create()
 
-const controller = new Controller<Enemy2>(enemy)
+const controller1 = new Controller<Enemy2>(enemy1, [0, 900], [0, 500])
+const controller2 = new Controller<Enemy2>(enemy2, [0, 900], [0, 500])
+const controller3 = new Controller<Enemy2>(enemy3, [0, 900], [0, 500])
 
 canvas.width = 1000
 canvas.height = 600
@@ -20,7 +26,9 @@ function animate() {
 
   ctx.clearRect(0, 0, 1000, 600)
 
-  controller.round().character.plain()
+  controller1.random().character.plain()
+  controller2.random().character.plain()
+  controller3.random().character.plain()
 
   // enemy1.plain()
   // trajectory.random(-1, 1)

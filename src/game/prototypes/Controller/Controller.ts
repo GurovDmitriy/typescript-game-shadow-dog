@@ -4,17 +4,22 @@ class Controller<T extends IMover> {
   private x: number
   private y: number
   private angle: number
-  private angleX: number
-  private angleY: number
+  private xPosLimit: [number, number]
+  private yPosLimit: [number, number]
 
   public character: T
 
-  constructor(character: T) {
-    this.x = 0
-    this.y = 0
+  constructor(
+    character: T,
+    xPosLimit: [number, number],
+    yPosLimit: [number, number]
+  ) {
+    this.xPosLimit = xPosLimit
+    this.yPosLimit = yPosLimit
+
+    this.x = this.getRandomInteger(...xPosLimit)
+    this.y = this.getRandomInteger(...yPosLimit)
     this.angle = 0
-    this.angleX = 0
-    this.angleY = 0
 
     this.character = character
   }
@@ -28,8 +33,8 @@ class Controller<T extends IMover> {
   }
 
   public random() {
-    this.x += this.randomIntegerC(-1, 1)
-    this.y += this.randomIntegerC(-1, 1)
+    this.x += this.getRandomInteger(-1, 1)
+    this.y += this.getRandomInteger(-1, 1)
 
     this.character.move(this.x, this.y)
 
@@ -78,12 +83,12 @@ class Controller<T extends IMover> {
     this.character.move(this.x, this.y)
   }
 
-  private randomIntegerC(min, max): number {
+  private getRandomInteger(min, max): number {
     const rand = min - 0.5 + Math.random() * (max - min + 1)
     return Math.round(rand)
   }
 
-  private randomC(min, max): number {
+  private getRandom(min, max): number {
     return min + Math.random() * (max - min)
   }
 }
