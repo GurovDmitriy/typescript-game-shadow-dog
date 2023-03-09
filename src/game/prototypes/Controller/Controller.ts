@@ -4,21 +4,12 @@ class Controller<T extends IMover> {
   private x: number
   private y: number
   private angle: number
-  private xPosLimit: [number, number]
-  private yPosLimit: [number, number]
 
   public character: T
 
-  constructor(
-    character: T,
-    xPosLimit: [number, number],
-    yPosLimit: [number, number]
-  ) {
-    this.xPosLimit = xPosLimit
-    this.yPosLimit = yPosLimit
-
-    this.x = this.getRandomInteger(...xPosLimit)
-    this.y = this.getRandomInteger(...yPosLimit)
+  constructor(character: T) {
+    this.x = 0
+    this.y = 0
     this.angle = 0
 
     this.character = character
@@ -41,35 +32,24 @@ class Controller<T extends IMover> {
     return this
   }
 
-  public synAxis(axis: "x" | "y" = "x") {
-    this[axis] = Math.sin(this.angle) * 20
-    this.angle += 0.02
+  public synX(speed = 0.02, deviation = 30, limits = [0, 800]) {
+    this.y = Math.sin(this.angle) * deviation
+    this.x -= 1
+    this.angle += speed
 
     this.move()
 
     // if (this.angle > 2 * Math.PI) this.angle = 0
     if (this.angle >= (5 / 2) * Math.PI) this.angle = (1 / 2) * Math.PI
+    if (this.x < limits[0]) this.x = limits[1]
 
     return this
   }
 
-  public syn(vector: 1 | -1 = 1) {
-    this.x = Math.sin(this.angle) * 20
-    this.y = Math.sin(this.angle) * 20 * 1
-    this.angle += 0.02
-
-    this.move()
-
-    // if (this.angle > 2 * Math.PI) this.angle = 0
-    if (this.angle >= (5 / 2) * Math.PI) this.angle = (1 / 2) * Math.PI
-
-    return this
-  }
-
-  public round(vector: 1 | -1 = 1) {
-    this.x = Math.sin(this.angle) * 40
-    this.y = Math.cos(this.angle) * 40 * vector
-    this.angle += 0.02
+  public round(vector: 1 | -1 = 1, r = 60, speed = 0.02) {
+    this.x = Math.sin(this.angle) * r
+    this.y = Math.cos(this.angle) * r * vector
+    this.angle += speed
 
     this.move()
 
