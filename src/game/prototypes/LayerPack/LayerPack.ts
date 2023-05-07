@@ -13,7 +13,7 @@ class LayerPack implements ILayerPack {
     this.speedModifier = speedModifier
   }
 
-  get layers() {
+  public get layers() {
     return this.layerPack
   }
 

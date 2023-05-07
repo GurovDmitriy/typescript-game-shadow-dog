@@ -1,5 +1,5 @@
-import Animator from "../Animator/Animator"
-import { Config } from "../Maper/types"
+import Animator from "../../prototypes/Animator/Animator"
+import { Config } from "../../prototypes/Maper/types"
 import { ICharacter } from "./types"
 
 class Character extends Animator implements ICharacter {

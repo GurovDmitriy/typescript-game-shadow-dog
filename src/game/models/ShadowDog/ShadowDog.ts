@@ -1,5 +1,5 @@
-import { getImage } from "../../../../helpers/utils/getImage"
-import Character from "../../prototypes/Character/Character"
+import { getImage } from "../../../helpers/utils/getImage"
+import Character from "../../creator/Character/Character"
 import config from "./config"
 import imageUrl from "./images/shadow_dog.png"
 import { ActionShadowDog } from "./types"
@@ -11,43 +11,43 @@ class ShadowDog extends Character {
     super(ctx, image, config, speed)
   }
 
-  public plain(): void {
+  public plain() {
     this.animate(ActionShadowDog.plain)
   }
 
-  public jump(): void {
+  public jump() {
     this.animate(ActionShadowDog.jump)
   }
 
-  public fall(): void {
+  public fall() {
     this.animate(ActionShadowDog.fall)
   }
 
-  public run(): void {
+  public run() {
     this.animate(ActionShadowDog.run)
   }
 
-  public dizzy(): void {
+  public dizzy() {
     this.animate(ActionShadowDog.dizzy)
   }
 
-  public sit(): void {
+  public sit() {
     this.animate(ActionShadowDog.sit)
   }
 
-  public roll(): void {
+  public roll() {
     this.animate(ActionShadowDog.roll)
   }
 
-  public bite(): void {
+  public bite() {
     this.animate(ActionShadowDog.bite)
   }
 
-  public ko(): void {
+  public ko() {
     this.animate(ActionShadowDog.ko)
   }
 
-  public struck(): void {
+  public struck() {
     this.animate(ActionShadowDog.struck)
   }
 }

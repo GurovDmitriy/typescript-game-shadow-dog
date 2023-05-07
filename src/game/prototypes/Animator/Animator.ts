@@ -4,7 +4,7 @@ import { IAnimator } from "./types"
 
 class Animator extends Mover implements IAnimator {
   private ctx: CanvasRenderingContext2D
-  private image: HTMLImageElement
+  private readonly image: HTMLImageElement
   private speed: number
   private counter: number
   private gap: number

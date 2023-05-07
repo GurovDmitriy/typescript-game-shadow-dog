@@ -1,5 +1,5 @@
-import { getImage } from "../../../../helpers/utils/getImage"
-import Character from "../../prototypes/Character/Character"
+import { getImage } from "../../../helpers/utils/getImage"
+import Character from "../../creator/Character/Character"
 import config from "./config"
 import imageUrl from "./images/enemy2.png"
 import { ActionEnemy2 } from "./types"

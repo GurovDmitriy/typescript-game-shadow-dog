@@ -1,8 +1,8 @@
-import Maper from "../Maper/Maper"
+import Mapper from "../Maper/Mapper"
 import { Config } from "../Maper/types"
 import { IMover } from "./types"
 
-class Mover extends Maper implements IMover {
+class Mover extends Mapper implements IMover {
   private x: number
   private y: number
 

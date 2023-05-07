@@ -1,4 +1,4 @@
-export interface IMaper {
+export interface IMapper {
   mapAnimation: MapAnimation
   configAnimation: Config
 }

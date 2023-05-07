@@ -1,8 +1,8 @@
-import { Config, Frames, IMaper, MapAnimation } from "./types"
+import { Config, Frames, IMapper, MapAnimation } from "./types"
 
-class Maper implements IMaper {
+class Mapper implements IMapper {
   private map: MapAnimation
-  private config: Config
+  private readonly config: Config
 
   constructor(config: Config) {
     this.config = config
@@ -38,4 +38,4 @@ class Maper implements IMaper {
   }
 }
 
-export default Maper
+export default Mapper

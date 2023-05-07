@@ -2,13 +2,13 @@ import { Config, ILayer } from "./types"
 
 class Layer implements ILayer {
   private x: number
-  private y: number
+  private readonly y: number
   private x2: number
   private config: Config
-  private speed: number
+  private readonly speed: number
   private speedGame: number
   private speedModifier: number
-  private image: HTMLImageElement
+  private readonly image: HTMLImageElement
 
   constructor(
     image: HTMLImageElement,

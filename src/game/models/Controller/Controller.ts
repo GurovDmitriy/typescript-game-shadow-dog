@@ -1,4 +1,4 @@
-import { IMover } from "../Mover/types"
+import { IMover } from "../../prototypes/Mover/types"
 
 class Controller<T extends IMover> {
   private x: number
