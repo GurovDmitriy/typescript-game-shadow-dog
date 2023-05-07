@@ -1,26 +1,26 @@
-import { Config, Frames, IMapper, MapAnimation } from "./types"
+import { ConfigType, IMapper, MapType } from "./types"
 
 class Mapper implements IMapper {
-  private map: MapAnimation
-  private readonly config: Config
+  private readonly _config: ConfigType
+  private _map: MapType
 
-  constructor(config: Config) {
-    this.config = config
+  constructor(config) {
+    this._config = config
   }
 
-  get mapAnimation() {
-    return this.map
+  get map() {
+    return this._map
   }
 
-  get configAnimation() {
-    return this.config
+  get config() {
+    return this._config
   }
 
-  protected createMap() {
-    const map: MapAnimation = {}
+  public create() {
+    const map = {}
 
-    this.config.animation.forEach((state, index) => {
-      const frames: Frames = {
+    this._config.animation.forEach((state, index) => {
+      const frames = {
         location: [],
       }
 
@@ -34,7 +34,7 @@ class Mapper implements IMapper {
       map[state.name] = frames
     })
 
-    this.map = map
+    this._map = map
   }
 }
 

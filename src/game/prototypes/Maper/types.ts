@@ -1,9 +1,10 @@
 export interface IMapper {
-  mapAnimation: MapAnimation
-  configAnimation: Config
+  map: MapType
+  config: ConfigType
+  create: () => void
 }
 
-export type Config = {
+export type ConfigType = {
   image: {
     width: number
     height: number
@@ -13,23 +14,23 @@ export type Config = {
     rows: number
   }
 
-  animation: Animation[]
+  animation: AnimationType[]
 }
 
-export type Animation = {
+export type AnimationType = {
   name: string
   frames: number
 }
 
-export type MapAnimation = {
-  [key: string]: Frames
+export type MapType = {
+  [key: string]: FrameType
 }
 
-export type Frames = {
-  location: Location[]
+export type FrameType = {
+  location: LocationType[]
 }
 
-export type Location = {
+export type LocationType = {
   x: number
   y: number
 }
