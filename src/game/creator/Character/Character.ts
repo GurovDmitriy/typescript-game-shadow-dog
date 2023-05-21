@@ -4,7 +4,6 @@ import Mapper from "../../prototypes/Maper/Mapper"
 import { ConfigType, IMapper } from "../../prototypes/Maper/types"
 import Mover from "../../prototypes/Mover/Mover"
 import { IMover } from "../../prototypes/Mover/types"
-import { ICharacter } from "./types"
 
 class Character implements ICharacter, IAnimator, IMover {
   private _mapper: IMapper
@@ -56,6 +55,14 @@ class Character implements ICharacter, IAnimator, IMover {
   public updateSpeed(value: number) {
     this._animator.updateSpeed(value)
   }
+}
+
+export interface ICharacter {
+  create(): void
+  animate(name: string): void
+  move(x: number, y: number): void
+  updateSize(value: number): void
+  updateSpeed(value: number): void
 }
 
 export default Character

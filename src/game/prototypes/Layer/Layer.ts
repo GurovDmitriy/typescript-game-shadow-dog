@@ -1,3 +1,6 @@
+/**
+ * Create layer for background
+ */
 class Layer implements ILayer {
   private _config: LayerConfigType
   private _image: HTMLImageElement
@@ -25,6 +28,9 @@ class Layer implements ILayer {
     this._speedModifier = speedModifier
   }
 
+  /**
+   * Animate layer
+   */
   public animate() {
     this._ctx.drawImage(
       this._image,

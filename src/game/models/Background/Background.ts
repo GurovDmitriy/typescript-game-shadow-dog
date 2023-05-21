@@ -1,4 +1,4 @@
-import LayerPack from "../../prototypes/LayerPack/LayerPack"
+import LayerPack from "../../creator/LayerPack/LayerPack"
 import { config } from "./config"
 
 class Background extends LayerPack {

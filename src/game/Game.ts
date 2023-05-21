@@ -1,5 +1,8 @@
 import Background from "./models/Background/Background"
 
+/**
+ * Game
+ */
 class Game implements IGame {
   private _ctx: CanvasRenderingContext2D
   private _background: Background
@@ -9,10 +12,17 @@ class Game implements IGame {
     this._createBackground()
   }
 
+  /**
+   * Run game
+   */
   run() {
     this._background.animate()
   }
 
+  /**
+   * Create background for game
+   * @private
+   */
   private _createBackground() {
     this._background = new Background(this._ctx)
   }

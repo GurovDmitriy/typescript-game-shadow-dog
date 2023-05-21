@@ -1,5 +1,8 @@
-import Layer, { ILayer } from "../Layer/Layer"
+import Layer, { ILayer } from "../../prototypes/Layer/Layer"
 
+/**
+ * Creator for main background game
+ */
 class LayerPack implements ILayerPack {
   private _layerPack: ILayer[]
   private _config: LayerPackConfigType[]
@@ -18,11 +21,17 @@ class LayerPack implements ILayerPack {
     this._speedModifier = speedModifier
     this._ctx = ctx
 
+    /**
+     * Create background layers instance
+     */
     this._layerPack = this._config.map(
       (item) => new Layer(item.config, item.image, this._ctx)
     )
   }
 
+  /**
+   * Animate each layer
+   */
   public animate() {
     this._layerPack.forEach((layer) => {
       layer.animate()
