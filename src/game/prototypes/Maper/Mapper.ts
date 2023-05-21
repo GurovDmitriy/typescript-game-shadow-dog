@@ -1,10 +1,10 @@
 import { ConfigType, IMapper, MapType } from "./types"
 
 class Mapper implements IMapper {
-  private readonly _config: ConfigType
   private _map: MapType
+  private readonly _config: ConfigType
 
-  constructor(config) {
+  constructor(config: ConfigType) {
     this._config = config
   }
 
@@ -35,6 +35,8 @@ class Mapper implements IMapper {
     })
 
     this._map = map
+
+    return this
   }
 }
 

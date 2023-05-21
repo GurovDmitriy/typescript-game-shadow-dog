@@ -1,9 +1,11 @@
-import Background from "./models/Background/Background"
+import Controller from "../models/Controller/Controller"
+import Enemy1 from "../models/Enemy1/Enemy1"
 
 const { canvas, ctx } = createCanvas()
 
-const bg = new Background(4, 0.4)
-bg.create()
+const enemy1 = new Enemy1(ctx, 6).create()
+
+const controllerEnemy = new Controller<Enemy1>(enemy1)
 
 animate()
 
@@ -21,11 +23,8 @@ function animate() {
   if (!ctx) throw Error("Error getting context canvas")
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-  bg.layers[0].animate(ctx)
-  bg.layers[1].animate(ctx)
-  bg.layers[2].animate(ctx)
-  bg.layers[3].animate(ctx)
-  bg.layers[4].animate(ctx)
+  enemy1.plain()
+  controllerEnemy.random()
 
   requestAnimationFrame(animate)
 }

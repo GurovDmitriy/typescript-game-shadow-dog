@@ -1,29 +1,25 @@
-import Mapper from "../Maper/Mapper"
-import { Config } from "../Maper/types"
 import { IMover } from "./types"
 
-class Mover extends Mapper implements IMover {
-  private x: number
-  private y: number
+class Mover implements IMover {
+  private _x: number
+  private _y: number
 
-  constructor(config: Config) {
-    super(config)
-
-    this.x = 0
-    this.y = 0
+  constructor() {
+    this._x = 0
+    this._y = 0
   }
 
-  get moveX() {
-    return this.x
+  get x() {
+    return this._x
   }
 
-  get moveY() {
-    return this.y
+  get y() {
+    return this._y
   }
 
-  public move(x: number, y: number) {
-    this.x = x
-    this.y = y
+  public move(x, y) {
+    this._x = x
+    this._y = y
   }
 }
 

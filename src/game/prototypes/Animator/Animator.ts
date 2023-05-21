@@ -1,57 +1,49 @@
-import { Config } from "../Maper/types"
-import Mover from "../Mover/Mover"
+import { IMapper } from "../Maper/types"
+import { IMover } from "../Mover/types"
 import { IAnimator } from "./types"
 
-class Animator extends Mover implements IAnimator {
-  private ctx: CanvasRenderingContext2D
-  private readonly image: HTMLImageElement
-  private speed: number
-  private counter: number
-  private gap: number
+class Animator implements IAnimator {
+  private _counter: number
 
   constructor(
-    ctx: CanvasRenderingContext2D,
-    image: HTMLImageElement,
-    config: Config,
-    speed: number
+    private _ctx: CanvasRenderingContext2D,
+    private readonly _image: HTMLImageElement,
+    private _speed: number,
+    private _mapper: IMapper,
+    private _mover: IMover
   ) {
-    super(config)
-
-    this.ctx = ctx
-    this.image = image
-    this.speed = speed
-    this.counter = 0
+    this._counter = 0
   }
 
-  public updateSpeed(speed: number) {
-    this.speed = speed
+  public updateSpeed(value: number) {
+    this._speed = value
   }
 
-  public updateSize() {
-    console.log("update size")
+  public updateSize(value: number) {
+    console.log("update size", value)
   }
 
-  protected animate(name: string): void {
+  public animate(name: string) {
     const gap =
-      Math.floor(this.counter / this.speed) %
-      this.mapAnimation[name].location.length
+      Math.floor(this._counter / this._speed) %
+      this._mapper.map[name].location.length
 
-    this.ctx.drawImage(
-      this.image,
-      this.configAnimation.image.frameWidth * gap,
-      this.mapAnimation[name].location[gap].y,
-      this.configAnimation.image.frameWidth,
-      this.configAnimation.image.frameHeight,
-      this.moveX,
-      this.moveY,
-      this.configAnimation.image.frameWidth,
-      this.configAnimation.image.frameHeight
+    this._ctx.drawImage(
+      this._image,
+      this._mapper.config.image.frameWidth * gap,
+      this._mapper.map[name].location[gap].y,
+      this._mapper.config.image.frameWidth,
+      this._mapper.config.image.frameHeight,
+      this._mover.x,
+      this._mover.y,
+      this._mapper.config.image.frameWidth,
+      this._mapper.config.image.frameHeight
     )
 
-    this.counter += 1
+    this._counter += 1
 
-    if (gap === this.mapAnimation[name].location.length - 1) {
-      this.counter = 0
+    if (gap === this._mapper.map[name].location.length - 1) {
+      this._counter = 0
     }
   }
 }

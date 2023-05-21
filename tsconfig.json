@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "experimentalDecorators": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "moduleResolution": "Node"
   },
 }

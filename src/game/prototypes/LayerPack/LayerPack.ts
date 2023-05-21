@@ -1,30 +1,44 @@
-import Layer from "../Layer/Layer"
-import { Config, ILayerPack } from "./types"
+import Layer, { ILayer } from "../Layer/Layer"
 
 class LayerPack implements ILayerPack {
-  private layerPack: Layer[]
-  private config: Config[]
-  private speedGame: number
-  private speedModifier: number
+  private _layerPack: ILayer[]
+  private _config: LayerPackConfigType[]
+  private _ctx: CanvasRenderingContext2D
+  private _speedGame?: number
+  private _speedModifier?: number
 
-  constructor(config: Config[], speedGame: number, speedModifier: number) {
-    this.config = config
-    this.speedGame = speedGame
-    this.speedModifier = speedModifier
-  }
+  constructor(
+    config: LayerPackConfigType[],
+    ctx: CanvasRenderingContext2D,
+    speedGame = 2,
+    speedModifier = 1
+  ) {
+    this._config = config
+    this._speedGame = speedGame
+    this._speedModifier = speedModifier
+    this._ctx = ctx
 
-  public get layers() {
-    return this.layerPack
-  }
-
-  public create() {
-    const layerPack = this.config.map(
-      (item) =>
-        new Layer(item.image, item.config, item.speedGame, item.speedModifier)
+    this._layerPack = this._config.map(
+      (item) => new Layer(item.config, item.image, this._ctx)
     )
-
-    this.layerPack = layerPack
   }
+
+  public animate() {
+    this._layerPack.forEach((layer) => {
+      layer.animate()
+    })
+  }
+}
+
+export interface ILayerPack {
+  animate(): void
+}
+
+export type LayerPackConfigType = {
+  image: HTMLImageElement
+  config: { width: number; height: number }
+  speedGame: number
+  speedModifier: number
 }
 
 export default LayerPack

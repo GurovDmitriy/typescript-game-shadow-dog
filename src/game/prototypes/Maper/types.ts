@@ -1,7 +1,7 @@
 export interface IMapper {
   map: MapType
   config: ConfigType
-  create: () => void
+  create(): void
 }
 
 export type ConfigType = {

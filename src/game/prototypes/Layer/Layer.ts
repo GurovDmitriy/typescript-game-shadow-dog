@@ -1,63 +1,63 @@
-import { Config, ILayer } from "./types"
-
 class Layer implements ILayer {
-  private x: number
-  private readonly y: number
-  private x2: number
-  private config: Config
-  private readonly speed: number
-  private speedGame: number
-  private speedModifier: number
-  private readonly image: HTMLImageElement
+  private _config: LayerConfigType
+  private _image: HTMLImageElement
+  private _ctx: CanvasRenderingContext2D
+  private _x: number
+  private _y: number
+  private _x2: number
+  private _speed?: number
+  private _speedModifier?: number
 
   constructor(
+    config: LayerConfigType,
     image: HTMLImageElement,
-    config: Config,
-    speedGame: number,
-    speedModifier: number
+    ctx: CanvasRenderingContext2D,
+    speed = 2,
+    speedModifier = 1
   ) {
-    this.x = 0
-    this.y = 0
-    this.config = config
-    this.x2 = config.width
-    this.image = image
-    this.speed = speedGame
-    this.speedGame = speedGame
-    this.speedModifier = speedModifier
+    this._config = config
+    this._image = image
+    this._ctx = ctx
+    this._x = 0
+    this._y = 0
+    this._x2 = config.width
+    this._speed = speed
+    this._speedModifier = speedModifier
   }
 
-  public animate(ctx: CanvasRenderingContext2D) {
-    ctx.drawImage(
-      this.image,
-      this.x,
-      this.y,
-      this.config.width,
-      this.config.height
+  public animate() {
+    this._ctx.drawImage(
+      this._image,
+      this._x,
+      this._y,
+      this._config.width,
+      this._config.height
     )
-    ctx.drawImage(
-      this.image,
-      this.x2,
-      this.y,
-      this.config.width,
-      this.config.height
+    this._ctx.drawImage(
+      this._image,
+      this._x2,
+      this._y,
+      this._config.width,
+      this._config.height
     )
 
-    if (this.x <= -this.config.width) {
-      this.x = this.config.width + this.x2 - this.speed
+    if (this._x <= -this._config.width) {
+      this._x = this._config.width + this._x2 - this._speed
     }
 
-    if (this.x2 <= -this.config.width) {
-      this.x2 = this.config.width + this.x - this.speed
+    if (this._x2 <= -this._config.width) {
+      this._x2 = this._config.width + this._x - this._speed
     }
 
-    this.x = this.x - this.speed
-    this.x2 = this.x2 - this.speed
-  }
-
-  public updateSpeed(speedGame: number, speedModifier: number) {
-    this.speedGame = speedGame
-    this.speedModifier = speedModifier
+    this._x = this._x - this._speed
+    this._x2 = this._x2 - this._speed
   }
 }
+
+export interface ILayer {
+  animate(): void
+}
+
+export type LayerConfigType = { width: number; height: number }
 
 export default Layer

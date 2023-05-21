@@ -1,5 +1,5 @@
 export interface IMover {
-  moveX: number
-  moveY: number
+  x: number
+  y: number
   move(x: number, y: number): void
 }

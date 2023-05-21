@@ -1,12 +1,9 @@
-import Controller from "./models/Controller/Controller"
-import Enemy1 from "./models/Enemy1/Enemy1"
+import ShadowDog from "../models/ShadowDog/ShadowDog"
 
 const { canvas, ctx } = createCanvas()
 
-const enemy1 = new Enemy1(ctx, 3)
-enemy1.create()
-
-const controller = new Controller<Enemy1>(enemy1)
+const dog = new ShadowDog(ctx, 6)
+dog.create()
 
 animate()
 
@@ -24,8 +21,7 @@ function animate() {
   if (!ctx) throw Error("Error getting context canvas")
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-  enemy1.plain()
-  controller.random()
+  dog.run()
 
   requestAnimationFrame(animate)
 }

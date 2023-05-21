@@ -1,4 +1,5 @@
 export interface IAnimator {
-  updateSpeed(speed: number): void
-  updateSize(): void
+  animate(name: string): void
+  updateSpeed(value: number): void
+  updateSize(value: number): void
 }
