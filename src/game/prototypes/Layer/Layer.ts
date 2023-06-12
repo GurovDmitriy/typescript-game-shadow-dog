@@ -1,8 +1,11 @@
+import { ILayer } from "../../creator/LayerPack/types"
+
 /**
  * Create layer for background
  */
 class Layer implements ILayer {
-  private _config: LayerConfigType
+  private _width: number
+  private _height: number
   private _image: HTMLImageElement
   private _ctx: CanvasRenderingContext2D
   private _x: number
@@ -12,18 +15,20 @@ class Layer implements ILayer {
   private _speedModifier?: number
 
   constructor(
-    config: LayerConfigType,
-    image: HTMLImageElement,
     ctx: CanvasRenderingContext2D,
-    speed = 2,
-    speedModifier = 1
+    width: number,
+    height: number,
+    image: HTMLImageElement,
+    speedModifier = 1,
+    speed = 0
   ) {
-    this._config = config
+    this._height = height
+    this._width = width
     this._image = image
     this._ctx = ctx
     this._x = 0
     this._y = 0
-    this._x2 = config.width
+    this._x2 = width
     this._speed = speed
     this._speedModifier = speedModifier
   }
@@ -36,34 +41,32 @@ class Layer implements ILayer {
       this._image,
       this._x,
       this._y,
-      this._config.width,
-      this._config.height
+      this._width,
+      this._height
     )
     this._ctx.drawImage(
       this._image,
       this._x2,
       this._y,
-      this._config.width,
-      this._config.height
+      this._width,
+      this._height
     )
 
-    if (this._x <= -this._config.width) {
-      this._x = this._config.width + this._x2 - this._speed
+    if (this._x <= -this._width) {
+      this._x = this._width + this._x2 - this._speed * this._speedModifier
     }
 
-    if (this._x2 <= -this._config.width) {
-      this._x2 = this._config.width + this._x - this._speed
+    if (this._x2 <= -this._width) {
+      this._x2 = this._width + this._x - this._speed * this._speedModifier
     }
 
-    this._x = this._x - this._speed
-    this._x2 = this._x2 - this._speed
+    this._x = this._x - this._speed * this._speedModifier
+    this._x2 = this._x2 - this._speed * this._speedModifier
+  }
+
+  public updateSpeed(speed: number) {
+    this._speed = speed
   }
 }
-
-export interface ILayer {
-  animate(): void
-}
-
-export type LayerConfigType = { width: number; height: number }
 
 export default Layer

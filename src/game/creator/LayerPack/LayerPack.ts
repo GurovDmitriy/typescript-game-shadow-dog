@@ -1,19 +1,20 @@
-import Layer, { ILayer } from "../../prototypes/Layer/Layer"
+import Layer from "../../prototypes/Layer/Layer"
+import { ILayer, ILayerPack, LayerConfigType } from "./types"
 
 /**
  * Creator for main background game
  */
 class LayerPack implements ILayerPack {
   private _layerPack: ILayer[]
-  private _config: LayerPackConfigType[]
+  private _config: LayerConfigType[]
   private _ctx: CanvasRenderingContext2D
   private _speedGame?: number
   private _speedModifier?: number
 
   constructor(
-    config: LayerPackConfigType[],
+    config: LayerConfigType[],
     ctx: CanvasRenderingContext2D,
-    speedGame = 2,
+    speedGame = 1,
     speedModifier = 1
   ) {
     this._config = config
@@ -25,7 +26,14 @@ class LayerPack implements ILayerPack {
      * Create background layers instance
      */
     this._layerPack = this._config.map(
-      (item) => new Layer(item.config, item.image, this._ctx)
+      (item) =>
+        new Layer(
+          this._ctx,
+          item.width,
+          item.height,
+          item.image,
+          item.speedModifier
+        )
     )
   }
 
@@ -36,18 +44,17 @@ class LayerPack implements ILayerPack {
     this._layerPack.forEach((layer) => {
       layer.animate()
     })
+
+    return this
   }
-}
 
-export interface ILayerPack {
-  animate(): void
-}
+  public updateSpeed(speed: number) {
+    this._layerPack.forEach((layer) => {
+      layer.updateSpeed(speed)
+    })
 
-export type LayerPackConfigType = {
-  image: HTMLImageElement
-  config: { width: number; height: number }
-  speedGame: number
-  speedModifier: number
+    return this
+  }
 }
 
 export default LayerPack
