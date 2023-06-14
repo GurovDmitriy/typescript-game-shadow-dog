@@ -1,3 +1,4 @@
+import { BTN, IController, TYPE_ACTION } from "../engine/Controller"
 import Background from "./models/Background/Background"
 
 /**
@@ -6,36 +7,62 @@ import Background from "./models/Background/Background"
 class Game implements IGame {
   private _ctx: CanvasRenderingContext2D
   private _background: Background
-  private _controller
-  private _runBg = false
-  private _timerId = null
+  private _controller: IController
 
-  constructor(ctx: CanvasRenderingContext2D, Controller) {
+  private _isBtnRightActive = false
+  private _timerIdBtnRightActive = null
+
+  constructor(ctx: CanvasRenderingContext2D, controller: IController) {
     this._ctx = ctx
     this._createBackground()
+    this._controller = controller
 
-    this._controller = new Controller(this.runBg.bind(this))
+    /**
+     * Binding callbacks for controller event
+     */
+    this._controller.define(
+      TYPE_ACTION.keydown,
+      BTN.bntRight,
+      this._setBtnRight.bind(this)
+    )
+    this._controller.define(
+      TYPE_ACTION.keydown,
+      BTN.arrowRight,
+      this._setBtnRight.bind(this)
+    )
   }
 
   /**
-   * Run game
+   * Run game cycle
    */
-  run() {
-    if (this._runBg) {
-      this._background.animate().updateSpeed(1)
+  public run() {
+    this._moveRightBg()
+  }
+
+  /**
+   * Cb for btn right press
+   * @private
+   */
+  private _setBtnRight() {
+    clearTimeout(this._timerIdBtnRightActive)
+
+    this._isBtnRightActive = true
+
+    this._timerIdBtnRightActive = setTimeout(() => {
+      this._isBtnRightActive = false
+    }, 100)
+  }
+
+  /**
+   * Action move bg
+   * @private
+   */
+  private _moveRightBg() {
+    if (this._isBtnRightActive) {
+      this._background.animate().updateSpeed(2)
     } else {
       this._background.animate().updateSpeed(0)
     }
-  }
-
-  runBg() {
-    clearTimeout(this._timerId)
-
-    this._runBg = true
-
-    this._timerId = setTimeout(() => {
-      this._runBg = false
-    }, 100)
   }
 
   /**

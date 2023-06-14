@@ -1,9 +1,12 @@
+import { IController } from "../game/models/Controller/types"
+
 /**
  * Engine class for run game functional
  */
 class Engine implements IEngine {
   private _canvas: HTMLCanvasElement
   private _ctx: CanvasRenderingContext2D
+  private _controller: IController
   private _game: IGame
   private _loop: () => void
 
@@ -11,7 +14,8 @@ class Engine implements IEngine {
     this._createCanvas()
     this._loop = this.run.bind(this)
 
-    this._game = new Game(this._ctx, Controller)
+    this._controller = new Controller()
+    this._game = new Game(this._ctx, this._controller)
   }
 
   /**
