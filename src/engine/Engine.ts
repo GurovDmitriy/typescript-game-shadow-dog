@@ -1,5 +1,3 @@
-import { IController } from "../game/models/Controller/types"
-
 /**
  * Engine class for run game functional
  */
@@ -48,6 +46,12 @@ class Engine implements IEngine {
 
 export interface IEngine {
   run(): void
+}
+
+export interface IController {
+  x: number
+  y: number
+  random(): this
 }
 
 export interface IGame {
