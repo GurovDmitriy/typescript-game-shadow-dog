@@ -15,9 +15,7 @@ class Character implements ICharacter, IAnimator, IMover {
     private _image: HTMLImageElement,
     private _config: ConfigType,
     private _speed: number
-  ) {}
-
-  public create() {
+  ) {
     this._mapper = new Mapper(this._config).create()
     this._mover = new Mover()
 
@@ -28,16 +26,16 @@ class Character implements ICharacter, IAnimator, IMover {
       this._mapper,
       this._mover
     )
-
-    return this
   }
 
   public animate(name: string) {
     this._animator.animate(name)
+    return this
   }
 
   public move(x: number, y: number) {
     this._mover.move(x, y)
+    return this
   }
 
   public get x() {
@@ -50,15 +48,16 @@ class Character implements ICharacter, IAnimator, IMover {
 
   public updateSize(value: number) {
     this._animator.updateSize(value)
+    return this
   }
 
   public updateSpeed(value: number) {
     this._animator.updateSpeed(value)
+    return this
   }
 }
 
 export interface ICharacter {
-  create(): void
   animate(name: string): void
   move(x: number, y: number): void
   updateSize(value: number): void

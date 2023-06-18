@@ -1,3 +1,5 @@
+import { BTN, TYPE_ACTION } from "./Controller"
+
 /**
  * Engine class for run game functional
  */
@@ -49,9 +51,7 @@ export interface IEngine {
 }
 
 export interface IController {
-  x: number
-  y: number
-  random(): this
+  define(type: TYPE_ACTION, btn: BTN, action: () => void): void
 }
 
 export interface IGame {

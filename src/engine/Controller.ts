@@ -1,5 +1,7 @@
+import { IController } from "./Engine"
+
 /**
- * Controller class like a keyboard
+ * Controller like a keyboard
  */
 class Controller implements IController {
   public define(type: TYPE_ACTION, btn: BTN, action: () => void) {
@@ -11,12 +13,8 @@ class Controller implements IController {
   }
 }
 
-export interface IController {
-  define(type: TYPE_ACTION, btn: BTN, action: () => void): void
-}
-
 /**
- * Types events keys
+ * Types events button
  */
 export enum TYPE_ACTION {
   keypress = "keypress",
@@ -29,6 +27,7 @@ export enum TYPE_ACTION {
 export enum BTN {
   bntRight = "d",
   arrowRight = "ArrowRight",
+  arrowDown = "ArrowDown",
 }
 
 export default Controller
