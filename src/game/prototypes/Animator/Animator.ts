@@ -35,9 +35,9 @@ class Animator implements IAnimator {
       this._mapper.config.image.frameWidth,
       this._mapper.config.image.frameHeight,
       this._mover.x,
-      this._mover.y,
-      this._mapper.config.image.frameWidth,
-      this._mapper.config.image.frameHeight
+      this._mover.y + 323,
+      this._mapper.config.image.frameWidth / 2,
+      this._mapper.config.image.frameHeight / 2
     )
 
     this._counter += 1
