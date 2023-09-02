@@ -7,7 +7,7 @@ import { ActionShadowDog } from "./types"
 const image = getImage(imageUrl)
 
 class ShadowDog extends Character {
-  constructor(ctx: CanvasRenderingContext2D, speed) {
+  constructor(ctx: CanvasRenderingContext2D, speed: number) {
     super(ctx, image, config, speed)
   }
 

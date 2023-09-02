@@ -1,9 +1,15 @@
-import { IController } from "./Engine"
+import { BTN, IController, TYPE_ACTION } from "./Engine"
 
 /**
  * Controller like a keyboard
  */
 class Controller implements IController {
+  constructor() {}
+
+  public init() {
+    console.log("controller init")
+  }
+
   public define(type: TYPE_ACTION, btn: BTN, action: () => void) {
     document.addEventListener(type, (evt) => {
       if (evt.key === btn) {
@@ -11,23 +17,6 @@ class Controller implements IController {
       }
     })
   }
-}
-
-/**
- * Types events button
- */
-export enum TYPE_ACTION {
-  keypress = "keypress",
-  keydown = "keydown",
-}
-
-/**
- * Describe buttons
- */
-export enum BTN {
-  bntRight = "d",
-  arrowRight = "ArrowRight",
-  arrowDown = "ArrowDown",
 }
 
 export default Controller

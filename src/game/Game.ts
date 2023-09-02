@@ -1,5 +1,4 @@
-import { BTN, TYPE_ACTION } from "../engine/Controller"
-import { IController } from "../engine/Engine"
+import { IController, BTN, TYPE_ACTION } from "../engine/Engine"
 import Background from "./models/Background/Background"
 import ShadowDog from "./models/ShadowDog/ShadowDog"
 
@@ -16,14 +15,19 @@ class Game implements IGame {
   private _dog: ShadowDog
   private _runDog: () => void
 
-  constructor(ctx: CanvasRenderingContext2D, controller: IController) {
+  /**
+   * Base initialization
+   */
+  public init(ctx: CanvasRenderingContext2D, controller: IController) {
+    console.log("game init")
+
     this._ctx = ctx
     this._controller = controller
 
     this._background = new Background(ctx)
     this._setRunBg()
 
-    this._dog = new ShadowDog(ctx, 6)
+    this._dog = new ShadowDog(ctx, 3)
     this._setRunDog()
   }
 
@@ -49,12 +53,12 @@ class Game implements IGame {
     this._controller.define(
       TYPE_ACTION.keydown,
       BTN.arrowRight,
-      setActive.bind(this)
+      setActive.bind(this),
     )
 
     this._runBg = function () {
       if (active) {
-        this._background.animate().updateSpeed(2)
+        this._background.animate().updateSpeed(8)
       } else {
         this._background.animate().updateSpeed(0)
       }
@@ -75,7 +79,7 @@ class Game implements IGame {
     this._controller.define(
       TYPE_ACTION.keydown,
       BTN.arrowRight,
-      setActive.bind(this)
+      setActive.bind(this),
     )
 
     this._runDog = function () {
@@ -87,7 +91,7 @@ class Game implements IGame {
     }
   }
 
-  private _timeoutAction(timerName, cb: () => () => void) {
+  private _timeoutAction(timerName: string, cb: () => () => void) {
     const timers = {}
 
     return function () {
