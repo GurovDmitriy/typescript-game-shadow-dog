@@ -15,24 +15,24 @@
     "lint:stylelint": "stylelint --fix \"**/*.{css,less,scss}\" --ignore-path .stylelintignore"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.4.4",
-    "@commitlint/config-conventional": "^17.4.4",
-    "@parcel/config-default": "^2.8.3",
-    "@parcel/transformer-raw": "^2.8.3",
-    "@parcel/transformer-sass": "^2.8.3",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "eslint": "^8.34.0",
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@parcel/config-default": "^2.9.3",
+    "@parcel/transformer-raw": "^2.9.3",
+    "@parcel/transformer-sass": "^2.9.3",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
+    "eslint": "^8.48.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.1.2",
-    "parcel": "^2.8.3",
-    "prettier": "2.8.4",
-    "prettier-plugin-organize-imports": "^3.2.2",
-    "stylelint": "^15.2.0",
+    "lint-staged": "^14.0.1",
+    "parcel": "^2.9.3",
+    "prettier": "3.0.3",
+    "prettier-plugin-organize-imports": "^3.2.3",
+    "stylelint": "^15.10.3",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-rational-order-fix": "^0.1.9",
-    "stylelint-config-standard-scss": "^7.0.1",
-    "stylelint-order": "^6.0.2"
+    "stylelint-config-standard-scss": "^10.0.0",
+    "stylelint-order": "^6.0.3"
   },
   "lint-staged": {
     "src/**/*.{jsx,js,ts,tsx}": "eslint --fix",
@@ -52,6 +52,6 @@
     ]
   },
   "volta": {
-    "node": "18.14.2"
+    "node": "18.17.1"
   }
 }
