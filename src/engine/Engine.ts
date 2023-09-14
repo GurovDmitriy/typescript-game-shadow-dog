@@ -1,43 +1,57 @@
+import { IContextEngine, IEngine } from "./types"
+import { Game } from "../game/Game"
+import { Keyboard } from "./Keyboard/Keyboard"
+
 /**
- * Engine class for run game functional
+ * Engine - create engine context and game loop (singleton)
  */
-class Engine implements IEngine {
-  private _canvas: HTMLCanvasElement
-  private _ctx: CanvasRenderingContext2D
-  private _controller: IController
-  private _game: IGame
-  private _loop: () => void
+export class Engine implements IEngine {
+  private static _instance: Engine
+  private readonly _context: IContextEngine
+  private _game: Game
+  private readonly loop: () => void
 
-  public constructor(Game: IGame, Controller: IController) {
-    this._createCanvas()
-    this._loop = this.run.bind(this)
+  private constructor(
+    Keyboard: { new (): Keyboard },
+    Game: { new (context: IContextEngine): Game },
+  ) {
+    this._context = {
+      ...this.createCanvas(),
+      keyboard: new Keyboard(),
+    }
 
-    this._controller = Controller
-    this._controller.init()
-
-    this._game = Game
-    this._game.init(this._ctx, this._controller)
+    this.loop = this.run.bind(this)
+    this._game = new Game(this._context)
   }
 
-  public init() {
-    console.log("engine init")
+  public static create(
+    Keyboard: { new (): Keyboard },
+    Game: { new (context: IContextEngine): Game },
+  ): Engine {
+    if (!Engine._instance) {
+      Engine._instance = new Engine(Keyboard, Game)
+    }
+
+    return Engine._instance
   }
 
-  /**
-   * Game loop for run draw game
-   */
   public run() {
-    this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
+    this._context.ctx.clearRect(
+      0,
+      0,
+      this._context.canvas.width,
+      this._context.canvas.height,
+    )
 
     this._game.run()
 
-    requestAnimationFrame(this._loop)
+    requestAnimationFrame(this.loop)
   }
 
-  /**
-   * Create canvas with params and 2d context
-   */
-  private _createCanvas() {
+  private createCanvas(): {
+    ctx: CanvasRenderingContext2D
+    canvas: HTMLCanvasElement
+  } {
     const canvas = document.getElementById("canvas") as HTMLCanvasElement
     if (!canvas) throw Error("Error found HTMLCanvasElement")
 
@@ -46,46 +60,6 @@ class Engine implements IEngine {
     canvas.width = 1000
     canvas.height = 600
 
-    this._canvas = canvas
-    this._ctx = ctx
+    return { ctx, canvas }
   }
 }
-
-export interface IEngine {
-  init(): void
-  run(): void
-}
-
-export interface IController {
-  init(): void
-  define(type: TYPE_ACTION, btn: BTN, action: () => void): void
-}
-
-export interface IGame {
-  init(ctx: CanvasRenderingContext2D, controller: IController): void
-  run(): void
-}
-
-/**
- * Types events button
- */
-export enum TYPE_ACTION {
-  keypress = "keypress",
-  keydown = "keydown",
-}
-
-/**
- * Describe buttons
- */
-export enum BTN {
-  bntRight = "d",
-  bntLeft = "a",
-  bntUp = "w",
-  bntDown = "s",
-  arrowRight = "ArrowRight",
-  arrowLeft = "ArrowLeft",
-  arrowUp = "ArrowUp",
-  arrowDown = "ArrowDown",
-}
-
-export default Engine

@@ -74,3 +74,4 @@ dist
 *.pdf
 *.psd
 *.sublime*
+.$UML.drawio.bkp

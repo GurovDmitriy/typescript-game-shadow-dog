@@ -1,10 +1,8 @@
-import Controller from "./engine/Controller"
-import Engine from "./engine/Engine"
-import Game from "./game/Game"
+import { Keyboard } from "./engine/Keyboard/Keyboard"
+import { Engine } from "./engine/Engine"
+import { Game } from "./game/Game"
 
-const engine = new Engine(new Game(), new Controller())
-
-engine.init()
+const engine: Engine = Engine.create(Keyboard, Game)
 engine.run()
 
-export {}
+export default {}

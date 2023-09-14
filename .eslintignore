@@ -89,3 +89,4 @@ pnpm-debug.log*
 *.pdf
 *.psd
 *.sublime*
+.$UML.drawio.bkp
