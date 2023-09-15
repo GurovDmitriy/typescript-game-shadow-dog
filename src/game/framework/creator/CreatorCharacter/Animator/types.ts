@@ -7,5 +7,4 @@ export interface IAnimator {
   dh: number
   run(name: string): void
   updateSpeed(value: number): void
-  updateSize(value: number): void
 }

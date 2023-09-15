@@ -71,8 +71,4 @@ export class Animator implements IAnimator {
   public updateSpeed(value: number): void {
     this._speed = value
   }
-
-  public updateSize(value: number): void {
-    console.log("update size", value)
-  }
 }

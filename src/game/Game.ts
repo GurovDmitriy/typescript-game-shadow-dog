@@ -2,7 +2,7 @@ import { Controller } from "./framework/controller/Controller"
 import { IContextEngine, IGame } from "../engine/types"
 import { IContextGame } from "./types"
 import { Physics } from "./framework/physics/Physics"
-import { settings } from "./settings/settings"
+import { settings } from "./userland/settings"
 import { IController } from "./framework/controller/types"
 
 /**

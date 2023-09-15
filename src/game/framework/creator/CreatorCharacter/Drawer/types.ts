@@ -1,5 +1,4 @@
-import { IAnimator } from "../Animator/types"
-
-export interface IDrawer extends Pick<IAnimator, "updateSize" | "updateSpeed"> {
+export interface IDrawer {
   draw(name: string): void
+  updateSpeed(speed: number): void
 }

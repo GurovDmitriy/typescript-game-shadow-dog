@@ -1,3 +1,5 @@
+import { Circle, Rect } from "./types"
+
 export class Collision {
   public square(rect1: Rect, rect2: Rect) {
     if (
@@ -31,17 +33,4 @@ export class Collision {
       return false
     }
   }
-}
-
-type Rect = {
-  x: number
-  y: number
-  width: number
-  height: number
-}
-
-type Circle = {
-  x: number
-  y: number
-  radius: number
 }

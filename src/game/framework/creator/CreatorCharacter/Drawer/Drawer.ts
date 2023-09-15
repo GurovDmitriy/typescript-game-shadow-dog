@@ -45,8 +45,4 @@ export class Drawer implements IDrawer {
   public updateSpeed(value: number): void {
     this._animator.updateSpeed(value)
   }
-
-  public updateSize(value: number): void {
-    this._animator.updateSize(value)
-  }
 }

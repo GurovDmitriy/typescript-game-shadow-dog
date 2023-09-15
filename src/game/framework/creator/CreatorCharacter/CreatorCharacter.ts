@@ -2,21 +2,20 @@ import { Mapper } from "./Maper/Mapper"
 import { Mover } from "./Mover/Mover"
 import { Animator } from "./Animator/Animator"
 import { Drawer } from "./Drawer/Drawer"
-import { ICreatorCharacter } from "./types"
+import { ICreatorCharacter, ISubscriber } from "./types"
 import { IDrawer } from "./Drawer/types"
 import { IMover } from "./Mover/types"
 import { ConfigType } from "./Maper/types"
 import { IContextGame } from "../../../types"
-import { ISkill } from "../../skill/types"
 
 /**
- * Character - decorator for extends game figure
+ * Character - abstract for extends game figure
  */
 export class CreatorCharacter implements ICreatorCharacter {
   private _drawer: IDrawer
   private readonly _mover: IMover
   private _name: string
-  public skillList: ISkill[]
+  public subscriberList: ISubscriber[]
 
   constructor(
     config: ConfigType,
@@ -27,15 +26,19 @@ export class CreatorCharacter implements ICreatorCharacter {
     const animator = new Animator(mapper)
     this._mover = new Mover()
     this._drawer = new Drawer(animator, this._mover, image, context)
-    this.skillList = []
+    this.subscriberList = []
   }
 
   public update(): void {
-    this.skillList.forEach((skill) => {
-      skill.update()
+    this.subscriberList.forEach((subscriber) => {
+      subscriber.update()
     })
 
     this._drawer.draw(this._name)
+  }
+
+  public subscribe(subscriber: ISubscriber) {
+    this.subscriberList.push(subscriber)
   }
 
   public animate(name: string): void {
@@ -62,15 +65,7 @@ export class CreatorCharacter implements ICreatorCharacter {
     this._mover.move(x, y)
   }
 
-  public addSkill(skill: ISkill): void {
-    this.skillList.push(skill)
-  }
-
   public updateSpeed(value: number): void {
     this._drawer.updateSpeed(value)
-  }
-
-  public updateSize(value: number): void {
-    console.log("updateSize", value)
   }
 }
