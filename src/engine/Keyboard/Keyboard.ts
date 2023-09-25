@@ -1,4 +1,4 @@
-import { BTN, IKeyboard, TYPE_ACTION } from "../types"
+import type { BTN, IKeyboard, TYPE_ACTION } from "../Engine"
 
 /**
  * Keyboard - for user input

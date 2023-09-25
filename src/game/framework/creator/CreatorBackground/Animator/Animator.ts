@@ -1,5 +1,3 @@
-import { IAnimator } from "./types"
-
 /**
  * Animator - algorithm for create data for draw bg infinity on canvas
  */
@@ -18,7 +16,7 @@ export class Animator implements IAnimator {
     this._x = 0
     this._y = 0
     this._x2 = 0
-    this._speed = 1
+    this._speed = 0
     this._speedModifier = speedModifier
   }
 
@@ -58,4 +56,15 @@ export class Animator implements IAnimator {
   updateSpeed(speed: number): void {
     this._speed = speed
   }
+}
+
+export interface IAnimator {
+  readonly width: number
+  readonly height: number
+  readonly x: number
+  readonly y: number
+  readonly x2: number
+
+  run(): void
+  updateSpeed(speed: number): void
 }

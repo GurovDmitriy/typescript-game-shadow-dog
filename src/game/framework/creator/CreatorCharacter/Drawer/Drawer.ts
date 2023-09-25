@@ -1,7 +1,6 @@
-import { IDrawer } from "./types"
-import { IAnimator } from "../Animator/types"
-import { IMover } from "../Mover/types"
-import { IContextGame } from "../../../../types"
+import { type IAnimator } from "../Animator/Animator"
+import { type IMover } from "../Mover/Mover"
+import { type IContextGame } from "../../../../Game"
 
 /**
  * Drawer - decorator draw with canvas
@@ -12,6 +11,7 @@ export class Drawer implements IDrawer {
   private readonly _image: HTMLImageElement
   private _context: IContextGame
   private readonly _yNormalize: number
+  private _name: string = ""
 
   constructor(
     animator: IAnimator,
@@ -26,8 +26,12 @@ export class Drawer implements IDrawer {
     this._yNormalize = 328
   }
 
-  public draw(name: string): void {
-    this._animator.run(name)
+  public setName(name: string) {
+    this._name = name
+  }
+
+  public draw(): void {
+    this._animator.run(this._name)
 
     this._context.ctx.drawImage(
       this._image,
@@ -45,4 +49,10 @@ export class Drawer implements IDrawer {
   public updateSpeed(value: number): void {
     this._animator.updateSpeed(value)
   }
+}
+
+export interface IDrawer {
+  draw(): void
+  setName(name: string): void
+  updateSpeed(speed: number): void
 }

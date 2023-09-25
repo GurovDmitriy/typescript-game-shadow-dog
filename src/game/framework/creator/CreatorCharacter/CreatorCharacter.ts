@@ -1,48 +1,82 @@
-import { Mapper } from "./Maper/Mapper"
-import { Mover } from "./Mover/Mover"
-import { Animator } from "./Animator/Animator"
-import { Drawer } from "./Drawer/Drawer"
-import { ICreatorCharacter, ISubscriber } from "./types"
-import { IDrawer } from "./Drawer/types"
-import { IMover } from "./Mover/types"
-import { ConfigType } from "./Maper/types"
-import { IContextGame } from "../../../types"
+import { IContextGame } from "../../../Game"
+import { ConfigType, Mapper } from "./Maper/Mapper"
+import { Animator, IAnimator } from "./Animator/Animator"
+import { IMover, Mover } from "./Mover/Mover"
+import { Drawer, IDrawer } from "./Drawer/Drawer"
+import {
+  ISubscribe,
+  ISubscribeList,
+  ISubscriber,
+  Subscribe,
+} from "./Subscribe/Subscribe"
+import {
+  IUnsubscribe,
+  Unsubscribe,
+  UnsubscribeType,
+} from "./Unsubscribe/Unsubscribe"
+
+export interface ICreatorCharacter {
+  width: number
+  height: number
+  x: number
+  y: number
+  subscribeList: ISubscribeList
+  move(x: number, y: number): void
+  update(): void
+  animate(name: string): void
+  subscribe(name: string, subscriber: ISubscriber): void
+  unsubscribe(name: string): void
+  addUnsubscribe(unsubscribe: UnsubscribeType): void
+  updateSpeed(speed: number): void
+  destroy(): void
+}
 
 /**
  * Character - abstract for extends game figure
  */
-export class CreatorCharacter implements ICreatorCharacter {
+export abstract class CreatorCharacter implements ICreatorCharacter {
   private _drawer: IDrawer
+  private readonly _animator: IAnimator
   private readonly _mover: IMover
-  private _name: string
-  public subscriberList: ISubscriber[]
+  private _subscribe: ISubscribe
+  private _unsubscribe: IUnsubscribe
 
-  constructor(
+  protected constructor(
     config: ConfigType,
     image: HTMLImageElement,
     context: IContextGame,
   ) {
     const mapper = new Mapper(config)
-    const animator = new Animator(mapper)
+    this._animator = new Animator(mapper)
     this._mover = new Mover()
-    this._drawer = new Drawer(animator, this._mover, image, context)
-    this.subscriberList = []
+    this._drawer = new Drawer(this._animator, this._mover, image, context)
+    this._subscribe = new Subscribe()
+    this._unsubscribe = new Unsubscribe()
   }
 
   public update(): void {
-    this.subscriberList.forEach((subscriber) => {
-      subscriber.update()
-    })
-
-    this._drawer.draw(this._name)
+    this._subscribe.update()
+    this._drawer.draw()
   }
 
-  public subscribe(subscriber: ISubscriber) {
-    this.subscriberList.push(subscriber)
+  get subscribeList() {
+    return this._subscribe.list
+  }
+
+  public subscribe(name: string, subscriber: ISubscriber): () => void {
+    return this._subscribe.subscribe(name, subscriber)
+  }
+
+  public unsubscribe(name: string) {
+    this._subscribe.unsubscribe(name)
+  }
+
+  public addUnsubscribe(unsubscribe: UnsubscribeType): void {
+    this._unsubscribe.add(unsubscribe)
   }
 
   public animate(name: string): void {
-    this._name = name
+    this._drawer.setName(name)
   }
 
   get x(): number {
@@ -51,6 +85,14 @@ export class CreatorCharacter implements ICreatorCharacter {
 
   get y(): number {
     return this._mover.y
+  }
+
+  get width(): number {
+    return this._animator.width
+  }
+
+  get height(): number {
+    return this._animator.height
   }
 
   set x(value: number) {
@@ -63,6 +105,11 @@ export class CreatorCharacter implements ICreatorCharacter {
 
   public move(x: number, y: number): void {
     this._mover.move(x, y)
+  }
+
+  public destroy(): void {
+    this._subscribe.destroy()
+    this._unsubscribe.destroy()
   }
 
   public updateSpeed(value: number): void {

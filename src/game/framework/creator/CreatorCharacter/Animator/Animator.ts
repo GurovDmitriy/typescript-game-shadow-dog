@@ -1,5 +1,4 @@
-import { IMapper } from "../Maper/types"
-import { IAnimator } from "./types"
+import { type IMapper } from "../Maper/Mapper"
 
 /**
  * Animator - get values for draw animation
@@ -53,6 +52,14 @@ export class Animator implements IAnimator {
     return this._dh
   }
 
+  get width(): number {
+    return this._mapper.config.image.frameWidth / 2
+  }
+
+  get height(): number {
+    return this._mapper.config.image.frameHeight / 2
+  }
+
   public run(name: string): void {
     const gap =
       Math.floor(this._counter / this._speed) %
@@ -71,4 +78,17 @@ export class Animator implements IAnimator {
   public updateSpeed(value: number): void {
     this._speed = value
   }
+}
+
+export interface IAnimator {
+  sx: number
+  sy: number
+  sw: number
+  sh: number
+  dw: number
+  dh: number
+  width: number
+  height: number
+  run(name: string): void
+  updateSpeed(value: number): void
 }

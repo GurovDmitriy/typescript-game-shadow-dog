@@ -1,16 +1,22 @@
-import { Controller } from "./framework/controller/Controller"
-import { IContextEngine, IGame } from "../engine/types"
-import { IContextGame } from "./types"
-import { Physics } from "./framework/physics/Physics"
+import { IContextEngine, IGame } from "../engine/Engine"
+import { IPhysics, Physics } from "./framework/physics/Physics"
+import { Collision, ICollision } from "./framework/collision/Collision"
+import { Camera, ICamera } from "./framework/camera/Camera"
+import { IInitializer, Initializer } from "./framework/initializer/Initializer"
 import { settings } from "./userland/settings"
-import { IController } from "./framework/controller/types"
+
+export interface IContextGame extends IContextEngine {
+  physics: IPhysics
+  collision: ICollision
+  camera: ICamera
+}
 
 /**
  * Game - create game context and loop for engine
  */
 export class Game implements IGame {
   private readonly _context: IContextGame
-  private _controller: IController
+  private _initializer: IInitializer
 
   public constructor(context: IContextEngine) {
     this._context = {
@@ -18,14 +24,16 @@ export class Game implements IGame {
       canvas: context.canvas,
       keyboard: context.keyboard,
       physics: new Physics(),
+      collision: new Collision(),
+      camera: new Camera(),
     }
 
-    this._controller = new Controller(settings, this._context)
+    this._initializer = new Initializer(settings, this._context)
   }
 
   public run() {
-    // this._context.collision.update()
     this._context.physics.update()
-    this._controller.update()
+    this._initializer.update()
+    this._context.collision.update()
   }
 }

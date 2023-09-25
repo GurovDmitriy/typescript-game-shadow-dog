@@ -1,23 +1,32 @@
-import { Skill } from "../Skill"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/CreatorCharacter"
+import { Skill } from "../Skill"
 
-export class Jump extends Skill {
+export class Run extends Skill {
+  private _make: boolean
+
   public constructor(
     character: ICreatorCharacter,
     cbMake: () => void,
     cbDestroy: () => void,
   ) {
     super(character, cbMake, cbDestroy)
+
+    this._make = false
   }
 
   update(): void {}
 
   make(): void {
-    this._cbMake()
-    this._character.y = 200
+    if (!this._make) {
+      this._cbMake()
+      this._character.x = 100
+      this._make = true
+    }
   }
 
-  destroy() {
+  destroy(): void {
+    this._make = false
     this._cbDestroy()
+    this._character.x = -100
   }
 }

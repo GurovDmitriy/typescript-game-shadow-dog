@@ -1,36 +1,90 @@
-import { Circle, Rect } from "./types"
-
 export class Collision {
-  public square(rect1: Rect, rect2: Rect) {
-    if (
-      rect1.x > rect2.x + rect2.width ||
-      rect1.x + rect1.width > rect2.x ||
-      rect1.y > rect2.y + rect2.height ||
-      rect1.y + rect1.height < rect2.y
-    ) {
-      console.log("no collision")
-      return false
-    } else {
-      console.log("collision")
-      return true
+  private readonly _subscriberList: ISubscriber[]
+
+  public constructor() {
+    this._subscriberList = []
+  }
+
+  public update(): void {
+    this._subscriberList.forEach((subscriber, index) => {
+      this._findCollision(subscriber, index)
+    })
+  }
+
+  public subscribe(subscriber: ISubscriber): () => void {
+    this._subscriberList.push(subscriber)
+
+    return this.unsubscribe.bind(this, this._subscriberList.length - 1)
+  }
+
+  public unsubscribe(index: number): void {
+    this._subscriberList.splice(index, 0)
+  }
+
+  _findCollision(subscriber: ISubscriber, index: number) {
+    for (let i = index + 1; i < this._subscriberList.length; i++) {
+      const collision = this._circle(
+        subscriber.model,
+        this._subscriberList[i].model,
+      )
+
+      if (collision) {
+        subscriber.cb(this._subscriberList[i])
+        this._subscriberList[i].cb(subscriber)
+      }
     }
   }
 
-  public circle(circle1: Circle, circle2: Circle) {
-    const dx = circle2.x - circle1.x
-    const dy = circle2.y - circle1.y
+  private _square(rect1: IRect, rect2: IRect): boolean {
+    if (
+      rect1.y < rect2.y + rect2.height &&
+      rect1.y + rect1.height > rect2.y &&
+      rect1.x + rect1.width > rect2.x &&
+      rect1.x < rect2.x + rect2.width
+    ) {
+      return true
+    }
+
+    return false
+  }
+
+  private _circle(rect1: IRect, rect2: IRect): boolean {
+    const modifierArea = 0.5
+
+    const dx = rect2.x + rect2.width / 2 - (rect1.x + rect1.width / 2)
+    const dy = rect2.y + rect2.height / 2 - (rect1.y + rect1.height / 2)
 
     const distance = Math.sqrt(dx * dx + dy * dy)
-    const sumOfRadius = circle1.radius + circle2.radius
+    const sumOfRadius =
+      (rect1.width / 2) * modifierArea + (rect2.width / 2) * modifierArea
 
     if (distance < sumOfRadius) {
-      console.log("collision")
+      // collision
       return true
     } else if (distance === sumOfRadius) {
-      console.log("touching")
+      // touching
+      return true
     } else {
-      console.log("no collision")
+      // no collision
       return false
     }
   }
+}
+
+export interface ICollision {
+  update(): void
+  subscribe(subscriber: ISubscriber): void
+  unsubscribe(index: number): void
+}
+
+interface IRect {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+interface ISubscriber {
+  model: IRect
+  cb(subscriber: ISubscriber): void
 }

@@ -1,4 +1,18 @@
-import { IPhysics, ISubscriber } from "./types"
+export interface IPhysics {
+  subscribe(subscriber: ISubscriber): void
+  unsubscribe(index: number): void
+  update(): void
+}
+
+export interface ISubscriber {
+  model: IMover
+  cb?: () => void
+  cbEnd?: () => void
+}
+
+export interface IMover {
+  y: number
+}
 
 export class Physics implements IPhysics {
   private _subscribers: ISubscriber[]
@@ -7,8 +21,14 @@ export class Physics implements IPhysics {
     this._subscribers = []
   }
 
-  public subscribe(subscriber: ISubscriber): void {
+  public subscribe(subscriber: ISubscriber): () => void {
     this._subscribers.push(subscriber)
+
+    return this.unsubscribe.bind(this, this._subscribers.length - 1)
+  }
+
+  public unsubscribe(index: number) {
+    this._subscribers.splice(index, 0)
   }
 
   public update(): void {

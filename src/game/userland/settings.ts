@@ -1,44 +1,125 @@
-import { IContextGame } from "../types"
-import { BTN, TYPE_ACTION } from "../../engine/types"
+import { Background } from "./model/Background/Background"
+import { type IContextGame } from "../Game"
+import { type ICreatorCharacter } from "../framework/creator/CreatorCharacter/CreatorCharacter"
+import { ICreatorBackground } from "../framework/creator/CreatorBackground/CreatorBackground"
+import { AdapterCameraBackground } from "./model/Background/AdapterCameraBackground"
+import { BTN, TYPE_ACTION } from "../../engine/Engine"
 import { ShadowDog } from "./model/ShadowDog/ShadowDog"
+import { Run } from "./skill/Run/Run"
 import { Jump } from "./skill/Jump/Jump"
+import { Health } from "./skill/Health/Health"
 
-export const settings = [
-  {
-    provide: (context: IContextGame): ShadowDog => {
-      // create and set init animation
-      const shadowDog = new ShadowDog(context)
-      shadowDog.plain()
+export const settings = {
+  provide: (
+    context: IContextGame,
+  ): Array<ICreatorCharacter | ICreatorBackground> => {
+    // ******
+    // background
+    // ******
+    const background = new Background(context)
+    const adapterCameraBackground = new AdapterCameraBackground(background)
 
-      // create and bind jump skill
-      const jump = new Jump(shadowDog)
-      shadowDog.subscribe(jump)
+    context.camera.subscribe({
+      model: adapterCameraBackground,
+    })
 
-      // physics bind
-      context.physics.subscribe({
-        model: shadowDog,
-        cb: () => shadowDog.fall(),
-        cbEnd: () => shadowDog.plain(),
-      })
+    // ******
+    // shadowDog
+    // ******
+    const shadowDog = new ShadowDog(context)
+    shadowDog.plain()
 
-      // define user input
-      context.keyboard.define(
-        TYPE_ACTION.keydown,
-        BTN.arrowRight,
-        () => shadowDog.run(),
+    shadowDog.subscribe(
+      "run",
+      new Run(
+        shadowDog,
+        () => {
+          context.camera.moveRight(6)
+          shadowDog.run()
+        },
+        () => {
+          context.camera.stop()
+          shadowDog.plain()
+        },
+      ),
+    )
+
+    shadowDog.subscribe(
+      "jump",
+      new Jump(
+        shadowDog,
+        () => shadowDog.jump(),
+        () => {},
+      ),
+    )
+    shadowDog.subscribe(
+      "health",
+      new Health(
+        shadowDog,
+        () => {},
         () => shadowDog.plain(),
-      )
+      ),
+    )
 
-      context.keyboard.define(TYPE_ACTION.keypress, BTN.d, () =>
-        shadowDog.run(),
-      )
+    context.physics.subscribe({
+      model: shadowDog,
+      cb: () => shadowDog.fall(),
+      cbEnd: () => shadowDog.plain(),
+    })
 
-      context.keyboard.define(TYPE_ACTION.keydown, BTN.arrowUp, () => {
+    context.collision.subscribe({
+      model: shadowDog,
+      cb: () => {},
+    })
+
+    context.keyboard.define(
+      TYPE_ACTION.keydown,
+      BTN.arrowRight,
+      () => {
+        const run = shadowDog.subscribeList.run as Run
+        run.make()
+      },
+      () => {
+        const run = shadowDog.subscribeList.run as Run
+        run.destroy()
+      },
+    )
+
+    context.keyboard.define(
+      TYPE_ACTION.keydown,
+      BTN.arrowUp,
+      () => {
+        const jump = shadowDog.subscribeList.jump as Jump
         jump.make()
-        shadowDog.jump()
-      })
+      },
+      () => {},
+    )
 
-      return shadowDog
-    },
+    // ******
+    // enemy
+    // ******
+    // const enemy1 = new Enemy1(context)
+    // enemy1.plain()
+    // enemy1.move(500, 100)
+
+    // add AI control
+    // enemy1.subscribe("ai", new AI(enemy1, "random"))
+
+    // collision bind
+    // context.collision.subscribe({
+    //   model: enemy1,
+    //   cb: () => enemy1.plain(),
+    // })
+
+    // movement bind
+    // context.movement.subscribe({
+    //   model: enemy1,
+    //   cb: () => {},
+    // })
+
+    // keyboardBinding(context, background, shadowDog)
+
+    // return [background, shadowDog, enemy1]
+    return [background, shadowDog]
   },
-]
+}

@@ -1,8 +1,6 @@
-import { IDrawer } from "./Drawer/types"
-import { Drawer } from "./Drawer/Drawer"
+import { Drawer, IDrawer } from "./Drawer/Drawer"
+import { type IContextGame } from "../../../Game"
 import { Animator } from "./Animator/Animator"
-import { BgConfig, ICreatorBackground } from "./types"
-import { IContextGame } from "../../../types"
 
 /**
  * CreatorBackground - decorator for create bg layers and draw in canvas
@@ -19,6 +17,8 @@ export class CreatorBackground implements ICreatorBackground {
           context.ctx,
         ),
     )
+
+    this.updateSpeed(0)
   }
 
   update(): void {
@@ -27,17 +27,21 @@ export class CreatorBackground implements ICreatorBackground {
     })
   }
 
-  run(): void {
-    this.updateSpeed(4)
-  }
-
-  plain(): void {
-    this.updateSpeed(0)
-  }
-
   updateSpeed(speed: number): void {
     this._drawerList.forEach((drawer) => {
       drawer.updateSpeed(speed)
     })
   }
+}
+
+export interface ICreatorBackground {
+  update(): void
+  updateSpeed(speed: number): void
+}
+
+export type BgConfig = {
+  image: HTMLImageElement
+  width: number
+  height: number
+  speedModifier: number
 }
