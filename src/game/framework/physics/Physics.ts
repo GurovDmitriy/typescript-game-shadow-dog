@@ -33,13 +33,15 @@ export class Physics implements IPhysics {
 
   public update(): void {
     this._subscribers.forEach((item) => {
-      if (item.model.y < 0) {
-        if (item.cb && typeof item.cb === "function") item.cb()
-        item.model.y = -6
+      if (item.cb && typeof item.cb === "function") item.cb()
 
-        if (item.model.y >= 0) {
-          if (item.cbEnd && typeof item.cbEnd === "function") item.cbEnd()
-        }
+      if (item.model.y + 6 < 0) {
+        item.model.y = -6
+      } else {
+        const distance = item.model.y
+        item.model.y = distance
+
+        if (item.cbEnd && typeof item.cbEnd === "function") item.cbEnd()
       }
     })
   }

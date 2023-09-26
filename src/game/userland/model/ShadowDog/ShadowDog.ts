@@ -1,9 +1,9 @@
 import { config } from "./config"
 import imageUrl from "./images/shadow_dog.png"
-import { ActionShadowDog, IShadowDog } from "./types"
+import { ActionShadowDog, type IShadowDog } from "./types"
 import { getImage } from "../../../../utils/getImage"
 import { CreatorCharacter } from "../../../framework/creator/CreatorCharacter/CreatorCharacter"
-import { IContextGame } from "../../../types"
+import type { IContextGame } from "../../../Game"
 
 const image: HTMLImageElement = getImage(imageUrl)
 

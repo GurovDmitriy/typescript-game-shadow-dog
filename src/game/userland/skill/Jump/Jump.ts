@@ -13,8 +13,11 @@ export class Jump extends Skill {
   update(): void {}
 
   make(): void {
-    this._cbMake()
-    this._character.y = 200
+    console.log(this._character.y)
+    if (this._character.y === 0) {
+      this._cbMake()
+      this._character.y = 200
+    }
   }
 
   destroy() {

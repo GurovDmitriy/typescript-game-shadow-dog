@@ -1,4 +1,4 @@
-import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
+import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/CreatorCharacter"
 
 export enum ActionShadowDog {
   plain = "plain",
