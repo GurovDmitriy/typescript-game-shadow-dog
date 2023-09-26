@@ -3,7 +3,6 @@ import { type IContextGame } from "../Game"
 import { type ICreatorCharacter } from "../framework/creator/CreatorCharacter/CreatorCharacter"
 import { ICreatorBackground } from "../framework/creator/CreatorBackground/CreatorBackground"
 import { AdapterCameraBackground } from "./model/Background/AdapterCameraBackground"
-import { BTN, TYPE_ACTION } from "../../engine/Engine"
 import { ShadowDog } from "./model/ShadowDog/ShadowDog"
 import { Run } from "./skill/Run/Run"
 import { Jump } from "./skill/Jump/Jump"
@@ -49,7 +48,7 @@ export const settings = {
       new Jump(
         shadowDog,
         () => shadowDog.jump(),
-        () => {},
+        () => shadowDog.plain(),
       ),
     )
     shadowDog.subscribe(
@@ -57,7 +56,7 @@ export const settings = {
       new Health(
         shadowDog,
         () => {},
-        () => shadowDog.plain(),
+        () => {},
       ),
     )
 
@@ -73,8 +72,7 @@ export const settings = {
     })
 
     context.keyboard.define(
-      TYPE_ACTION.keydown,
-      BTN.arrowRight,
+      "d",
       () => {
         const run = shadowDog.subscribeList.run as Run
         run.make()
@@ -86,14 +84,35 @@ export const settings = {
     )
 
     context.keyboard.define(
-      TYPE_ACTION.keydown,
-      BTN.arrowUp,
+      "d",
+      () => {
+        const run = shadowDog.subscribeList.run as Run
+        run.make()
+      },
+      null,
+      true,
+    )
+
+    context.keyboard.define(
+      "w",
       () => {
         const jump = shadowDog.subscribeList.jump as Jump
         jump.make()
       },
-      () => {},
+      () => {
+        const jump = shadowDog.subscribeList.jump as Jump
+        jump.destroy()
+      },
     )
+
+    // context.keyboard.define(
+    //   "q",
+    //   () => {
+    //     const jump = shadowDog.subscribeList.jump as Jump
+    //     jump.make(400)
+    //   },
+    //   () => {},
+    // )
 
     // ******
     // enemy

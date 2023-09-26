@@ -18,10 +18,11 @@ export class Run extends Skill {
 
   make(): void {
     if (!this._make) {
-      this._cbMake()
       this._character.x = 100
       this._make = true
     }
+
+    this._cbMake()
   }
 
   destroy(): void {

@@ -13,6 +13,7 @@ export class ShadowDog extends CreatorCharacter implements IShadowDog {
   }
 
   plain(): void {
+    console.log("plain")
     this.animate(ActionShadowDog.plain)
   }
 

@@ -79,10 +79,10 @@ export interface IContextEngine {
 
 export interface IKeyboard {
   define(
-    type: TYPE_ACTION,
-    btn: BTN,
+    btn: BTNType,
     action: () => void,
     after?: () => void,
+    type?: TYPE_ACTION,
   ): void
 }
 
@@ -90,7 +90,6 @@ export interface IKeyboard {
  * Types events button
  */
 export enum TYPE_ACTION {
-  keypress = "keypress",
   keydown = "keydown",
   keyup = "keyup",
 }
@@ -98,17 +97,4 @@ export enum TYPE_ACTION {
 /**
  * Describe buttons
  */
-export enum BTN {
-  d = "d",
-  a = "a",
-  w = "w",
-  s = "s",
-  z = "z",
-  x = "x",
-  c = "c",
-  space = " ",
-  arrowRight = "ArrowRight",
-  arrowLeft = "ArrowLeft",
-  arrowUp = "ArrowUp",
-  arrowDown = "ArrowDown",
-}
+export type BTNType = string | string[]

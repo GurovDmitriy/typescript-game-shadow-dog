@@ -1,4 +1,4 @@
-import type { BTN, IKeyboard, TYPE_ACTION } from "../Engine"
+import { type BTNType, type IKeyboard, TYPE_ACTION } from "../Engine"
 
 /**
  * Keyboard - for user input
@@ -7,37 +7,36 @@ export class Keyboard implements IKeyboard {
   public constructor() {}
 
   public define(
-    type: TYPE_ACTION,
-    btn: BTN,
+    btn: BTNType,
     action: () => void,
     after?: () => void,
+    press: boolean = false,
   ) {
-    if (after && typeof after === "function") {
-      let timer: undefined | null | NodeJS.Timeout
+    let timerId = null
 
-      document.addEventListener(type, (evt) => {
-        if (evt.key === btn) {
-          action()
-          clearTimeout(timer)
-
-          if (timer === undefined) {
-            clearTimeout(timer)
-            timer = null
-            return
-          }
-
-          timer = setTimeout(() => {
-            timer = undefined
-            after()
-          }, 80)
-        }
-      })
-    } else {
-      document.addEventListener(type, (evt) => {
-        if (evt.key === btn) {
-          action()
-        }
-      })
+    function cycle() {
+      clearTimeout(timerId)
+      timerId = setTimeout(() => {
+        action()
+        cycle()
+      }, 20)
     }
+
+    document.addEventListener(TYPE_ACTION.keydown, (evt) => {
+      if (evt.key === btn) {
+        if (press) {
+          cycle()
+        } else {
+          action()
+        }
+      }
+    })
+
+    document.addEventListener(TYPE_ACTION.keyup, (evt) => {
+      if (evt.key === btn) {
+        clearTimeout(timerId)
+        if (after) after()
+      }
+    })
   }
 }

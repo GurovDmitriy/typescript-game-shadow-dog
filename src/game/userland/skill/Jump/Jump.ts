@@ -4,23 +4,22 @@ import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/C
 export class Jump extends Skill {
   public constructor(
     character: ICreatorCharacter,
-    cbMake: () => void,
-    cbDestroy: () => void,
+    cb: () => void,
+    destroy: () => void,
   ) {
-    super(character, cbMake, cbDestroy)
+    super(character, cb, destroy)
   }
 
   update(): void {}
 
-  make(): void {
-    console.log(this._character.y)
+  make(power: number = 200): void {
     if (this._character.y === 0) {
-      this._cbMake()
-      this._character.y = 200
+      this._cb()
+      this._character.y = power
     }
   }
 
   destroy() {
-    this._cbDestroy()
+    this._destroy()
   }
 }
