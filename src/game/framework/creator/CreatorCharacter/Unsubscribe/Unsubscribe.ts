@@ -1,3 +1,5 @@
+import { IUnsubscribe, UnsubscribeListType, UnsubscribeType } from "./types"
+
 export class Unsubscribe implements IUnsubscribe {
   private _list: UnsubscribeListType
 
@@ -15,12 +17,3 @@ export class Unsubscribe implements IUnsubscribe {
     })
   }
 }
-
-export interface IUnsubscribe {
-  add(unsubscribe: UnsubscribeType): void
-  destroy(): void
-}
-
-export type UnsubscribeListType = Array<() => void>
-
-export type UnsubscribeType = () => void

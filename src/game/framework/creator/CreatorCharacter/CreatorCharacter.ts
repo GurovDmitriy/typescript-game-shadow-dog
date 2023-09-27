@@ -1,35 +1,17 @@
-import { IContextGame } from "../../../Game"
-import { ConfigType, Mapper } from "./Maper/Mapper"
-import { Animator, IAnimator } from "./Animator/Animator"
-import { IMover, Mover } from "./Mover/Mover"
-import { Drawer, IDrawer } from "./Drawer/Drawer"
-import {
-  ISubscribe,
-  ISubscribeList,
-  ISubscriber,
-  Subscribe,
-} from "./Subscribe/Subscribe"
-import {
-  IUnsubscribe,
-  Unsubscribe,
-  UnsubscribeType,
-} from "./Unsubscribe/Unsubscribe"
-
-export interface ICreatorCharacter {
-  width: number
-  height: number
-  x: number
-  y: number
-  subscribeList: ISubscribeList
-  move(x: number, y: number): void
-  update(): void
-  animate(name: string): void
-  subscribe(name: string, subscriber: ISubscriber): void
-  unsubscribe(name: string): void
-  addUnsubscribe(unsubscribe: UnsubscribeType): void
-  updateSpeed(speed: number): void
-  destroy(): void
-}
+import { IUnsubscribe, UnsubscribeType } from "./Unsubscribe/types"
+import { IDrawer } from "./Drawer/types"
+import { IAnimator } from "./Animator/types"
+import { IMover } from "./Mover/types"
+import { ConfigType } from "./Maper/types"
+import { Mapper } from "./Maper/Mapper"
+import { Animator } from "./Animator/Animator"
+import { Mover } from "./Mover/Mover"
+import { Drawer } from "./Drawer/Drawer"
+import { Subscribe } from "./Subscribe/Subscribe"
+import { Unsubscribe } from "./Unsubscribe/Unsubscribe"
+import { ICreatorCharacter } from "./types"
+import { ISubscribe, ISubscriber } from "./Subscribe/types"
+import { IContextGame } from "../../../types"
 
 /**
  * Character - abstract for extends game figure

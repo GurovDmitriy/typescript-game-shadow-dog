@@ -1,15 +1,15 @@
-import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/CreatorCharacter"
 import { Skill } from "../Skill"
+import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 
 export class Run extends Skill {
   private _make: boolean
 
   public constructor(
     character: ICreatorCharacter,
-    cbMake: () => void,
-    cbDestroy: () => void,
+    cb: () => void,
+    destroy: () => void,
   ) {
-    super(character, cbMake, cbDestroy)
+    super(character, cb, destroy)
 
     this._make = false
   }
@@ -22,12 +22,12 @@ export class Run extends Skill {
       this._make = true
     }
 
-    this._cbMake()
+    this._cb()
   }
 
   destroy(): void {
     this._make = false
-    this._cbDestroy()
+    this._destroy()
     this._character.x = -100
   }
 }

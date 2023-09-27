@@ -1,10 +1,7 @@
-import { type IContextGame } from "../../Game"
-import { type ICreatorCharacter } from "../creator/CreatorCharacter/CreatorCharacter"
-import { type ICreatorBackground } from "../creator/CreatorBackground/CreatorBackground"
-
-export interface IInitializer {
-  update(): void
-}
+import { IInitializer } from "./types"
+import { ICreatorBackground } from "../creator/CreatorBackground/types"
+import { IContextGame } from "../../types"
+import { ICreatorCharacter } from "../creator/CreatorCharacter/types"
 
 /**
  * Controller - parse settings for save instance game figure

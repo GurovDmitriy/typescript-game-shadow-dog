@@ -1,5 +1,5 @@
 import { Skill } from "../Skill"
-import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/CreatorCharacter"
+import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 
 export class Jump extends Skill {
   public constructor(

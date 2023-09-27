@@ -1,5 +1,5 @@
-import { type IMapper } from "../Maper/Mapper"
-
+import { IAnimator } from "./types"
+import { IMapper } from "../Maper/types"
 /**
  * Animator - get values for draw animation
  */
@@ -78,17 +78,4 @@ export class Animator implements IAnimator {
   public updateSpeed(value: number): void {
     this._speed = value
   }
-}
-
-export interface IAnimator {
-  sx: number
-  sy: number
-  sw: number
-  sh: number
-  dw: number
-  dh: number
-  width: number
-  height: number
-  run(name: string): void
-  updateSpeed(value: number): void
 }

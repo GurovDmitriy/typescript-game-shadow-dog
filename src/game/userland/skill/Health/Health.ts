@@ -1,5 +1,5 @@
 import { Skill } from "../Skill"
-import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/CreatorCharacter"
+import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 
 export class Health extends Skill {
   private _value: number
@@ -19,7 +19,7 @@ export class Health extends Skill {
   make(): void {}
 
   reduce(value: number) {
-    this._cbMake()
+    this._cb()
 
     if (this._value - value > 0) {
       this._value -= value
@@ -37,7 +37,7 @@ export class Health extends Skill {
   }
 
   destroy(): void {
-    this._cbDestroy()
+    this._destroy()
     this._value = 100
   }
 }

@@ -1,4 +1,4 @@
-import { type BTNType, type IKeyboard, TYPE_ACTION } from "../Engine"
+import { BTN, IKeyboard, TYPE_ACTION } from "../types"
 
 /**
  * Keyboard - for user input
@@ -7,9 +7,9 @@ export class Keyboard implements IKeyboard {
   public constructor() {}
 
   public define(
-    btn: BTNType,
+    btn: BTN,
     action: () => void,
-    after?: () => void,
+    after: () => void = () => {},
     press: boolean = false,
   ) {
     let timerId = null
@@ -35,7 +35,7 @@ export class Keyboard implements IKeyboard {
     document.addEventListener(TYPE_ACTION.keyup, (evt) => {
       if (evt.key === btn) {
         clearTimeout(timerId)
-        if (after) after()
+        after()
       }
     })
   }

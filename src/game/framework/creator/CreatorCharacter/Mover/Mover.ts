@@ -1,3 +1,5 @@
+import { IMover } from "./types"
+
 /**
  * Mover - control for set figure coordinates x, y
  */
@@ -30,10 +32,4 @@ export class Mover implements IMover {
     this._x = x
     this._y = y
   }
-}
-
-export interface IMover {
-  x: number
-  y: number
-  move(x: number, y: number): void
 }

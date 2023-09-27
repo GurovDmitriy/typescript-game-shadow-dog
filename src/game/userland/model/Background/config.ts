@@ -4,7 +4,7 @@ import image3Url from "./images/layer-3.png"
 import image4Url from "./images/layer-4.png"
 import image5Url from "./images/layer-5.png"
 import { getImage } from "../../../../utils/getImage"
-import { BgConfig } from "../../../framework/creator/CreatorBackground/CreatorBackground"
+import { BgConfig } from "../../../framework/creator/CreatorBackground/types"
 
 const image1 = getImage(image1Url)
 const image2 = getImage(image2Url)

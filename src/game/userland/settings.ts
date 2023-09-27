@@ -1,12 +1,16 @@
 import { Background } from "./model/Background/Background"
-import { type IContextGame } from "../Game"
-import { type ICreatorCharacter } from "../framework/creator/CreatorCharacter/CreatorCharacter"
-import { ICreatorBackground } from "../framework/creator/CreatorBackground/CreatorBackground"
 import { AdapterCameraBackground } from "./model/Background/AdapterCameraBackground"
 import { ShadowDog } from "./model/ShadowDog/ShadowDog"
 import { Run } from "./skill/Run/Run"
 import { Jump } from "./skill/Jump/Jump"
 import { Health } from "./skill/Health/Health"
+import { IContextGame } from "../types"
+import { ICreatorCharacter } from "../framework/creator/CreatorCharacter/types"
+import { ICreatorBackground } from "../framework/creator/CreatorBackground/types"
+import { BTN } from "../../engine/types"
+import { Enemy1 } from "./model/Enemy1/Enemy1"
+import { AI } from "./ai/AI"
+import { AdapterCameraEnemy1 } from "./model/Enemy1/AdapterCameraEnemy1"
 
 export const settings = {
   provide: (
@@ -33,7 +37,7 @@ export const settings = {
       new Run(
         shadowDog,
         () => {
-          context.camera.moveRight(6)
+          context.camera.moveRight(10)
           shadowDog.run()
         },
         () => {
@@ -72,7 +76,7 @@ export const settings = {
     })
 
     context.keyboard.define(
-      "d",
+      BTN.d,
       () => {
         const run = shadowDog.subscribeList.run as Run
         run.make()
@@ -81,23 +85,14 @@ export const settings = {
         const run = shadowDog.subscribeList.run as Run
         run.destroy()
       },
-    )
-
-    context.keyboard.define(
-      "d",
-      () => {
-        const run = shadowDog.subscribeList.run as Run
-        run.make()
-      },
-      null,
       true,
     )
 
     context.keyboard.define(
-      "w",
+      BTN.w,
       () => {
         const jump = shadowDog.subscribeList.jump as Jump
-        jump.make()
+        jump.make(200)
       },
       () => {
         const jump = shadowDog.subscribeList.jump as Jump
@@ -105,40 +100,39 @@ export const settings = {
       },
     )
 
-    // context.keyboard.define(
-    //   "q",
-    //   () => {
-    //     const jump = shadowDog.subscribeList.jump as Jump
-    //     jump.make(400)
-    //   },
-    //   () => {},
-    // )
+    context.keyboard.define(
+      BTN.q,
+      () => {
+        const jump = shadowDog.subscribeList.jump as Jump
+        jump.make(400)
+      },
+      () => {
+        const jump = shadowDog.subscribeList.jump as Jump
+        jump.destroy()
+      },
+    )
 
     // ******
     // enemy
     // ******
-    // const enemy1 = new Enemy1(context)
-    // enemy1.plain()
-    // enemy1.move(500, 100)
+    const enemy1 = new Enemy1(context)
+    const adapterCameraEnemy1 = new AdapterCameraEnemy1(enemy1)
 
-    // add AI control
-    // enemy1.subscribe("ai", new AI(enemy1, "random"))
+    enemy1.plain()
+    enemy1.move(800, 100)
 
-    // collision bind
-    // context.collision.subscribe({
-    //   model: enemy1,
-    //   cb: () => enemy1.plain(),
-    // })
+    enemy1.subscribe("ai", new AI(enemy1, "random"))
 
-    // movement bind
-    // context.movement.subscribe({
-    //   model: enemy1,
-    //   cb: () => {},
-    // })
+    context.collision.subscribe({
+      model: enemy1,
+      cb: () => enemy1.plain(),
+    })
 
-    // keyboardBinding(context, background, shadowDog)
+    context.camera.subscribe({
+      model: adapterCameraEnemy1,
+      cb: () => {},
+    })
 
-    // return [background, shadowDog, enemy1]
-    return [background, shadowDog]
+    return [background, shadowDog, enemy1]
   },
 }

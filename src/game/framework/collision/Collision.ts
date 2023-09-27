@@ -1,3 +1,5 @@
+import { IRect, ISubscriber } from "./types"
+
 export class Collision {
   private readonly _subscriberList: ISubscriber[]
 
@@ -69,22 +71,4 @@ export class Collision {
       return false
     }
   }
-}
-
-export interface ICollision {
-  update(): void
-  subscribe(subscriber: ISubscriber): void
-  unsubscribe(index: number): void
-}
-
-interface IRect {
-  x: number
-  y: number
-  width: number
-  height: number
-}
-
-interface ISubscriber {
-  model: IRect
-  cb(subscriber: ISubscriber): void
 }

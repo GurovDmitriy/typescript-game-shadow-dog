@@ -1,3 +1,5 @@
+import { ICamera, ISubscriber } from "./types"
+
 export class Camera implements ICamera {
   private _subscribers: ISubscriber[]
 
@@ -36,21 +38,4 @@ export class Camera implements ICamera {
       if (subscriber.cb) subscriber.cb()
     })
   }
-}
-
-export interface ICamera {
-  moveLeft(speed: number): void
-  moveRight(speed: number): void
-  stop(): void
-  subscribe(subscriber: ISubscriber): () => void
-  unsubscribe(index: number): void
-}
-
-export interface ISubscriber {
-  model: IMover
-  cb?: () => void
-}
-
-export interface IMover {
-  move(speed: number): void
 }

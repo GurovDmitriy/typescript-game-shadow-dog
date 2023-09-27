@@ -1,3 +1,5 @@
+import { ISubscribe, ISubscribeList, ISubscriber } from "./types"
+
 export class Subscribe implements ISubscribe {
   public list: ISubscribeList
 
@@ -11,10 +13,7 @@ export class Subscribe implements ISubscribe {
     })
   }
 
-  public subscribe<T1 extends ISubscriber, T2 extends string>(
-    name: T2,
-    subscriber: T1,
-  ): () => void {
+  public subscribe(name: string, subscriber: ISubscriber): () => void {
     this.list[name] = subscriber
 
     return this.unsubscribe.bind(this, name)
@@ -27,20 +26,4 @@ export class Subscribe implements ISubscribe {
   public destroy() {
     this.list = {}
   }
-}
-
-export interface ISubscribe {
-  update(): void
-  list: { [key: string]: ISubscriber }
-  subscribe(name: string, subscriber: ISubscriber): () => void
-  unsubscribe(name: string): void
-  destroy(): void
-}
-
-export interface ISubscriber {
-  update(): void
-}
-
-export interface ISubscribeList {
-  [key: string]: ISubscriber
 }

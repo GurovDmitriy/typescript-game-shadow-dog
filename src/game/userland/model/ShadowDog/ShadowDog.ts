@@ -3,7 +3,7 @@ import imageUrl from "./images/shadow_dog.png"
 import { ActionShadowDog, type IShadowDog } from "./types"
 import { getImage } from "../../../../utils/getImage"
 import { CreatorCharacter } from "../../../framework/creator/CreatorCharacter/CreatorCharacter"
-import type { IContextGame } from "../../../Game"
+import { IContextGame } from "../../../types"
 
 const image: HTMLImageElement = getImage(imageUrl)
 
@@ -13,7 +13,6 @@ export class ShadowDog extends CreatorCharacter implements IShadowDog {
   }
 
   plain(): void {
-    console.log("plain")
     this.animate(ActionShadowDog.plain)
   }
 

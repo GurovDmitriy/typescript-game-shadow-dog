@@ -1,6 +1,7 @@
-import { type IAnimator } from "../Animator/Animator"
-import { type IMover } from "../Mover/Mover"
-import { type IContextGame } from "../../../../Game"
+import { IDrawer } from "./types"
+import { IAnimator } from "../Animator/types"
+import { IMover } from "../Mover/types"
+import { IContextGame } from "../../../../types"
 
 /**
  * Drawer - decorator draw with canvas
@@ -49,10 +50,4 @@ export class Drawer implements IDrawer {
   public updateSpeed(value: number): void {
     this._animator.updateSpeed(value)
   }
-}
-
-export interface IDrawer {
-  draw(): void
-  setName(name: string): void
-  updateSpeed(speed: number): void
 }

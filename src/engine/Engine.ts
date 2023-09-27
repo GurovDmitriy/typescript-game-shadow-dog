@@ -1,5 +1,6 @@
 import { Game } from "../game/Game"
 import { Keyboard } from "./Keyboard/Keyboard"
+import { IContextEngine, IEngine } from "./types"
 
 /**
  * Engine - create engine context and game loop (singleton)
@@ -62,39 +63,3 @@ export class Engine implements IEngine {
     return { ctx, canvas }
   }
 }
-
-export interface IEngine {
-  run(): void
-}
-
-export interface IGame {
-  run(): void
-}
-
-export interface IContextEngine {
-  ctx: CanvasRenderingContext2D
-  canvas: HTMLCanvasElement
-  keyboard: IKeyboard
-}
-
-export interface IKeyboard {
-  define(
-    btn: BTNType,
-    action: () => void,
-    after?: () => void,
-    type?: TYPE_ACTION,
-  ): void
-}
-
-/**
- * Types events button
- */
-export enum TYPE_ACTION {
-  keydown = "keydown",
-  keyup = "keyup",
-}
-
-/**
- * Describe buttons
- */
-export type BTNType = string | string[]

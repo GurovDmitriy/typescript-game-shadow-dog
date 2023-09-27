@@ -1,4 +1,5 @@
-import { type IAnimator } from "../Animator/Animator"
+import { IDrawer } from "./types"
+import { IAnimator } from "../Animator/types"
 
 /**
  * Drawer - facade for draw background layer on canvas
@@ -40,9 +41,4 @@ export class Drawer implements IDrawer {
   updateSpeed(speed: number): void {
     this._animator.updateSpeed(speed)
   }
-}
-
-export interface IDrawer {
-  draw(): void
-  updateSpeed(speed: number): void
 }

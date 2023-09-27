@@ -1,18 +1,18 @@
-import { ICreatorCharacter } from "../../framework/creator/CreatorCharacter/CreatorCharacter"
+import { ICreatorCharacter } from "../../framework/creator/CreatorCharacter/types"
 
 export abstract class Skill {
   protected _character: ICreatorCharacter
-  protected readonly _cbMake: () => void
-  protected readonly _cbDestroy: () => void
+  protected readonly _cb: () => void
+  protected readonly _destroy: () => void
 
   protected constructor(
     character: ICreatorCharacter,
-    cbMake: () => void,
-    cbDestroy: () => void,
+    cb: () => void,
+    destroy: () => void,
   ) {
     this._character = character
-    this._cbMake = cbMake
-    this._cbDestroy = cbDestroy
+    this._cb = cb
+    this._destroy = destroy
   }
 
   abstract update(): void
