@@ -1,7 +1,7 @@
 import { Background } from "./Background"
-import { IMover } from "../../../framework/camera/types"
+import { IModel } from "../../../framework/camera/types"
 
-export class AdapterCameraBackground implements IMover {
+export class AdapterCameraBackground implements IModel {
   private _instance: Background
 
   constructor(instance: Background) {

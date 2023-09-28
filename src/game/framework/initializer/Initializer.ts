@@ -1,28 +1,45 @@
-import { IInitializer } from "./types"
-import { ICreatorBackground } from "../creator/CreatorBackground/types"
+import { IInitializer, ISubscriber } from "./types"
 import { IContextGame } from "../../types"
-import { ICreatorCharacter } from "../creator/CreatorCharacter/types"
 
 /**
  * Controller - parse settings for save instance game figure
  */
 export class Initializer implements IInitializer {
-  private _instanceList: { update: () => void }[] = []
+  private _subscribers: ISubscriber[]
 
   constructor(
-    settings: {
-      provide: (
-        context: IContextGame,
-      ) => Array<ICreatorCharacter | ICreatorBackground>
-    },
+    settings: { provide(context: IContextGame): ISubscriber[] },
     context: IContextGame,
   ) {
-    this._instanceList = settings.provide(context)
+    this._subscribers = []
+    const subscribers = settings.provide(context)
+
+    subscribers.forEach((subscriber) => {
+      this._subscribe(subscriber)
+    })
   }
 
   public update() {
-    this._instanceList.forEach((instance: { update: () => void }) => {
+    this._subscribers.forEach((instance: { update: () => void }) => {
       instance.update()
     })
+  }
+
+  private _subscribe(subscriber: ISubscriber): () => void {
+    this._subscribers.push(subscriber)
+    const unsubscribe = this._unsubscribe.bind(
+      this,
+      this._subscribers.length - 1,
+    )
+
+    if (subscriber.addUnsubscribe) {
+      subscriber.addUnsubscribe(unsubscribe)
+    }
+
+    return unsubscribe
+  }
+
+  private _unsubscribe(index: number) {
+    this._subscribers.splice(index, 1)
   }
 }

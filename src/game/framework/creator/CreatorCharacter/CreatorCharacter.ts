@@ -46,7 +46,11 @@ export abstract class CreatorCharacter implements ICreatorCharacter {
   }
 
   public subscribe(name: string, subscriber: ISubscriber): () => void {
-    return this._subscribe.subscribe(name, subscriber)
+    const unsubscribe = this._subscribe.subscribe(name, subscriber)
+
+    this.addUnsubscribe(unsubscribe)
+
+    return unsubscribe
   }
 
   public unsubscribe(name: string) {

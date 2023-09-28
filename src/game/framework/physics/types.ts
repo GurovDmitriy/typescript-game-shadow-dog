@@ -5,11 +5,12 @@ export interface IPhysics {
 }
 
 export interface ISubscriber {
-  model: IMover
+  model: IModel
   cb?: () => void
   cbEnd?: () => void
 }
 
-export interface IMover {
+export interface IModel {
   y: number
+  addUnsubscribe(unsubscribe: () => void): void
 }

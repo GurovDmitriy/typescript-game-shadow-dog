@@ -11,7 +11,11 @@ export interface IRect {
   height: number
 }
 
+export interface IModel extends IRect {
+  addUnsubscribe(unsubscribe: () => void): void
+}
+
 export interface ISubscriber {
-  model: IRect
+  model: IModel
   cb(subscriber: ISubscriber): void
 }

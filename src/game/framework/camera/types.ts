@@ -7,10 +7,11 @@ export interface ICamera {
 }
 
 export interface ISubscriber {
-  model: IMover
+  model: IModel
   cb?: () => void
 }
 
-export interface IMover {
+export interface IModel {
   move(speed: number): void
+  addUnsubscribe(unsubscribe: () => void): void
 }

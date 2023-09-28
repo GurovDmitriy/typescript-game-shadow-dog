@@ -1,7 +1,7 @@
 import { ICamera, ISubscriber } from "./types"
 
 export class Camera implements ICamera {
-  private _subscribers: ISubscriber[]
+  private readonly _subscribers: ISubscriber[]
 
   public constructor() {
     this._subscribers = []
@@ -9,12 +9,20 @@ export class Camera implements ICamera {
 
   public subscribe(subscriber: ISubscriber): () => void {
     this._subscribers.push(subscriber)
+    const unsubscribe = this.unsubscribe.bind(
+      this,
+      this._subscribers.length - 1,
+    )
 
-    return this.unsubscribe.bind(this, this._subscribers.length - 1)
+    if (subscriber.model.addUnsubscribe) {
+      subscriber.model.addUnsubscribe(unsubscribe)
+    }
+
+    return unsubscribe
   }
 
   public unsubscribe(index: number): void {
-    this._subscribers.splice(index, 0)
+    this._subscribers.splice(index, 1)
   }
 
   public stop() {

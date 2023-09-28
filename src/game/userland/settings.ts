@@ -123,6 +123,8 @@ export const settings = {
 
     enemy1.subscribe("ai", new AI(enemy1, "random"))
 
+    context.destroyer.subscribe(enemy1)
+
     context.collision.subscribe({
       model: enemy1,
       cb: () => enemy1.plain(),

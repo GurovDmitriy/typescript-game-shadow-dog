@@ -1,38 +1,46 @@
 import { IRect, ISubscriber } from "./types"
 
 export class Collision {
-  private readonly _subscriberList: ISubscriber[]
+  private readonly _subscribers: ISubscriber[]
 
   public constructor() {
-    this._subscriberList = []
+    this._subscribers = []
   }
 
   public update(): void {
-    this._subscriberList.forEach((subscriber, index) => {
+    this._subscribers.forEach((subscriber, index) => {
       this._findCollision(subscriber, index)
     })
   }
 
   public subscribe(subscriber: ISubscriber): () => void {
-    this._subscriberList.push(subscriber)
+    this._subscribers.push(subscriber)
+    const unsubscribe = this.unsubscribe.bind(
+      this,
+      this._subscribers.length - 1,
+    )
 
-    return this.unsubscribe.bind(this, this._subscriberList.length - 1)
+    if (subscriber.model.addUnsubscribe) {
+      subscriber.model.addUnsubscribe(unsubscribe)
+    }
+
+    return unsubscribe
   }
 
   public unsubscribe(index: number): void {
-    this._subscriberList.splice(index, 0)
+    this._subscribers.splice(index, 1)
   }
 
   _findCollision(subscriber: ISubscriber, index: number) {
-    for (let i = index + 1; i < this._subscriberList.length; i++) {
+    for (let i = index + 1; i < this._subscribers.length; i++) {
       const collision = this._circle(
         subscriber.model,
-        this._subscriberList[i].model,
+        this._subscribers[i].model,
       )
 
       if (collision) {
-        subscriber.cb(this._subscriberList[i])
-        this._subscriberList[i].cb(subscriber)
+        subscriber.cb(this._subscribers[i])
+        this._subscribers[i].cb(subscriber)
       }
     }
   }

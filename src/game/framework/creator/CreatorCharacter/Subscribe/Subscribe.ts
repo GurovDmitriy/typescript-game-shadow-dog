@@ -15,8 +15,9 @@ export class Subscribe implements ISubscribe {
 
   public subscribe(name: string, subscriber: ISubscriber): () => void {
     this.list[name] = subscriber
+    const unsubscribe = this.unsubscribe.bind(this, name)
 
-    return this.unsubscribe.bind(this, name)
+    return unsubscribe
   }
 
   public unsubscribe(name: string) {

@@ -1,19 +1,21 @@
 import { IDestroyer, ISubscriber } from "./types"
 
 export class Destroyer implements IDestroyer {
-  private _list: ISubscriber[]
+  private readonly _subscribers: ISubscriber[]
   private _canvas: HTMLCanvasElement
 
   public constructor(canvas: HTMLCanvasElement) {
-    this._list = []
+    this._subscribers = []
     this._canvas = canvas
   }
 
   public update(): void {
-    this._list.forEach((subscriber) => {
+    this._subscribers.forEach((subscriber) => {
       if (
-        (subscriber.x < -50 && subscriber.x > this._canvas.width + 50) ||
-        (subscriber.y < -50 && subscriber.y > this._canvas.height + 50)
+        subscriber.x < -200 ||
+        subscriber.x > this._canvas.width + 200 ||
+        subscriber.y > this._canvas.height + 50 ||
+        subscriber.y < -50
       ) {
         subscriber.destroy()
       }
@@ -21,8 +23,11 @@ export class Destroyer implements IDestroyer {
   }
 
   public subscribe(subscriber: ISubscriber): () => void {
-    this._list.push(subscriber)
-    const unsubscribe = this.unsubscribe.bind(this, this._list.length - 1)
+    this._subscribers.push(subscriber)
+    const unsubscribe = this.unsubscribe.bind(
+      this,
+      this._subscribers.length - 1,
+    )
 
     if (subscriber.addUnsubscribe) {
       subscriber.addUnsubscribe(unsubscribe)
@@ -31,6 +36,6 @@ export class Destroyer implements IDestroyer {
   }
 
   public unsubscribe(index: number): void {
-    this._list.splice(index, 1)
+    this._subscribers.splice(index, 1)
   }
 }
