@@ -1,43 +1,45 @@
-import { Skill } from "../Skill"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
+import { Skill } from "../Skill"
 
 export class Health extends Skill {
   private _value: number
 
   public constructor(
     character: ICreatorCharacter,
-    cbMake: () => void,
-    cbDestroy: () => void,
+    cb: () => void,
+    destroy: () => void,
+    update: () => void,
   ) {
-    super(character, cbMake, cbDestroy)
+    super(character, cb, destroy, update)
 
     this._value = 100
   }
 
-  public update(): void {}
+  public update(): void {
+    this._update()
+  }
 
-  make(): void {}
+  public get value() {
+    return this._value
+  }
 
-  reduce(value: number) {
-    this._cb()
-
+  make(value: number = 10): void {
     if (this._value - value > 0) {
       this._value -= value
     } else {
       this._value = 0
     }
+
+    this._cb()
   }
 
-  restore(value: number) {
+  destroy(value: number = 10): void {
     if (this._value + value < 100) {
       this._value += value
     } else {
       this._value = 100
     }
-  }
 
-  destroy(): void {
     this._destroy()
-    this._value = 100
   }
 }

@@ -7,6 +7,8 @@ export class Animator implements IAnimator {
   private _mapper: IMapper
   private _speed: number
   private _counter: number
+  private _gap: number | null
+  private _once: boolean
 
   private _sx: number
   private _sy: number
@@ -19,6 +21,8 @@ export class Animator implements IAnimator {
     this._mapper = mapper
     this._speed = 2
     this._counter = 0
+    this._gap = null
+    this._once = false
 
     this._sx = 0
     this._sy = 0
@@ -61,9 +65,15 @@ export class Animator implements IAnimator {
   }
 
   public run(name: string): void {
-    const gap =
-      Math.floor(this._counter / this._speed) %
-      this._mapper.map[name].location.length
+    let gap: number | null = null
+
+    if (this._gap && this._once) {
+      gap = this._gap
+    } else {
+      gap =
+        Math.floor(this._counter / this._speed) %
+        this._mapper.map[name].location.length
+    }
 
     this._sx = this._mapper.config.image.frameWidth * gap
     this._sy = this._mapper.map[name].location[gap].y
@@ -72,7 +82,15 @@ export class Animator implements IAnimator {
 
     if (gap === this._mapper.map[name].location.length - 1) {
       this._counter = 0
+
+      if (this._once) {
+        this._gap = gap
+      }
     }
+  }
+
+  public once(value: boolean) {
+    this._once = value
   }
 
   public updateSpeed(value: number): void {

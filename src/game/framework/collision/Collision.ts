@@ -39,8 +39,8 @@ export class Collision {
       )
 
       if (collision) {
-        subscriber.cb(this._subscribers[i])
-        this._subscribers[i].cb(subscriber)
+        subscriber.cb(this._subscribers[i].model)
+        this._subscribers[i].cb(subscriber.model)
       }
     }
   }

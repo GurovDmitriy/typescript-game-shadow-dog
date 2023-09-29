@@ -98,6 +98,12 @@ export abstract class CreatorCharacter implements ICreatorCharacter {
     this._unsubscribe.destroy()
   }
 
+  public once(value: boolean): this {
+    this._drawer.once(value)
+
+    return this
+  }
+
   public updateSpeed(value: number): void {
     this._drawer.updateSpeed(value)
   }

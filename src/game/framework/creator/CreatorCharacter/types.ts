@@ -14,5 +14,6 @@ export interface ICreatorCharacter {
   unsubscribe(name: string): void
   addUnsubscribe(unsubscribe: UnsubscribeType): void
   updateSpeed(speed: number): void
+  once(value: boolean): void
   destroy(): void
 }

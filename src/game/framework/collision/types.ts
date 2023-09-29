@@ -17,5 +17,5 @@ export interface IModel extends IRect {
 
 export interface ISubscriber {
   model: IModel
-  cb(subscriber: ISubscriber): void
+  cb(subscriber: IModel): void
 }

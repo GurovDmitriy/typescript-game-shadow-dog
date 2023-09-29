@@ -8,5 +8,6 @@ export interface IAnimator {
   width: number
   height: number
   run(name: string): void
+  once(value: boolean): void
   updateSpeed(value: number): void
 }

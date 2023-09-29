@@ -1,33 +1,24 @@
 import { IInitializer, ISubscriber } from "./types"
-import { IContextGame } from "../../types"
 
 /**
- * Controller - parse settings for save instance game figure
+ * Initializer - add or remove figure on game render
  */
 export class Initializer implements IInitializer {
   private _subscribers: ISubscriber[]
 
-  constructor(
-    settings: { provide(context: IContextGame): ISubscriber[] },
-    context: IContextGame,
-  ) {
+  constructor() {
     this._subscribers = []
-    const subscribers = settings.provide(context)
-
-    subscribers.forEach((subscriber) => {
-      this._subscribe(subscriber)
-    })
   }
 
   public update() {
-    this._subscribers.forEach((instance: { update: () => void }) => {
-      instance.update()
+    this._subscribers.forEach((subscriber) => {
+      subscriber.update()
     })
   }
 
-  private _subscribe(subscriber: ISubscriber): () => void {
+  public subscribe(subscriber: ISubscriber): () => void {
     this._subscribers.push(subscriber)
-    const unsubscribe = this._unsubscribe.bind(
+    const unsubscribe = this.unsubscribe.bind(
       this,
       this._subscribers.length - 1,
     )
@@ -39,7 +30,7 @@ export class Initializer implements IInitializer {
     return unsubscribe
   }
 
-  private _unsubscribe(index: number) {
+  public unsubscribe(index: number) {
     this._subscribers.splice(index, 1)
   }
 }

@@ -13,5 +13,5 @@ export interface ISubscriber {
 
 export interface IModel {
   move(speed: number): void
-  addUnsubscribe(unsubscribe: () => void): void
+  addUnsubscribe?: (unsubscribe: () => void) => void
 }

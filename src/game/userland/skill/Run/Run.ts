@@ -2,7 +2,7 @@ import { Skill } from "../Skill"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 
 export class Run extends Skill {
-  private _make: boolean
+  private _active: boolean
 
   public constructor(
     character: ICreatorCharacter,
@@ -11,23 +11,23 @@ export class Run extends Skill {
   ) {
     super(character, cb, destroy)
 
-    this._make = false
+    this._active = false
   }
 
   update(): void {}
 
   make(): void {
-    if (!this._make) {
-      this._character.x = 100
-      this._make = true
-    }
-
     this._cb()
+
+    if (!this._active) {
+      this._character.x = 100
+      this._active = true
+    }
   }
 
   destroy(): void {
-    this._make = false
-    this._destroy()
+    this._active = false
     this._character.x = -100
+    this._destroy()
   }
 }
