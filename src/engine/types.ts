@@ -42,6 +42,7 @@ export enum BTN {
   s = "s",
   d = "d",
   q = "q",
+  e = "e",
   space = " ",
   arrowUp = "arrowUp",
   arrowDown = "arrowDown",

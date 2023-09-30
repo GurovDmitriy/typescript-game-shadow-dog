@@ -3,6 +3,9 @@ import { ShadowDog } from "../../model/ShadowDog/ShadowDog"
 import { Run } from "../../skill/Run/Run"
 import { Jump } from "../../skill/Jump/Jump"
 import { Health } from "../../skill/Health/Health"
+import { Bite } from "../../skill/Bite/Bite"
+import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
+import { Roll } from "../../skill/Roll/Roll"
 
 export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
   const settings = getSettings()
@@ -15,8 +18,36 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
 
   context.collision.subscribe({
     model: shadowDog,
-    cb: () => {},
+    cb: (model) => {
+      const bite = shadowDog.subscribeList.bite as Bite
+      const roll = shadowDog.subscribeList.roll as Roll
+
+      if (bite.active) {
+        bite.bind(model as ICreatorCharacter)
+      }
+
+      if (roll.active) {
+        roll.bind(model as ICreatorCharacter)
+      }
+    },
   })
+
+  shadowDog.subscribe(
+    "health",
+    new Health(
+      shadowDog,
+      () => {
+        shadowDog.struck()
+        setTimeout(() => shadowDog.plain(), 200)
+      },
+      () => {
+        shadowDog.plain()
+      },
+      () => {
+        settings.health()
+      },
+    ),
+  )
 
   shadowDog.subscribe(
     "run",
@@ -43,19 +74,20 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
   )
 
   shadowDog.subscribe(
-    "health",
-    new Health(
+    "bite",
+    new Bite(
       shadowDog,
-      () => {
-        shadowDog.struck()
-        setTimeout(() => shadowDog.plain(), 200)
-      },
-      () => {
-        shadowDog.plain()
-      },
-      () => {
-        settings.health()
-      },
+      () => shadowDog.bite(),
+      () => shadowDog.plain(),
+    ),
+  )
+
+  shadowDog.subscribe(
+    "roll",
+    new Roll(
+      shadowDog,
+      () => shadowDog.roll(),
+      () => shadowDog.plain(),
     ),
   )
 

@@ -2,7 +2,7 @@ import { Skill } from "../Skill"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 import { Health } from "../Health/Health"
 
-export class Bite extends Skill {
+export class Roll extends Skill {
   private _date: number
   private _model: ICreatorCharacter | null
   public active: boolean
