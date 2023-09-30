@@ -5,12 +5,14 @@ import { Run } from "../../skill/Run/Run"
 import { Jump } from "../../skill/Jump/Jump"
 import { Bite } from "../../skill/Bite/Bite"
 import { Roll } from "../../skill/Roll/Roll"
+import { Sit } from "../../skill/Sit/Sit"
 
 export function inputShadowDog(context: IContextGame, shadowDog: ShadowDog) {
   const run = shadowDog.subscribeList.run as Run
   const jump = shadowDog.subscribeList.jump as Jump
   const bite = shadowDog.subscribeList.bite as Bite
   const roll = shadowDog.subscribeList.roll as Roll
+  const sit = shadowDog.subscribeList.sit as Sit
 
   context.keyboard.define(
     BTN.d,
@@ -60,6 +62,16 @@ export function inputShadowDog(context: IContextGame, shadowDog: ShadowDog) {
     },
     () => {
       roll.destroy()
+    },
+  )
+
+  context.keyboard.define(
+    BTN.s,
+    () => {
+      sit.make()
+    },
+    () => {
+      sit.destroy()
     },
   )
 }

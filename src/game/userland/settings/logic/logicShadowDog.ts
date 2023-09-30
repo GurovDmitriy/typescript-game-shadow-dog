@@ -6,6 +6,7 @@ import { Health } from "../../skill/Health/Health"
 import { Bite } from "../../skill/Bite/Bite"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 import { Roll } from "../../skill/Roll/Roll"
+import { Sit } from "../../skill/Sit/Sit"
 
 export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
   const settings = getSettings()
@@ -91,6 +92,15 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
     ),
   )
 
+  shadowDog.subscribe(
+    "sit",
+    new Sit(
+      shadowDog,
+      () => shadowDog.sit(),
+      () => shadowDog.plain(),
+    ),
+  )
+
   function getSettings(): { [key: string]: () => void } {
     function getHealth() {
       let once = false
@@ -108,7 +118,7 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
 
         if (health.value === 0) {
           shadowDog.once(true).ko()
-          // TODO: game over logic call... from context...
+          // TODO: game over logic call... from context?
         }
       }
     }

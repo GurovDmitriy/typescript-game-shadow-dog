@@ -10,6 +10,8 @@ export class Engine implements IEngine {
   private readonly _context: IContextEngine
   private _game: Game
   private readonly loop: () => void
+  private _date: number
+  private _fps: number
 
   private constructor(
     Keyboard: { new (): Keyboard },
@@ -22,6 +24,9 @@ export class Engine implements IEngine {
 
     this.loop = this.run.bind(this)
     this._game = new Game(this._context)
+    this._date = Date.now()
+
+    this._setFps(60)
   }
 
   public static create(
@@ -35,7 +40,7 @@ export class Engine implements IEngine {
     return Engine._instance
   }
 
-  public run() {
+  private _loop() {
     this._context.ctx.clearRect(
       0,
       0,
@@ -44,6 +49,14 @@ export class Engine implements IEngine {
     )
 
     this._game.run()
+  }
+
+  public run() {
+    if (Date.now() > this._date + this._fps) {
+      this._loop()
+
+      this._date = Date.now()
+    }
 
     requestAnimationFrame(this.loop)
   }
@@ -61,5 +74,11 @@ export class Engine implements IEngine {
     canvas.height = 600
 
     return { ctx, canvas }
+  }
+
+  private _setFps(fps: number) {
+    const f = Math.floor(1000 / fps)
+
+    this._fps = f > 10 ? f : 0
   }
 }

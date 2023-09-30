@@ -26,6 +26,10 @@ export class Roll extends Skill {
     power: number = 20,
     period: number = 0,
   ): void {
+    if (!this.active) {
+      this._character.x = 200
+    }
+
     this.active = true
 
     if (Date.now() > this._date + period) {
@@ -50,6 +54,7 @@ export class Roll extends Skill {
   destroy(): void {
     this._destroy()
     this._unBind()
+    this._character.x = -200
     this.active = false
   }
 
