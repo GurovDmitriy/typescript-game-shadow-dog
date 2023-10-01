@@ -6,6 +6,7 @@ import { Initializer } from "./framework/initializer/Initializer"
 import { IContextGame } from "./types"
 import { Destroyer } from "./framework/destroyer/Destroyer"
 import { settings } from "./userland/settings/settings"
+import { Switcher } from "./framework/switcher/Switcher"
 
 /**
  * Game - create game context and loop for engine
@@ -23,6 +24,7 @@ export class Game implements IGame {
       camera: new Camera(),
       destroyer: new Destroyer(context.canvas),
       initializer: new Initializer(),
+      switcher: new Switcher(),
     }
 
     settings(this._context)
