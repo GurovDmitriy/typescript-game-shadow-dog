@@ -2,9 +2,15 @@ import { ICamera, ISubscriber } from "./types"
 
 export class Camera implements ICamera {
   private readonly _subscribers: ISubscriber[]
+  public distance: number
+  public distanceCurrent: number
+  public end: boolean
 
   public constructor() {
     this._subscribers = []
+    this.distance = 0
+    this.distanceCurrent = 0
+    this.end = true
   }
 
   public subscribe(subscriber: ISubscriber): () => void {
@@ -25,6 +31,12 @@ export class Camera implements ICamera {
     this._subscribers.splice(index, 1)
   }
 
+  public init(distance: number = 0, distanceCurrent: number = 0) {
+    this.distance = distance
+    this.distanceCurrent = distanceCurrent
+    this.end = distance < distanceCurrent
+  }
+
   public stop() {
     this._subscribers.forEach((subscriber) => {
       subscriber.model.move(0)
@@ -32,18 +44,37 @@ export class Camera implements ICamera {
   }
 
   public moveLeft(speed: number): void {
+    if (this.end) return
+
     this._subscribers.forEach((subscriber) => {
       subscriber.model.move(-speed)
 
       if (subscriber.cb) subscriber.cb()
     })
+
+    this.distanceCurrent -= speed
+    this._setEnd()
   }
 
   public moveRight(speed: number): void {
+    if (this.end) return
+
     this._subscribers.forEach((subscriber) => {
       subscriber.model.move(speed)
 
       if (subscriber.cb) subscriber.cb()
     })
+
+    this.distanceCurrent += speed
+    this._setEnd()
+  }
+
+  private _setEnd() {
+    console.log(this.distanceCurrent)
+
+    if (this.distanceCurrent >= this.distance) {
+      this.end = true
+      this.stop()
+    }
   }
 }

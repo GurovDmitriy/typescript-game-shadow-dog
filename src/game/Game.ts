@@ -31,7 +31,7 @@ export class Game implements IGame {
   public run() {
     this._context.destroyer.update()
     this._context.physics.update()
-    this._context.initializer.update()
     this._context.collision.update()
+    this._context.initializer.update()
   }
 }
