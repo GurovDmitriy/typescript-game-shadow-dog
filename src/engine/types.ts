@@ -8,7 +8,9 @@ export interface Runnable {
 
 export interface IEngine extends Runnable {}
 
-export interface IGame extends Runnable {}
+export interface IGame extends Runnable {
+  init(): void
+}
 
 export interface IContextEngine {
   ctx: CanvasRenderingContext2D
@@ -23,6 +25,8 @@ export interface IKeyboard {
     after?: () => void,
     press?: boolean,
   ): void
+
+  destroy(): void
 }
 
 /**

@@ -8,6 +8,6 @@ export interface ICommand {
 }
 
 export interface ISwitcher {
-  start(): void
-  stop(): void
+  start(cb?: () => void): void
+  stop(cb?: () => void): void
 }

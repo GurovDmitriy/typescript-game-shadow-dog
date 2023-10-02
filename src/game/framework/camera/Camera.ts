@@ -53,7 +53,7 @@ export class Camera implements ICamera {
     })
 
     this.distanceCurrent -= speed
-    this._setEnd()
+    this._endDistance()
   }
 
   public moveRight(speed: number): void {
@@ -66,15 +66,17 @@ export class Camera implements ICamera {
     })
 
     this.distanceCurrent += speed
-    this._setEnd()
+    this._endDistance()
   }
 
-  private _setEnd() {
-    console.log(this.distanceCurrent)
+  public setEnd() {
+    this.end = true
+    this.stop()
+  }
 
+  private _endDistance() {
     if (this.distanceCurrent >= this.distance) {
-      this.end = true
-      this.stop()
+      this.setEnd()
     }
   }
 }

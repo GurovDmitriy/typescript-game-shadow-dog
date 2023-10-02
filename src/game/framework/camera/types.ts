@@ -5,6 +5,7 @@ export interface ICamera {
   moveLeft(speed: number): void
   moveRight(speed: number): void
   stop(): void
+  setEnd(): void
   init(distance: number, distanceCurrent?: number): void
   subscribe(subscriber: ISubscriber): () => void
   unsubscribe(index: number): void

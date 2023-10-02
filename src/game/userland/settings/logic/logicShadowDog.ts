@@ -38,14 +38,13 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
     new Health(
       shadowDog,
       () => {
-        shadowDog.struck()
-        setTimeout(() => shadowDog.plain(), 200)
+        settings.health.cb()
       },
       () => {
-        shadowDog.plain()
+        settings.health.destroy()
       },
       () => {
-        settings.health()
+        settings.health.update()
       },
     ),
   )
@@ -101,13 +100,31 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
     ),
   )
 
-  function getSettings(): { [key: string]: () => void } {
-    function getHealth() {
+  function getSettings(): { [key: string]: { [key: string]: () => void } } {
+    const health = shadowDog.subscribeList.health as Health
+
+    function getHealthCb() {
+      return () => {
+        shadowDog.struck()
+        setTimeout(() => shadowDog.plain(), 200)
+
+        if (health.value === 0) {
+          context.camera.setEnd()
+          context.switcher.stop()
+        }
+      }
+    }
+
+    function getHealthDestroy() {
+      return () => {
+        shadowDog.plain()
+      }
+    }
+
+    function getHealthUpdate() {
       let once = false
 
       return () => {
-        const health = shadowDog.subscribeList.health as Health
-
         if (health.value < 50 && !once) {
           shadowDog.dizzy()
           setTimeout(() => {
@@ -118,13 +135,16 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
 
         if (health.value === 0) {
           shadowDog.once(true).ko()
-          // TODO: game over logic call... from context?
         }
       }
     }
 
     return {
-      health: getHealth(),
+      health: {
+        cb: getHealthCb(),
+        destroy: getHealthDestroy(),
+        update: getHealthUpdate(),
+      },
     }
   }
 }

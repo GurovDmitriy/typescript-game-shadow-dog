@@ -1,11 +1,12 @@
 import { IReceiver } from "./types"
+import { IGame } from "../../../../engine/types"
 
 export class Receiver implements IReceiver {
-  start() {
-    console.log("call to start")
+  start(game: IGame) {
+    game.init()
   }
 
   stop() {
-    console.log("call to end")
+    console.log("game stop")
   }
 }
