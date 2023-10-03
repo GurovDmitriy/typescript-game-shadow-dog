@@ -1,6 +1,6 @@
-import { IGame } from "../../../../engine/types"
+import { IContextEngine, IGame } from "../../../../engine/types"
 
 export interface IReceiver {
-  start(game: IGame): void
+  start(game: IGame, context: IContextEngine): void
   stop(): void
 }

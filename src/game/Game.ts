@@ -21,8 +21,6 @@ export class Game implements IGame {
   }
 
   public init() {
-    this._contextEngine.keyboard.destroy()
-
     this._context = {
       ctx: this._contextEngine.ctx,
       canvas: this._contextEngine.canvas,
@@ -32,7 +30,7 @@ export class Game implements IGame {
       camera: new Camera(),
       destroyer: new Destroyer(this._contextEngine.canvas),
       initializer: new Initializer(),
-      switcher: new Switcher(this),
+      switcher: new Switcher(this, this._contextEngine),
     }
 
     settings(this._context)

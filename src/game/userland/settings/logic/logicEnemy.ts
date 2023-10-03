@@ -19,7 +19,7 @@ export function logicEnemy(context: IContextGame, enemy: Enemy1) {
     cb: (model) => {
       if (model) {
         const bite = enemy.subscribeList.bite as Bite
-        bite.make(model as CreatorCharacter, 10, 2000)
+        bite.make(model as CreatorCharacter, 25, 1000, 1000)
       }
     },
   })

@@ -9,8 +9,6 @@ import { Roll } from "../../skill/Roll/Roll"
 import { Sit } from "../../skill/Sit/Sit"
 
 export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
-  const settings = getSettings()
-
   context.physics.subscribe({
     model: shadowDog,
     cb: () => shadowDog.fall(),
@@ -100,6 +98,8 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
     ),
   )
 
+  const settings = getSettings()
+
   function getSettings(): { [key: string]: { [key: string]: () => void } } {
     const health = shadowDog.subscribeList.health as Health
 
@@ -111,6 +111,8 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
         if (health.value === 0) {
           context.camera.setEnd()
           context.switcher.stop()
+
+          setTimeout(() => context.switcher.start(), 0)
         }
       }
     }

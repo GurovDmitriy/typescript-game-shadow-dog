@@ -5,17 +5,20 @@ import { Receiver } from "./Receiver/Receiver"
 import { Start } from "./Start/Start"
 import { COMMAND_GAME, ISwitcher } from "./types"
 import { Stop } from "./Stop/Stop"
-import { IGame } from "../../../engine/types"
+import { IContextEngine, IGame } from "../../../engine/types"
 
 export class Switcher implements ISwitcher {
   private _invoker: IInvoker
   private readonly _receiver: IReceiver
 
-  constructor(game: IGame) {
+  constructor(game: IGame, context: IContextEngine) {
     this._invoker = new Invoker()
     this._receiver = new Receiver()
 
-    this._invoker.install(COMMAND_GAME.start, new Start(this._receiver, game))
+    this._invoker.install(
+      COMMAND_GAME.start,
+      new Start(this._receiver, game, context),
+    )
     this._invoker.install(COMMAND_GAME.stop, new Stop(this._receiver))
   }
 
