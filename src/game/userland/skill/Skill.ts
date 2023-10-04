@@ -5,6 +5,7 @@ export abstract class Skill {
   protected readonly _cb: () => void
   protected readonly _destroy?: () => void
   protected readonly _update?: () => void
+  protected _skip: boolean
 
   protected constructor(
     character: ICreatorCharacter,
@@ -16,6 +17,7 @@ export abstract class Skill {
     this._cb = cb
     this._destroy = destroy
     this._update = update
+    this._skip = false
   }
 
   abstract update(...args: never[]): void
@@ -23,4 +25,8 @@ export abstract class Skill {
   abstract make(...args: never[]): void
 
   abstract destroy(...args: never[]): void
+
+  skip(value: boolean = false): void {
+    this._skip = value
+  }
 }

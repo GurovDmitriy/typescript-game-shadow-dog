@@ -2,7 +2,8 @@ import { Skill } from "../Skill"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 
 export class Run extends Skill {
-  private _active: boolean
+  public active: boolean
+  private _distance: number
 
   public constructor(
     character: ICreatorCharacter,
@@ -11,23 +12,28 @@ export class Run extends Skill {
   ) {
     super(character, cb, destroy)
 
-    this._active = false
+    this.active = false
+    this._skip = false
+    this._distance = 0
   }
 
   update(): void {}
 
   make(): void {
+    this.active = true
     this._cb()
 
-    if (!this._active) {
-      this._character.x = 100
-      this._active = true
+    if (this._distance <= 100) {
+      this._character.x = 25
+      this._distance += 25
     }
   }
 
   destroy(): void {
-    this._active = false
-    this._character.x = -100
+    this.active = false
+    this._character.move(0, null)
+    this._distance = 0
+
     this._destroy()
   }
 }

@@ -84,8 +84,12 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
     "roll",
     new Roll(
       shadowDog,
-      () => shadowDog.roll(),
-      () => shadowDog.plain(),
+      () => {
+        shadowDog.roll()
+      },
+      () => {
+        shadowDog.plain()
+      },
     ),
   )
 

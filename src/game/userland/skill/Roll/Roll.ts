@@ -40,7 +40,7 @@ export class Roll extends Skill {
       this.active = true
       this._cb()
 
-      if (this._distance < 400) {
+      if (this._distance <= 400) {
         this._character.x = 40
         this._distance += 40
       }

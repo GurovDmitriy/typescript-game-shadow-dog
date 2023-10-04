@@ -17,9 +17,13 @@ export function inputShadowDog(context: IContextGame, shadowDog: ShadowDog) {
   context.keyboard.define(
     BTN.d,
     () => {
+      if (roll.active) return
+
       run.make()
     },
     () => {
+      if (roll.active) return
+
       run.destroy()
     },
     true,
@@ -58,9 +62,13 @@ export function inputShadowDog(context: IContextGame, shadowDog: ShadowDog) {
   context.keyboard.define(
     BTN.space,
     () => {
+      if (run.active) return
+
       roll.make(null, 100, 1000)
     },
     () => {
+      if (run.active) return
+
       roll.destroy()
     },
   )
