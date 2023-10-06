@@ -12,10 +12,20 @@ import { DisplayDistance } from "../display/DisplayDistance/DisplayDistance"
 
 export function settings(context: IContextGame): void {
   // ******
+  // display
+  // ******
+  const displayHealth = new DisplayHealth("Health", context.canvas, context.ctx)
+  const displayDistance = new DisplayDistance(
+    "Distance",
+    context.canvas,
+    context.ctx,
+  )
+
+  // ******
   // background
   // ******
   const background = new Background(context)
-  logicBackground(context, background)
+  logicBackground(context, background, displayDistance)
 
   // ******
   // shadowDog
@@ -23,7 +33,7 @@ export function settings(context: IContextGame): void {
   const shadowDog = new ShadowDog(context)
   shadowDog.plain()
 
-  logicShadowDog(context, shadowDog)
+  logicShadowDog(context, shadowDog, displayHealth)
   inputShadowDog(context, shadowDog)
 
   // ******
@@ -36,16 +46,6 @@ export function settings(context: IContextGame): void {
   enemy1.subscribe("ai", new AI(enemy1, "random"))
 
   logicEnemy(context, enemy1)
-
-  // ******
-  // display
-  // ******
-  const displayHealth = new DisplayHealth("Health", context.canvas, context.ctx)
-  const displayDistance = new DisplayDistance(
-    "Distance",
-    context.canvas,
-    context.ctx,
-  )
 
   // init
   context.initializer.subscribe(background)

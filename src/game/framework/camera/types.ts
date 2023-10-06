@@ -2,8 +2,8 @@ export interface ICamera {
   distance: number
   distanceCurrent: number
   end: boolean
-  moveLeft(speed: number): void
-  moveRight(speed: number): void
+  moveLeft(speed: number, distance: number, distanceCurrent: number): void
+  moveRight(speed: number, distance: number, distanceCurrent: number): void
   stop(): void
   setEnd(): void
   init(distance: number, distanceCurrent?: number): void
@@ -17,6 +17,6 @@ export interface ISubscriber {
 }
 
 export interface IModel {
-  move(speed: number): void
+  move(speed: number, distance: number, distanceCurrent: number): void
   addUnsubscribe?: (unsubscribe: () => void) => void
 }

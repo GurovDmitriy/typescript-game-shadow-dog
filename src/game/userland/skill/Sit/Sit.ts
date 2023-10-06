@@ -21,7 +21,7 @@ export class Sit extends Skill {
 
   update(): void {}
 
-  make(power: number = 25, period: number = 2000): void {
+  make(power: number = 5, period: number = 2000): void {
     const health = this._character.subscribeList?.health as Health
 
     if (health && Date.now() > this._date + period) {

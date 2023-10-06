@@ -39,7 +39,7 @@ export class Camera implements ICamera {
 
   public stop() {
     this._subscribers.forEach((subscriber) => {
-      subscriber.model.move(0)
+      subscriber.model.move(0, this.distance, this.distanceCurrent)
     })
   }
 
@@ -47,7 +47,7 @@ export class Camera implements ICamera {
     if (this.end) return
 
     this._subscribers.forEach((subscriber) => {
-      subscriber.model.move(-speed)
+      subscriber.model.move(-speed, this.distance, this.distanceCurrent)
 
       if (subscriber.cb) subscriber.cb()
     })
@@ -60,7 +60,7 @@ export class Camera implements ICamera {
     if (this.end) return
 
     this._subscribers.forEach((subscriber) => {
-      subscriber.model.move(speed)
+      subscriber.model.move(speed, this.distance, this.distanceCurrent)
 
       if (subscriber.cb) subscriber.cb()
     })
