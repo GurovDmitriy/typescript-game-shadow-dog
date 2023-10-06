@@ -1,7 +1,15 @@
-import { Updatable } from "../../types"
-
-export interface IDisplay extends Updatable {
-  name?: string
-  setValue(value: number): void
+export interface IDisplay {
+  name: string
   draw(): void
+  update(): void
+}
+
+export interface IModel {
+  value: number | string
+  amount?: number
+}
+
+export type PositionType = {
+  x: number
+  y: number
 }

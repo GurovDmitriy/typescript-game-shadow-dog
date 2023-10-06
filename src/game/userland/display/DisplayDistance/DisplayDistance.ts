@@ -1,23 +1,24 @@
 import { Display } from "../Display"
+import { IModel, PositionType } from "../types"
 
+/**
+ * DisplayDistance
+ * Visualization of game level camera distance
+ */
 export class DisplayDistance extends Display {
-  public name: string
-  private _padding: { x: number; y: number }
-
   public constructor(
-    name: string = "Distance",
-    canvas: HTMLCanvasElement,
+    model: IModel,
     ctx: CanvasRenderingContext2D,
+    position: PositionType,
+    percentage: boolean = true,
+    name: string = "Distance",
   ) {
-    super(canvas, ctx)
-
-    this.name = name
-    this._padding = { x: this._canvas.width - 100, y: 40 }
+    super(model, ctx, position, percentage, name)
   }
 
   public draw(): void {
-    this._ctx.font = "15px Arial"
-    this._ctx.fillText(String(this._value), this._padding.x, this._padding.y)
-    this._ctx.fillText(this.name, this._padding.x, 60)
+    this._ctx.font = "16px Arial"
+    this._ctx.fillText(String(this._value), this._position.x, this._position.y)
+    this._ctx.fillText(this.name, this._position.x, this._position.y + 20)
   }
 }

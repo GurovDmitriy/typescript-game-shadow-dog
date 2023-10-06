@@ -7,13 +7,8 @@ import { Bite } from "../../skill/Bite/Bite"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 import { Roll } from "../../skill/Roll/Roll"
 import { Sit } from "../../skill/Sit/Sit"
-import { DisplayHealth } from "../../display/DisplayHealth/DisplayHealth"
 
-export function logicShadowDog(
-  context: IContextGame,
-  shadowDog: ShadowDog,
-  displayHealth: DisplayHealth,
-) {
+export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
   context.physics.subscribe({
     model: shadowDog,
     cb: () => shadowDog.fall(),
@@ -106,12 +101,6 @@ export function logicShadowDog(
       () => shadowDog.plain(),
     ),
   )
-
-  shadowDog.subscribe("displayHealth", {
-    update() {
-      displayHealth.setValue(shadowDog.subscribeList.health.value)
-    },
-  })
 
   const settings = getSettings()
 

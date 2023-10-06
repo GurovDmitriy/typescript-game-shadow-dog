@@ -1,27 +1,46 @@
 import { Display } from "../Display"
+import { IModel, PositionType } from "../types"
 
+/**
+ * DisplayHealth
+ * Visualization level health
+ */
 export class DisplayHealth extends Display {
-  public name: string
-  private _padding: { x: number; y: number }
+  private readonly _width: number
+  private readonly _height: number
 
   public constructor(
-    name: string = "Health",
-    canvas: HTMLCanvasElement,
+    model: IModel,
     ctx: CanvasRenderingContext2D,
+    position: PositionType,
+    percentage: boolean = true,
+    name: string = "Health",
+    width: number = 100,
+    height: number = 20,
   ) {
-    super(canvas, ctx)
+    super(model, ctx, position, percentage, name)
 
-    this.name = name
-    this._padding = { x: 20, y: 20 }
+    this._width = width
+    this._height = height
   }
 
   public draw(): void {
-    this._ctx.rect(this._padding.x, this._padding.y, 100, 20)
+    this._ctx.rect(
+      this._position.x,
+      this._position.y,
+      this._width,
+      this._height,
+    )
     this._ctx.stroke()
 
-    this._ctx.fillRect(20, 20, this._value, 20)
+    this._ctx.fillRect(
+      this._position.x,
+      this._position.y,
+      this._value as number,
+      this._height,
+    )
 
     this._ctx.font = "16px Arial"
-    this._ctx.fillText("Health", 20, 60)
+    this._ctx.fillText(this.name, this._position.x, this._position.y + 20)
   }
 }
