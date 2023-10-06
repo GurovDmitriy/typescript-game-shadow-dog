@@ -7,6 +7,8 @@ import { logicBackground } from "./logic/logicBackground"
 import { AI } from "../ai/AI"
 import { logicEnemy } from "./logic/logicEnemy"
 import { Enemy1 } from "../model/Enemy1/Enemy1"
+import { DisplayHealth } from "../display/DisplayHealth/DisplayHealth"
+import { DisplayDistance } from "../display/DisplayDistance/DisplayDistance"
 
 export function settings(context: IContextGame): void {
   // ******
@@ -35,8 +37,20 @@ export function settings(context: IContextGame): void {
 
   logicEnemy(context, enemy1)
 
+  // ******
+  // display
+  // ******
+  const displayHealth = new DisplayHealth("Health", context.canvas, context.ctx)
+  const displayDistance = new DisplayDistance(
+    "Distance",
+    context.canvas,
+    context.ctx,
+  )
+
   // init
   context.initializer.subscribe(background)
   context.initializer.subscribe(shadowDog)
   context.initializer.subscribe(enemy1)
+  context.initializer.subscribe(displayHealth)
+  context.initializer.subscribe(displayDistance)
 }

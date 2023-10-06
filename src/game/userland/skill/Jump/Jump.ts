@@ -29,8 +29,9 @@ export class Jump extends Skill {
 
     if (this._distanceCurrent >= this._distance) {
       this._distance = 0
-      this.active = false
     }
+
+    if (this._character.y === 0) this.active = false
   }
 
   make(distance: number = 200, power: number = 20): void {

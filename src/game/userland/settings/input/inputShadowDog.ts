@@ -63,11 +63,13 @@ export function inputShadowDog(context: IContextGame, shadowDog: ShadowDog) {
     BTN.space,
     () => {
       if (run.active) return
+      if (jump.active) return
 
       roll.make(null, 100, 1000)
     },
     () => {
       if (run.active) return
+      if (jump.active) return
 
       roll.destroy()
     },
