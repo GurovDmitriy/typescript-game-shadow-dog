@@ -9,7 +9,7 @@ export class Camera implements ICamera {
   public end: boolean
 
   public constructor() {
-    this._observable = new ObservableCreator()
+    this._observable = new ObservableCreator<ICamera>()
     this.distance = 0
     this.distanceCurrent = 0
     this.end = true
@@ -23,24 +23,24 @@ export class Camera implements ICamera {
     this._observable.unsubscribe(value)
   }
 
-  public init(distance: number = 0, distanceCurrent: number = 0) {
+  public notify(): void {
+    this._observable.notify(this)
+  }
+
+  public init(distance: number = 0, distanceCurrent: number = 0): void {
     this.distance = distance
     this.distanceCurrent = distanceCurrent
     this.end = distance < distanceCurrent
   }
 
-  public stop() {
-    this._observable.notify(this)
-  }
-
   public moveLeft(speed: number): void {
     if (this.end) {
-      this._observable.notify(this)
+      this.notify()
     } else {
       this.distanceCurrent -= speed
       this._checkDistance()
 
-      this._observable.notify(this)
+      this.notify()
     }
   }
 
@@ -57,8 +57,6 @@ export class Camera implements ICamera {
 
   public setEnd() {
     this.end = true
-    this.stop()
-
     this._observable.notify(this)
   }
 

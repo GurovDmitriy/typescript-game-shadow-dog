@@ -1,7 +1,7 @@
 export interface ICollision {
+  subscribe(subscriber: ISubscriber): () => void
+  unsubscribe(subscriber: ISubscriber): void
   update(): void
-  subscribe(subscriber: ISubscriber): void
-  unsubscribe(index: number): void
 }
 
 export interface IRect {
@@ -11,11 +11,7 @@ export interface IRect {
   height: number
 }
 
-export interface IModel extends IRect {
-  addUnsubscribe(unsubscribe: () => void): void
-}
-
-export interface ISubscriber {
-  model: IModel
-  cb(subscriber: IModel): void
+export interface ISubscriber extends IRect {
+  update(data: ISubscriber): void
+  addUnsubscribe?: (unsubscribe: () => void) => void
 }

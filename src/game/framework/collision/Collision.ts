@@ -1,46 +1,45 @@
-import { IRect, ISubscriber } from "./types"
+import { ICollision, IRect, ISubscriber } from "./types"
 
-export class Collision {
-  private readonly _subscribers: ISubscriber[]
+export class Collision implements ICollision {
+  private readonly _subscribers: Set<ISubscriber>
 
   public constructor() {
-    this._subscribers = []
+    this._subscribers = new Set()
   }
 
   public update(): void {
-    this._subscribers.forEach((subscriber, index) => {
+    const arr = Array.from(this._subscribers)
+
+    arr.forEach((subscriber, index) => {
       this._findCollision(subscriber, index)
     })
   }
 
   public subscribe(subscriber: ISubscriber): () => void {
-    this._subscribers.push(subscriber)
-    const unsubscribe = this.unsubscribe.bind(
-      this,
-      this._subscribers.length - 1,
-    )
+    this._subscribers.add(subscriber)
 
-    if (subscriber.model.addUnsubscribe) {
-      subscriber.model.addUnsubscribe(unsubscribe)
+    const unsubscribe = this.unsubscribe.bind(this, subscriber)
+
+    if (subscriber.addUnsubscribe) {
+      subscriber.addUnsubscribe(unsubscribe)
     }
 
     return unsubscribe
   }
 
-  public unsubscribe(index: number): void {
-    this._subscribers.splice(index, 1)
+  public unsubscribe(value: ISubscriber): void {
+    this._subscribers.delete(value)
   }
 
   _findCollision(subscriber: ISubscriber, index: number) {
-    for (let i = index + 1; i < this._subscribers.length; i++) {
-      const collision = this._circle(
-        subscriber.model,
-        this._subscribers[i].model,
-      )
+    const arr = Array.from(this._subscribers)
+
+    for (let i = index + 1; i < arr.length; i++) {
+      const collision = this._circle(subscriber, arr[i])
 
       if (collision) {
-        subscriber.cb(this._subscribers[i].model)
-        this._subscribers[i].cb(subscriber.model)
+        subscriber.update(arr[i])
+        arr[i].update(subscriber)
       }
     }
   }
