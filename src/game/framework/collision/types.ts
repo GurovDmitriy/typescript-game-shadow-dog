@@ -13,4 +13,7 @@ export interface IRect {
   height: number
 }
 
-export interface ISubscriber extends IRect, IObserver<ISubscriber> {}
+export interface ISubscriber extends IObserver<undefined> {
+  model: IRect
+  cb(data: ISubscriber): void
+}

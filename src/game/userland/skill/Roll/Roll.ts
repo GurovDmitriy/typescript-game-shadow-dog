@@ -2,6 +2,10 @@ import { Skill } from "../Skill"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 import { Health } from "../Health/Health"
 
+/**
+ * Roll
+ * Skill to deal damage.
+ */
 export class Roll extends Skill {
   private _date: number
   private _model: ICreatorCharacter | null

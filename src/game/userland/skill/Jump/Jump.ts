@@ -1,6 +1,10 @@
 import { Skill } from "../Skill"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 
+/**
+ * Jump
+ * Skill for jump.
+ */
 export class Jump extends Skill {
   private _distance: number
   private _power: number

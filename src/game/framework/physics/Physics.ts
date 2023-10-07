@@ -23,14 +23,14 @@ export class Physics implements IPhysics {
 
   public update(): void {
     this._observable.subscribers.forEach((item) => {
-      if (item.y !== 0) {
+      if (item.model.y !== 0) {
         if (item.cb && typeof item.cb === "function") item.cb()
 
-        if (item.y + 6 < 0) {
-          item.y = -6
+        if (item.model.y + 6 < 0) {
+          item.model.y = -6
         } else {
-          const distance = item.y
-          item.y = distance
+          const distance = item.model.y
+          item.model.y = distance
 
           if (item.cbEnd && typeof item.cbEnd === "function") item.cbEnd()
         }

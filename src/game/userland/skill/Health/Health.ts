@@ -1,6 +1,10 @@
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 import { Skill } from "../Skill"
 
+/**
+ * Health
+ * Skill for control damage.
+ */
 export class Health extends Skill {
   private _value: number
 

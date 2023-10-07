@@ -7,7 +7,7 @@ export interface IPhysics {
 }
 
 export interface ISubscriber extends IObserver<undefined> {
-  y: number
+  model: { y: number }
   cb?: () => void
   cbEnd?: () => void
 }

@@ -1,6 +1,10 @@
 import { Skill } from "../Skill"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 
+/**
+ * Run
+ * Skill for run.
+ */
 export class Run extends Skill {
   public active: boolean
   private _distance: number
@@ -13,7 +17,6 @@ export class Run extends Skill {
     super(character, cb, destroy)
 
     this.active = false
-    this._skip = false
     this._distance = 0
   }
 

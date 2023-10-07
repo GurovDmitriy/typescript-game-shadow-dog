@@ -3,8 +3,8 @@ import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/t
 import { Health } from "../Health/Health"
 
 /**
- * Sit - skill for recovery health
- * // TODO: make utils for abstract class for timeout
+ * Sit
+ * Skill for recovery health.
  */
 export class Sit extends Skill {
   private _date: number

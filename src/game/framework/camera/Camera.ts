@@ -12,6 +12,7 @@ export class Camera implements ICamera {
   public distance: number
   public distanceCurrent: number
   public end: boolean
+  public speed: number
 
   public constructor() {
     this._observable = new ObservableCreator<ISubscriber, ICamera>()
@@ -42,6 +43,7 @@ export class Camera implements ICamera {
     if (this.end) {
       this.notify()
     } else {
+      this.speed = speed
       this.distanceCurrent -= speed
       this._checkDistance()
 
@@ -53,11 +55,17 @@ export class Camera implements ICamera {
     if (this.end) {
       this.notify()
     } else {
+      this.speed = speed
       this.distanceCurrent += speed
       this._checkDistance()
 
       this.notify()
     }
+  }
+
+  public stop() {
+    this.speed = 0
+    this.notify()
   }
 
   public setEnd() {

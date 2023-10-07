@@ -12,7 +12,7 @@ import { Switcher } from "./framework/switcher/Switcher"
  * Game - create game context and loop for engine
  */
 export class Game implements IGame {
-  private _contextEngine: IContextEngine
+  private readonly _contextEngine: IContextEngine
   private _context: IContextGame
 
   public constructor(context: IContextEngine) {

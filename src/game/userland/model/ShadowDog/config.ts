@@ -1,5 +1,5 @@
 import { ActionShadowDog } from "./types"
-import type { ConfigType } from "../../../framework/creator/CreatorCharacter/Maper/Mapper"
+import { ConfigType } from "../../../framework/creator/CreatorCharacter/Maper/types"
 
 export const config: ConfigType = {
   image: {

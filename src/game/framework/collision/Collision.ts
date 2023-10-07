@@ -34,11 +34,11 @@ export class Collision implements ICollision {
     const arr = Array.from(this._observable.subscribers)
 
     for (let i = index + 1; i < arr.length; i++) {
-      const collision = this._circle(subscriber, arr[i])
+      const collision = this._circle(subscriber.model, arr[i].model)
 
       if (collision) {
-        subscriber.update(arr[i])
-        arr[i].update(subscriber)
+        subscriber.cb(arr[i])
+        arr[i].cb(subscriber)
       }
     }
   }

@@ -3,7 +3,7 @@ import { IModel, PositionType } from "../types"
 
 /**
  * DisplayHealth
- * Visualization level health
+ * Visualization level health.
  */
 export class DisplayHealth extends Display {
   private readonly _width: number
