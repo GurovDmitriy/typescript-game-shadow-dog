@@ -1,34 +1,26 @@
 import { ICamera, ISubscriber } from "./types"
+import { ObservableCreator } from "../util/ObservableCreator/ObservableCreator"
+import { IObservableCreator } from "../util/ObservableCreator/types"
 
 export class Camera implements ICamera {
-  private readonly _subscribers: ISubscriber[]
+  private _observable: IObservableCreator<ICamera>
   public distance: number
   public distanceCurrent: number
   public end: boolean
 
   public constructor() {
-    this._subscribers = []
+    this._observable = new ObservableCreator()
     this.distance = 0
     this.distanceCurrent = 0
     this.end = true
   }
 
-  public subscribe(subscriber: ISubscriber): () => void {
-    this._subscribers.push(subscriber)
-    const unsubscribe = this.unsubscribe.bind(
-      this,
-      this._subscribers.length - 1,
-    )
-
-    if (subscriber.model.addUnsubscribe) {
-      subscriber.model.addUnsubscribe(unsubscribe)
-    }
-
-    return unsubscribe
+  public subscribe(subscriber: ISubscriber<ICamera>): () => void {
+    return this._observable.subscribe(subscriber)
   }
 
-  public unsubscribe(index: number): void {
-    this._subscribers.splice(index, 1)
+  public unsubscribe(value: ISubscriber<ICamera>): void {
+    this._observable.unsubscribe(value)
   }
 
   public init(distance: number = 0, distanceCurrent: number = 0) {
@@ -38,43 +30,39 @@ export class Camera implements ICamera {
   }
 
   public stop() {
-    this._subscribers.forEach((subscriber) => {
-      subscriber.model.move(0, this.distance, this.distanceCurrent)
-    })
+    this._observable.notify(this)
   }
 
   public moveLeft(speed: number): void {
-    if (this.end) return
+    if (this.end) {
+      this._observable.notify(this)
+    } else {
+      this.distanceCurrent -= speed
+      this._checkDistance()
 
-    this._subscribers.forEach((subscriber) => {
-      subscriber.model.move(-speed, this.distance, this.distanceCurrent)
-
-      if (subscriber.cb) subscriber.cb()
-    })
-
-    this.distanceCurrent -= speed
-    this._endDistance()
+      this._observable.notify(this)
+    }
   }
 
   public moveRight(speed: number): void {
-    if (this.end) return
+    if (this.end) {
+      this._observable.notify(this)
+    } else {
+      this.distanceCurrent += speed
+      this._checkDistance()
 
-    this._subscribers.forEach((subscriber) => {
-      subscriber.model.move(speed, this.distance, this.distanceCurrent)
-
-      if (subscriber.cb) subscriber.cb()
-    })
-
-    this.distanceCurrent += speed
-    this._endDistance()
+      this._observable.notify(this)
+    }
   }
 
   public setEnd() {
     this.end = true
     this.stop()
+
+    this._observable.notify(this)
   }
 
-  private _endDistance() {
+  private _checkDistance() {
     if (this.distanceCurrent >= this.distance) {
       this.setEnd()
     }

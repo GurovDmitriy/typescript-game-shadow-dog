@@ -1,3 +1,5 @@
+import { IObserver } from "../util/ObservableCreator/types"
+
 export interface ICamera {
   distance: number
   distanceCurrent: number
@@ -7,16 +9,6 @@ export interface ICamera {
   stop(): void
   setEnd(): void
   init(distance: number, distanceCurrent?: number): void
-  subscribe(subscriber: ISubscriber): () => void
-  unsubscribe(index: number): void
 }
 
-export interface ISubscriber {
-  model: IModel
-  cb?: () => void
-}
-
-export interface IModel {
-  move(speed: number, distance: number, distanceCurrent: number): void
-  addUnsubscribe?: (unsubscribe: () => void) => void
-}
+export interface ISubscriber<T> extends IObserver<T> {}
