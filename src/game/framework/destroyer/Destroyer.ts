@@ -1,16 +1,22 @@
 import { IDestroyer, ISubscriber } from "./types"
+import { ObservableCreator } from "../util/ObservableCreator/ObservableCreator"
+import { IObservableCreator } from "../util/ObservableCreator/types"
 
+/**
+ * Destroyer
+ * Destroy element outside canvas.
+ */
 export class Destroyer implements IDestroyer {
-  private readonly _subscribers: ISubscriber[]
+  private _observable: IObservableCreator<ISubscriber, undefined>
   private _canvas: HTMLCanvasElement
 
   public constructor(canvas: HTMLCanvasElement) {
-    this._subscribers = []
     this._canvas = canvas
+    this._observable = new ObservableCreator<ISubscriber, undefined>()
   }
 
   public update(): void {
-    this._subscribers.forEach((subscriber) => {
+    this._observable.subscribers.forEach((subscriber) => {
       if (
         subscriber.x < -200 ||
         subscriber.x > this._canvas.width + 200 ||
@@ -23,19 +29,10 @@ export class Destroyer implements IDestroyer {
   }
 
   public subscribe(subscriber: ISubscriber): () => void {
-    this._subscribers.push(subscriber)
-    const unsubscribe = this.unsubscribe.bind(
-      this,
-      this._subscribers.length - 1,
-    )
-
-    if (subscriber.addUnsubscribe) {
-      subscriber.addUnsubscribe(unsubscribe)
-    }
-    return unsubscribe
+    return this._observable.subscribe(subscriber)
   }
 
-  public unsubscribe(index: number): void {
-    this._subscribers.splice(index, 1)
+  public unsubscribe(subscriber: ISubscriber): void {
+    this._observable.unsubscribe(subscriber)
   }
 }

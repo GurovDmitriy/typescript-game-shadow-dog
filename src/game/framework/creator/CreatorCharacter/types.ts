@@ -1,4 +1,4 @@
-import { ISubscribeList, ISubscriber } from "./Subscribe/types"
+import { ISubscribers, ISubscriber } from "./Subscribe/types"
 import { UnsubscribeType } from "./Unsubscribe/types"
 
 export interface ICreatorCharacter {
@@ -6,7 +6,7 @@ export interface ICreatorCharacter {
   height: number
   x: number
   y: number
-  subscribeList: ISubscribeList
+  subscribeList: ISubscribers
   move(x: number, y: number): void
   update(): void
   animate(name: string): void

@@ -6,14 +6,16 @@ import { IObservableCreator, IObserver } from "./types"
  * The subscriber may also have the opportunity to retain unsubscribe functions in
  * order to implement destruction.
  */
-export class ObservableCreator<T> implements IObservableCreator<T> {
-  public subscribers: Set<IObserver<T>>
+export class ObservableCreator<T extends IObserver<T1>, T1>
+  implements IObservableCreator<T, T1>
+{
+  public subscribers: Set<T>
 
   public constructor() {
     this.subscribers = new Set()
   }
 
-  public subscribe(subscriber: IObserver<T>): () => void {
+  public subscribe(subscriber: T): () => void {
     this.subscribers.add(subscriber)
 
     const unsubscribe = this.unsubscribe.bind(this, subscriber)
@@ -25,13 +27,15 @@ export class ObservableCreator<T> implements IObservableCreator<T> {
     return unsubscribe
   }
 
-  public unsubscribe(value: IObserver<T>) {
+  public unsubscribe(value: T) {
     this.subscribers.delete(value)
   }
 
-  notify(data: T) {
+  notify(data: T1) {
     this.subscribers.forEach((subscriber) => {
-      subscriber.update(data)
+      if (subscriber.update) {
+        subscriber.update(data)
+      }
     })
   }
 }

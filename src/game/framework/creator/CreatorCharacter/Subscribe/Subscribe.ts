@@ -1,30 +1,35 @@
-import { ISubscribe, ISubscribeList, ISubscriber } from "./types"
+import { ISubscribe, ISubscribers, ISubscriber } from "./types"
 
+/**
+ * Subscribe
+ * Create a behavior for the character,
+ * each subscriber will be called when updating.
+ */
 export class Subscribe implements ISubscribe {
-  public list: ISubscribeList
+  public subscribers: ISubscribers
 
   constructor() {
-    this.list = {}
+    this.subscribers = {}
   }
 
   public update() {
-    Object.values(this.list).forEach((subscriber) => {
+    Object.values(this.subscribers).forEach((subscriber) => {
       subscriber.update()
     })
   }
 
   public subscribe(name: string, subscriber: ISubscriber): () => void {
-    this.list[name] = subscriber
+    this.subscribers[name] = subscriber
     const unsubscribe = this.unsubscribe.bind(this, name)
 
     return unsubscribe
   }
 
   public unsubscribe(name: string) {
-    delete this.list[name]
+    delete this.subscribers[name]
   }
 
   public destroy() {
-    this.list = {}
+    this.subscribers = {}
   }
 }

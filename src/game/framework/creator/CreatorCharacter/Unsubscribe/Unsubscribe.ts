@@ -1,5 +1,9 @@
 import { IUnsubscribe, UnsubscribeListType, UnsubscribeType } from "./types"
 
+/**
+ * Unsubscribe
+ * Save the character's unsubscribes for proper destruction.
+ */
 export class Unsubscribe implements IUnsubscribe {
   private _list: UnsubscribeListType
 

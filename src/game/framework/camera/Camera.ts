@@ -2,24 +2,29 @@ import { ICamera, ISubscriber } from "./types"
 import { ObservableCreator } from "../util/ObservableCreator/ObservableCreator"
 import { IObservableCreator } from "../util/ObservableCreator/types"
 
+/**
+ * Camera
+ * Move elements relative to the character,
+ * such as the background or other characters.
+ */
 export class Camera implements ICamera {
-  private _observable: IObservableCreator<ICamera>
+  private _observable: IObservableCreator<ISubscriber, ICamera>
   public distance: number
   public distanceCurrent: number
   public end: boolean
 
   public constructor() {
-    this._observable = new ObservableCreator<ICamera>()
+    this._observable = new ObservableCreator<ISubscriber, ICamera>()
     this.distance = 0
     this.distanceCurrent = 0
     this.end = true
   }
 
-  public subscribe(subscriber: ISubscriber<ICamera>): () => void {
+  public subscribe(subscriber: ISubscriber): () => void {
     return this._observable.subscribe(subscriber)
   }
 
-  public unsubscribe(value: ISubscriber<ICamera>): void {
+  public unsubscribe(value: ISubscriber): void {
     this._observable.unsubscribe(value)
   }
 
@@ -46,18 +51,18 @@ export class Camera implements ICamera {
 
   public moveRight(speed: number): void {
     if (this.end) {
-      this._observable.notify(this)
+      this.notify()
     } else {
       this.distanceCurrent += speed
       this._checkDistance()
 
-      this._observable.notify(this)
+      this.notify()
     }
   }
 
   public setEnd() {
     this.end = true
-    this._observable.notify(this)
+    this.notify()
   }
 
   private _checkDistance() {

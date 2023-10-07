@@ -4,7 +4,8 @@ import { IMover } from "../Mover/types"
 import { IContextGame } from "../../../../types"
 
 /**
- * Drawer - draw with canvas
+ * Drawer
+ * draw with canvas.
  */
 export class Drawer implements IDrawer {
   private _animator: IAnimator

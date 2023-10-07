@@ -1,14 +1,21 @@
 import { ICollision, IRect, ISubscriber } from "./types"
+import { IObservableCreator } from "../util/ObservableCreator/types"
+import { ObservableCreator } from "../util/ObservableCreator/ObservableCreator"
 
+/**
+ * Collision
+ * Check collision elements
+ * and notify with each other as an argument.
+ */
 export class Collision implements ICollision {
-  private readonly _subscribers: Set<ISubscriber>
+  private readonly _observable: IObservableCreator<ISubscriber, ISubscriber>
 
   public constructor() {
-    this._subscribers = new Set()
+    this._observable = new ObservableCreator<ISubscriber, ISubscriber>()
   }
 
   public update(): void {
-    const arr = Array.from(this._subscribers)
+    const arr = Array.from(this._observable.subscribers)
 
     arr.forEach((subscriber, index) => {
       this._findCollision(subscriber, index)
@@ -16,23 +23,15 @@ export class Collision implements ICollision {
   }
 
   public subscribe(subscriber: ISubscriber): () => void {
-    this._subscribers.add(subscriber)
-
-    const unsubscribe = this.unsubscribe.bind(this, subscriber)
-
-    if (subscriber.addUnsubscribe) {
-      subscriber.addUnsubscribe(unsubscribe)
-    }
-
-    return unsubscribe
+    return this._observable.subscribe(subscriber)
   }
 
   public unsubscribe(value: ISubscriber): void {
-    this._subscribers.delete(value)
+    this._observable.unsubscribe(value)
   }
 
   _findCollision(subscriber: ISubscriber, index: number) {
-    const arr = Array.from(this._subscribers)
+    const arr = Array.from(this._observable.subscribers)
 
     for (let i = index + 1; i < arr.length; i++) {
       const collision = this._circle(subscriber, arr[i])

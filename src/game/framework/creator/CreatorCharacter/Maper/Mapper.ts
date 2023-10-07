@@ -1,7 +1,8 @@
 import { ConfigType, IMapper, MapType } from "./types"
 
 /**
- * Mapper - create map animation from config
+ * Mapper
+ * Create map animation from config.
  */
 export class Mapper implements IMapper {
   public readonly config: ConfigType

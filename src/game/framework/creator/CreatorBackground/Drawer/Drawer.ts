@@ -2,7 +2,8 @@ import { IDrawer } from "./types"
 import { IAnimator } from "../Animator/types"
 
 /**
- * Drawer - facade for draw background layer on canvas
+ * Drawer
+ * Draw background layer on canvas.
  */
 export class Drawer implements IDrawer {
   private readonly _image: HTMLImageElement

@@ -1,7 +1,8 @@
 import { IAnimator } from "./types"
 
 /**
- * Animator - algorithm for create data for draw bg infinity on canvas
+ * Animator
+ * Algorithm for create data for draw bg infinity on canvas.
  */
 export class Animator implements IAnimator {
   private readonly _width: number

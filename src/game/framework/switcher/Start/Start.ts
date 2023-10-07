@@ -2,6 +2,10 @@ import { ICommand } from "../types"
 import { IReceiver } from "../Receiver/types"
 import { IContextEngine, IGame } from "../../../../engine/types"
 
+/**
+ * Start
+ * Command start game.
+ */
 export class Start implements ICommand {
   private _receiver: IReceiver
   private readonly _game: IGame

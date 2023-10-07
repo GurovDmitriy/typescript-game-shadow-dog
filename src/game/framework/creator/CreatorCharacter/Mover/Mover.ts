@@ -1,7 +1,8 @@
 import { IMover } from "./types"
 
 /**
- * Mover - control for set figure coordinates x, y
+ * Mover
+ * Control for set figure coordinates x, y.
  */
 export class Mover implements IMover {
   private _x: number

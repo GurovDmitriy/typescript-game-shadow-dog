@@ -14,7 +14,8 @@ import { ISubscribe, ISubscriber } from "./Subscribe/types"
 import { IContextGame } from "../../../types"
 
 /**
- * Character - abstract for extends game figure
+ * Character
+ * Base for expanding game characters.
  */
 export abstract class CreatorCharacter implements ICreatorCharacter {
   private _drawer: IDrawer
@@ -42,7 +43,7 @@ export abstract class CreatorCharacter implements ICreatorCharacter {
   }
 
   get subscribeList() {
-    return this._subscribe.list
+    return this._subscribe.subscribers
   }
 
   public subscribe(name: string, subscriber: ISubscriber): () => void {

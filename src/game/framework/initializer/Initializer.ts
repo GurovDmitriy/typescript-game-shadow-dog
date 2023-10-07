@@ -1,36 +1,26 @@
 import { IInitializer, ISubscriber } from "./types"
+import { ObservableCreator } from "../util/ObservableCreator/ObservableCreator"
 
 /**
- * Initializer - add or remove figure on game render
+ * Initializer
+ * Add or remove render game object.
  */
 export class Initializer implements IInitializer {
-  private _subscribers: ISubscriber[]
+  private _observable: ObservableCreator<ISubscriber, undefined>
 
   constructor() {
-    this._subscribers = []
+    this._observable = new ObservableCreator<ISubscriber, undefined>()
   }
 
   public update() {
-    this._subscribers.forEach((subscriber) => {
-      subscriber.update()
-    })
+    this._observable.notify(undefined)
   }
 
   public subscribe(subscriber: ISubscriber): () => void {
-    this._subscribers.push(subscriber)
-    const unsubscribe = this.unsubscribe.bind(
-      this,
-      this._subscribers.length - 1,
-    )
-
-    if (subscriber.addUnsubscribe) {
-      subscriber.addUnsubscribe(unsubscribe)
-    }
-
-    return unsubscribe
+    return this._observable.subscribe(subscriber)
   }
 
-  public unsubscribe(index: number) {
-    this._subscribers.splice(index, 1)
+  public unsubscribe(value: ISubscriber) {
+    return this.unsubscribe(value)
   }
 }

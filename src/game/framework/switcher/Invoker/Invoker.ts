@@ -1,6 +1,10 @@
 import { IInvoker } from "./types"
 import { ICommand } from "../types"
 
+/**
+ * Invoker
+ * Register game commands.
+ */
 export class Invoker implements IInvoker {
   private readonly _commands: ICommand[]
 

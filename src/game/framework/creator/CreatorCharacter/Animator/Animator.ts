@@ -1,7 +1,9 @@
 import { IAnimator } from "./types"
 import { IMapper } from "../Maper/types"
+
 /**
- * Animator - get values for draw animation
+ * Animator
+ * Get values for draw animation.
  */
 export class Animator implements IAnimator {
   private _mapper: IMapper

@@ -1,3 +1,5 @@
+import { IObserver } from "../util/ObservableCreator/types"
+
 export interface ICollision {
   subscribe(subscriber: ISubscriber): () => void
   unsubscribe(subscriber: ISubscriber): void
@@ -11,7 +13,4 @@ export interface IRect {
   height: number
 }
 
-export interface ISubscriber extends IRect {
-  update(data: ISubscriber): void
-  addUnsubscribe?: (unsubscribe: () => void) => void
-}
+export interface ISubscriber extends IRect, IObserver<ISubscriber> {}

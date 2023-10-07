@@ -7,6 +7,10 @@ import { COMMAND_GAME, ISwitcher } from "./types"
 import { Stop } from "./Stop/Stop"
 import { IContextEngine, IGame } from "../../../engine/types"
 
+/**
+ * Switcher
+ * Toggle game commands with client cb.
+ */
 export class Switcher implements ISwitcher {
   private _invoker: IInvoker
   private readonly _receiver: IReceiver
