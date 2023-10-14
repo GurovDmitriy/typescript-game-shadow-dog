@@ -1,5 +1,5 @@
 import { IContextGame } from "../../../types"
-import { AdapterCameraEnemy1 } from "../../adapters/AdapterCameraEnemy1"
+import { AdapterCameraEnemy } from "../../adapters/AdapterCameraEnemy"
 import { Bite } from "../../skill/Bite/Bite"
 import { Enemy1 } from "../../model/Enemy1/Enemy1"
 import { Health } from "../../skill/Health/Health"
@@ -7,7 +7,7 @@ import { Health } from "../../skill/Health/Health"
 export function logicEnemy(context: IContextGame, enemy: Enemy1) {
   context.destroyer.subscribe(enemy)
 
-  const adapterCameraEnemy = new AdapterCameraEnemy1(enemy)
+  const adapterCameraEnemy = new AdapterCameraEnemy(enemy)
   context.camera.subscribe(adapterCameraEnemy)
 
   context.collision.subscribe({

@@ -1,10 +1,10 @@
-import { Enemy1 } from "../model/Enemy1/Enemy1"
 import { ICamera, ISubscriber } from "../../framework/camera/types"
+import { IEnemy1 } from "../model/Enemy1/types"
 
-export class AdapterCameraEnemy1 implements ISubscriber {
-  private _instance: Enemy1
+export class AdapterCameraEnemy implements ISubscriber {
+  private _instance: IEnemy1
 
-  public constructor(instance: Enemy1) {
+  public constructor(instance: IEnemy1) {
     this._instance = instance
   }
 

@@ -12,6 +12,7 @@ import { DisplayDistance } from "../display/DisplayDistance/DisplayDistance"
 import { AdapterDisplayDistance } from "../adapters/AdapterDisplayDistance"
 import { AdapterDisplayShadowDogHealth } from "../adapters/AdapterDisplayShadowDogHealth"
 import { Restart } from "../commands/Restart/Restart"
+import { ICamera } from "../../framework/camera/types"
 
 export function settings(context: IContextGame): void {
   // ******
@@ -37,13 +38,21 @@ export function settings(context: IContextGame): void {
   // ******
   // enemy
   // ******
-  const enemy1 = new Enemy1(context)
-  enemy1.plain()
-  enemy1.move(800, 100)
+  context.camera.subscribe({
+    update(data: ICamera) {
+      if ((data.distance - data.distanceCurrent) % 400 === 0) {
+        const enemy1 = new Enemy1(context)
+        enemy1.plain()
+        enemy1.move(800, 100)
 
-  enemy1.subscribe("ai", new AI(enemy1, "random"))
+        enemy1.subscribe("ai", new AI(enemy1, "random"))
 
-  logicEnemy(context, enemy1)
+        logicEnemy(context, enemy1)
+
+        context.initializer.subscribe(enemy1)
+      }
+    },
+  })
 
   // ******
   // display
@@ -62,7 +71,6 @@ export function settings(context: IContextGame): void {
   // init
   context.initializer.subscribe(background)
   context.initializer.subscribe(shadowDog)
-  context.initializer.subscribe(enemy1)
   context.initializer.subscribe(displayHealth)
   context.initializer.subscribe(displayDistance)
 }
