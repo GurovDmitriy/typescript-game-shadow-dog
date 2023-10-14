@@ -3,9 +3,12 @@ import { IContextGame } from "../../../types"
 import { AdapterCameraBackground } from "../../adapters/AdapterCameraBackground"
 
 export function logicBackground(context: IContextGame, background: Background) {
-  context.camera.init(10000)
+  context.camera.init(20000)
 
-  const adapterCameraBackground = new AdapterCameraBackground(background)
+  const adapterCameraBackground = new AdapterCameraBackground(
+    background,
+    context,
+  )
 
   context.camera.subscribe(adapterCameraBackground)
 }

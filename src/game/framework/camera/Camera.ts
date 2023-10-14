@@ -41,7 +41,7 @@ export class Camera implements ICamera {
 
   public moveLeft(speed: number): void {
     if (this.end) {
-      this.notify()
+      return
     } else {
       this.speed = speed
       this.distanceCurrent -= speed
@@ -53,7 +53,7 @@ export class Camera implements ICamera {
 
   public moveRight(speed: number): void {
     if (this.end) {
-      this.notify()
+      return
     } else {
       this.speed = speed
       this.distanceCurrent += speed
@@ -70,7 +70,7 @@ export class Camera implements ICamera {
 
   public setEnd() {
     this.end = true
-    this.notify()
+    this.speed = 0
   }
 
   private _checkDistance() {

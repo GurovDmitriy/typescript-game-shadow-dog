@@ -1,3 +1,5 @@
+import { IContextGame } from "../game/types"
+
 export interface Updatable {
   update(): void
 }
@@ -9,6 +11,7 @@ export interface Runnable {
 export interface IEngine extends Runnable {}
 
 export interface IGame extends Runnable {
+  context: IContextGame
   init(): void
 }
 

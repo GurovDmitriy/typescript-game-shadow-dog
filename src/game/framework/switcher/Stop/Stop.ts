@@ -1,5 +1,6 @@
 import { ICommand } from "../types"
 import { IReceiver } from "../Receiver/types"
+import { IGame } from "../../../../engine/types"
 
 /**
  * Stop
@@ -7,12 +8,14 @@ import { IReceiver } from "../Receiver/types"
  */
 export class Stop implements ICommand {
   private _receiver: IReceiver
+  private readonly _game: IGame
 
-  constructor(receiver: IReceiver) {
+  constructor(receiver: IReceiver, game: IGame) {
     this._receiver = receiver
+    this._game = game
   }
 
   execute() {
-    this._receiver.stop()
+    this._receiver.stop(this._game)
   }
 }

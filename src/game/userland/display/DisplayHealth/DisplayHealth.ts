@@ -41,6 +41,6 @@ export class DisplayHealth extends Display {
     )
 
     this._ctx.font = "16px Arial"
-    this._ctx.fillText(this.name, this._position.x, this._position.y + 20)
+    this._ctx.fillText(this.name, this._position.x, this._position.y + 40)
   }
 }

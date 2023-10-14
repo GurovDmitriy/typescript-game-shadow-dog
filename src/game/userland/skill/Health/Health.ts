@@ -45,7 +45,5 @@ export class Health extends Skill {
     }
 
     this._destroy()
-
-    console.log(this._value)
   }
 }

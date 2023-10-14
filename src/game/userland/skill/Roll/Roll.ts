@@ -51,8 +51,8 @@ export class Roll extends Skill {
 
       const m = model || this._model
 
-      if (m !== null && m.subscribeList.health) {
-        const health = m.subscribeList.health as Health
+      if (m !== null && m.model.subscribeList.health) {
+        const health = m.model.subscribeList.health as Health
         health.make(power)
       }
     } else {

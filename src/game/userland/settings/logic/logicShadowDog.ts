@@ -7,6 +7,7 @@ import { Bite } from "../../skill/Bite/Bite"
 import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 import { Roll } from "../../skill/Roll/Roll"
 import { Sit } from "../../skill/Sit/Sit"
+import { COMMAND_GAME } from "../../../framework/switcher/types"
 
 export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
   context.physics.subscribe({
@@ -113,10 +114,9 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
         setTimeout(() => shadowDog.plain(), 200)
 
         if (health.value === 0) {
-          context.camera.setEnd()
-          context.switcher.stop()
-
-          setTimeout(() => context.switcher.start(), 0)
+          if (context.switcher.status === COMMAND_GAME.start) {
+            context.switcher.execute("restart")
+          }
         }
       }
     }

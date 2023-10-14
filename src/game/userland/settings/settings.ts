@@ -11,8 +11,14 @@ import { DisplayHealth } from "../display/DisplayHealth/DisplayHealth"
 import { DisplayDistance } from "../display/DisplayDistance/DisplayDistance"
 import { AdapterDisplayDistance } from "../adapters/AdapterDisplayDistance"
 import { AdapterDisplayShadowDogHealth } from "../adapters/AdapterDisplayShadowDogHealth"
+import { Restart } from "../commands/Restart/Restart"
 
 export function settings(context: IContextGame): void {
+  // ******
+  // command
+  // ******
+  context.switcher.install("restart", new Restart(context.switcher))
+
   // ******
   // background
   // ******
@@ -50,7 +56,7 @@ export function settings(context: IContextGame): void {
   const displayDistance = new DisplayDistance(
     new AdapterDisplayDistance(context.camera),
     context.ctx,
-    { x: 20, y: 80 },
+    { x: 20, y: 100 },
   )
 
   // init

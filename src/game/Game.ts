@@ -30,7 +30,7 @@ export class Game implements IGame {
       camera: new Camera(),
       destroyer: new Destroyer(this._contextEngine.canvas),
       initializer: new Initializer(),
-      switcher: new Switcher(this, this._contextEngine),
+      switcher: new Switcher(this),
     }
 
     settings(this._context)
@@ -41,5 +41,9 @@ export class Game implements IGame {
     this._context.physics.update()
     this._context.collision.update()
     this._context.initializer.update()
+  }
+
+  public get context() {
+    return this._context
   }
 }
