@@ -32,7 +32,7 @@ export function inputShadowDog(context: IContextGame, shadowDog: ShadowDog) {
   context.keyboard.define(
     BTN.w,
     () => {
-      jump.make(200)
+      jump.make(400, 30)
     },
     () => {
       jump.destroy()
@@ -42,7 +42,7 @@ export function inputShadowDog(context: IContextGame, shadowDog: ShadowDog) {
   context.keyboard.define(
     BTN.q,
     () => {
-      jump.make(400)
+      jump.make(600, 40)
     },
     () => {
       jump.destroy()

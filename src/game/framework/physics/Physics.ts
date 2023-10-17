@@ -26,8 +26,8 @@ export class Physics implements IPhysics {
       if (item.model.y !== 0) {
         if (item.cb && typeof item.cb === "function") item.cb()
 
-        if (item.model.y + 6 < 0) {
-          item.model.y = -6
+        if (item.model.y + 10 < 0) {
+          item.model.y = -10
         } else {
           const distance = item.model.y
           item.model.y = distance
