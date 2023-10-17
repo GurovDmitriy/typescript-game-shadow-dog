@@ -20,10 +20,11 @@ export class Destroyer implements IDestroyer {
       if (
         subscriber.x < -200 ||
         subscriber.x > this._canvas.width + 200 ||
-        subscriber.y > this._canvas.height + 50 ||
-        subscriber.y < -50
+        subscriber.y < this._canvas.height * -1 - 200 ||
+        subscriber.y > 500
       ) {
         subscriber.destroy()
+        this.unsubscribe(subscriber)
       }
     })
   }
