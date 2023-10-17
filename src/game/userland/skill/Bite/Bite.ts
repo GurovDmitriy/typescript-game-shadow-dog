@@ -33,16 +33,18 @@ export class Bite extends Skill {
     period: number = 0,
     delay: number = 0,
   ): void {
-    if (!this._delay && this._date === 0) {
+    if (this._date === 0) {
       this._date = Date.now()
     }
 
-    if (!this._delay && Date.now() < this._date + delay) return
+    if (!this._delay && Date.now() < this._date + delay) {
+      return
+    }
 
     this.active = true
-    this._delay = true
 
     if (Date.now() > this._date + period) {
+      this._delay = true
       const m = model || this._model
 
       if (m !== null && m.model.subscribeList.health) {

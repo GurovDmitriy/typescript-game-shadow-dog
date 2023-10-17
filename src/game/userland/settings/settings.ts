@@ -49,7 +49,7 @@ export function settings(context: IContextGame): void {
     new enemyType[getRandomInteger(0, enemyType.length - 1)](context)
   const getRandomPositionEnemy = (): [x: number, y: number] => [
     getRandomInteger(context.canvas.width - 50, context.canvas.width - 100),
-    getRandomInteger(-150, 200),
+    getRandomInteger(-100, 200),
   ]
 
   context.camera.subscribe({
