@@ -44,13 +44,13 @@ export enum TYPE_ACTION {
  * Describe buttons
  */
 export enum BTN {
-  w = "w",
-  a = "a",
-  s = "s",
-  d = "d",
-  q = "q",
-  e = "e",
-  space = " ",
+  w = "KeyW",
+  a = "KeyA",
+  s = "KeyS",
+  d = "KeyD",
+  q = "KeyQ",
+  e = "KeyE",
+  space = "Space",
   arrowUp = "arrowUp",
   arrowDown = "arrowDown",
   arrowLeft = "arrowLeft",

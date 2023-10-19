@@ -32,7 +32,7 @@ export class Keyboard implements IKeyboard {
     const listenerAction = {
       action: TYPE_ACTION.keydown,
       cb(evt: KeyboardEvent) {
-        if (evt.key === btn) {
+        if (evt.code === btn) {
           if (press) {
             cycle()
           } else {
@@ -47,7 +47,7 @@ export class Keyboard implements IKeyboard {
     const listenerAfter = {
       action: TYPE_ACTION.keyup,
       cb(evt: KeyboardEvent) {
-        if (evt.key === btn) {
+        if (evt.code === btn) {
           clearTimeout(timerId)
           after()
         }
