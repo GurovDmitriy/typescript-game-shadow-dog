@@ -5,9 +5,10 @@
   "author": "Gurov Dmitriy",
   "license": "ISC",
   "source": "src/index.html",
+  "homepage": "https://gurovdmitriy.github.io/typescript-game-shadow-dog",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build",
+    "build": "parcel build --public-url ./",
     "prepare": "husky install",
     "lint": "npm run lint:eslint && npm run lint:stylelint && npm run lint:prettier",
     "lint:eslint": "eslint --fix --ext \".jsx,.js,.ts,.tsx\" --ignore-path .eslintignore .",
