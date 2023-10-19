@@ -12,7 +12,7 @@ export class Subscribe implements ISubscribe {
     this.subscribers = {}
   }
 
-  public update() {
+  public update(): void {
     Object.values(this.subscribers).forEach((subscriber) => {
       subscriber.update()
     })
@@ -25,11 +25,11 @@ export class Subscribe implements ISubscribe {
     return unsubscribe
   }
 
-  public unsubscribe(name: string) {
+  public unsubscribe(name: string): void {
     delete this.subscribers[name]
   }
 
-  public destroy() {
+  public destroy(): void {
     this.subscribers = {}
   }
 }

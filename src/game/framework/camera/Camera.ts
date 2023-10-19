@@ -63,17 +63,17 @@ export class Camera implements ICamera {
     }
   }
 
-  public stop() {
+  public stop(): void {
     this.speed = 0
     this.notify()
   }
 
-  public setEnd() {
+  public setEnd(): void {
     this.end = true
     this.speed = 0
   }
 
-  private _checkDistance() {
+  private _checkDistance(): void {
     if (this.distanceCurrent >= this.distance) {
       this.setEnd()
     }

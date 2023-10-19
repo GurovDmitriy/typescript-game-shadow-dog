@@ -1,6 +1,6 @@
 import { Background } from "../../model/Background/Background"
 import { IContextGame } from "../../../types"
-import { AdapterCameraBackground } from "../../adapters/AdapterCameraBackground"
+import { AdapterCameraBackground } from "../../adapters/camera/AdapterCameraBackground"
 
 export function logicBackground(context: IContextGame, background: Background) {
   context.camera.init(20000)

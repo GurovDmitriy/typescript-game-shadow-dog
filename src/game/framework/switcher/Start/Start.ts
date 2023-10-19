@@ -10,12 +10,12 @@ export class Start implements ICommand {
   private _receiver: IReceiver
   private readonly _game: IGame
 
-  constructor(receiver: IReceiver, game: IGame) {
+  public constructor(receiver: IReceiver, game: IGame) {
     this._receiver = receiver
     this._game = game
   }
 
-  execute() {
+  public execute(): void {
     this._receiver.start(this._game)
   }
 }

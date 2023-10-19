@@ -1,6 +1,6 @@
-import { IModel } from "../display/types"
-import { ShadowDog } from "../model/ShadowDog/ShadowDog"
-import { Health } from "../skill/Health/Health"
+import { IModel } from "../../display/types"
+import { ShadowDog } from "../../model/ShadowDog/ShadowDog"
+import { Health } from "../../skill/Health/Health"
 
 export class AdapterDisplayShadowDogHealth implements IModel {
   private _instance: ShadowDog

@@ -27,7 +27,7 @@ export class Health extends Skill {
     return this._value
   }
 
-  make(value: number = 10): void {
+  public make(value: number = 10): void {
     if (this._value - value > 0) {
       this._value -= value
     } else {
@@ -37,7 +37,7 @@ export class Health extends Skill {
     this._cb()
   }
 
-  destroy(value: number = 10): void {
+  public destroy(value: number = 10): void {
     if (this._value + value < 100) {
       this._value += value
     } else {

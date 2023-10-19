@@ -42,7 +42,7 @@ export abstract class CreatorCharacter implements ICreatorCharacter {
     this._drawer.draw()
   }
 
-  get subscribeList() {
+  get subscribeList(): { [key: string]: ISubscriber } {
     return this._subscribe.subscribers
   }
 
@@ -54,7 +54,7 @@ export abstract class CreatorCharacter implements ICreatorCharacter {
     return unsubscribe
   }
 
-  public unsubscribe(name: string) {
+  public unsubscribe(name: string): void {
     this._subscribe.unsubscribe(name)
   }
 

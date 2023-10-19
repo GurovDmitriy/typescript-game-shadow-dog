@@ -8,7 +8,7 @@ import { Health } from "../Health/Health"
  */
 export class Roll extends Skill {
   private _date: number
-  private _model: ICreatorCharacter | null
+  private _model: { model: ICreatorCharacter } | null
   private _distance: number
   public active: boolean
 
@@ -25,10 +25,10 @@ export class Roll extends Skill {
     this.active = false
   }
 
-  update(): void {}
+  public update(): void {}
 
-  make(
-    model: ICreatorCharacter | null,
+  public make(
+    model: { model: ICreatorCharacter } | null,
     power: number = 20,
     period: number = 2000,
     delay: number = 3000,
@@ -62,7 +62,7 @@ export class Roll extends Skill {
     this._unBind()
   }
 
-  bind(model: ICreatorCharacter) {
+  bind(model: { model: ICreatorCharacter } | null) {
     this._model = model
   }
 

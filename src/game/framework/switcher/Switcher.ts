@@ -17,7 +17,7 @@ export class Switcher implements ISwitcher {
   private readonly _game: IGame
   public status: string
 
-  constructor(game: IGame) {
+  public constructor(game: IGame) {
     this._invoker = new Invoker()
     this._receiver = new Receiver()
     this._game = game

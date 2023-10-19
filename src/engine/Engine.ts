@@ -1,9 +1,16 @@
 import { Game } from "../game/Game"
 import { Keyboard } from "./Keyboard/Keyboard"
-import { IContextEngine, IEngine } from "./types"
+import {
+  IContextEngine,
+  IEngine,
+  TypeConstructorGame,
+  TypeConstructorKeyboard,
+} from "./types"
 
 /**
- * Engine - create engine context and game loop (singleton)
+ * Engine
+ * Create engine context and game loop.
+ * Fps settings.
  */
 export class Engine implements IEngine {
   private static _instance: Engine
@@ -14,8 +21,8 @@ export class Engine implements IEngine {
   private _fps: number
 
   private constructor(
-    Keyboard: { new (): Keyboard },
-    Game: { new (context: IContextEngine): Game },
+    Keyboard: TypeConstructorKeyboard,
+    Game: TypeConstructorGame,
   ) {
     this._context = {
       ...this.createCanvas(),
@@ -40,7 +47,7 @@ export class Engine implements IEngine {
     return Engine._instance
   }
 
-  private _loop() {
+  private _loop(): void {
     this._context.ctx.clearRect(
       0,
       0,
@@ -51,7 +58,7 @@ export class Engine implements IEngine {
     this._game.run()
   }
 
-  public run() {
+  public run(): void {
     if (Date.now() > this._date + this._fps) {
       this._loop()
 
@@ -76,7 +83,7 @@ export class Engine implements IEngine {
     return { ctx, canvas }
   }
 
-  private _setFps(fps: number) {
+  private _setFps(fps: number): void {
     const f = Math.floor(1000 / fps)
 
     this._fps = f > 10 ? f : 0

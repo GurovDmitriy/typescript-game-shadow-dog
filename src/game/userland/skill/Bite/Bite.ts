@@ -8,7 +8,7 @@ import { Health } from "../Health/Health"
  */
 export class Bite extends Skill {
   private _date: number
-  private _model: ICreatorCharacter | null
+  private _model: { model: ICreatorCharacter } | null
   public active: boolean
   private _delay: boolean
 
@@ -28,7 +28,7 @@ export class Bite extends Skill {
   update(): void {}
 
   make(
-    model: ICreatorCharacter | null,
+    model: { model: ICreatorCharacter } | null,
     power: number = 20,
     period: number = 0,
     delay: number = 0,
@@ -59,11 +59,11 @@ export class Bite extends Skill {
     this._unBind()
   }
 
-  bind(model: ICreatorCharacter) {
+  public bind(model: { model: ICreatorCharacter } | null): void {
     this._model = model
   }
 
-  destroy(): void {
+  public destroy(): void {
     this._destroy()
     this._unBind()
     this.active = false

@@ -1,7 +1,9 @@
 import { BTN, IKeyboard, TYPE_ACTION } from "../types"
 
 /**
- * Keyboard - for user input
+ * Keyboard
+ * Define user input event.
+ * Simulation of button clamping and automatic activation of functions to stop pressing are used.
  */
 export class Keyboard implements IKeyboard {
   private _listeners: {
@@ -18,7 +20,7 @@ export class Keyboard implements IKeyboard {
     action: () => void,
     after: () => void = () => {},
     press: boolean = false,
-  ) {
+  ): void {
     let timerId = null
 
     function cycle() {
@@ -60,7 +62,7 @@ export class Keyboard implements IKeyboard {
     this._listeners.push(listenerAfter)
   }
 
-  public destroy() {
+  public destroy(): void {
     this._listeners.forEach((listener) => {
       document.removeEventListener(listener.action, listener.cb)
     })

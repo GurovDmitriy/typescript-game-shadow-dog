@@ -1,5 +1,5 @@
-import { IModel } from "../display/types"
-import { ICamera } from "../../framework/camera/types"
+import { IModel } from "../../display/types"
+import { ICamera } from "../../../framework/camera/types"
 
 export class AdapterDisplayDistance implements IModel {
   private _instance: ICamera

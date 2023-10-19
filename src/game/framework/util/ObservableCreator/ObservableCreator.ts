@@ -27,11 +27,11 @@ export class ObservableCreator<T extends IObserver<T1>, T1>
     return unsubscribe
   }
 
-  public unsubscribe(value: T) {
+  public unsubscribe(value: T): void {
     this.subscribers.delete(value)
   }
 
-  notify(data: T1) {
+  public notify(data: T1): void {
     this.subscribers.forEach((subscriber) => {
       if (subscriber.update) {
         subscriber.update(data)

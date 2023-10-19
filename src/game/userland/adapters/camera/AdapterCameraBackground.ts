@@ -1,17 +1,17 @@
-import { IBackground } from "../model/Background/types"
-import { ICamera, ISubscriber } from "../../framework/camera/types"
-import { IContextGame } from "../../types"
+import { IBackground } from "../../model/Background/types"
+import { ICamera, ISubscriber } from "../../../framework/camera/types"
+import { IContextGame } from "../../../types"
 
 export class AdapterCameraBackground implements ISubscriber {
   private _instance: IBackground
   private readonly _context: IContextGame
 
-  constructor(instance: IBackground, context: IContextGame) {
+  public constructor(instance: IBackground, context: IContextGame) {
     this._instance = instance
     this._context = context
   }
 
-  update(data: ICamera): void {
+  public update(data: ICamera): void {
     if (data.end) {
       this._context.switcher.execute("restart")
     }

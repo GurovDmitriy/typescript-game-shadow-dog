@@ -15,7 +15,7 @@ export abstract class Display implements IDisplay {
   protected _percentage: boolean
   protected _invert: boolean
 
-  constructor(
+  protected constructor(
     model: IModel,
     ctx: CanvasRenderingContext2D,
     position: PositionType,

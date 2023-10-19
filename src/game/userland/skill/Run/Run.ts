@@ -20,9 +20,9 @@ export class Run extends Skill {
     this._distance = 0
   }
 
-  update(): void {}
+  public update(): void {}
 
-  make(): void {
+  public make(): void {
     this.active = true
     this._cb()
 
@@ -32,7 +32,7 @@ export class Run extends Skill {
     }
   }
 
-  destroy(): void {
+  public destroy(): void {
     this.active = false
     this._character.move(0, null)
     this._distance = 0

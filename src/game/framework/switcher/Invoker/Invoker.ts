@@ -8,15 +8,15 @@ import { ICommand } from "../types"
 export class Invoker implements IInvoker {
   private readonly _commands: ICommand[]
 
-  constructor() {
+  public constructor() {
     this._commands = []
   }
 
-  install(name: string, command: ICommand) {
+  public install(name: string, command: ICommand): void {
     this._commands[name] = command
   }
 
-  execute(name: string) {
+  public execute(name: string): void {
     if (this._commands[name]) {
       this._commands[name].execute()
     } else {

@@ -1,4 +1,6 @@
 import { IContextGame } from "../game/types"
+import { Game } from "../game/Game"
+import { Keyboard } from "./Keyboard/Keyboard"
 
 export interface Updatable {
   update(): void
@@ -13,6 +15,10 @@ export interface IEngine extends Runnable {}
 export interface IGame extends Runnable {
   context: IContextGame
   init(): void
+}
+
+export type TypeConstructorGame = {
+  new (context: IContextEngine): Game
 }
 
 export interface IContextEngine {
@@ -32,17 +38,15 @@ export interface IKeyboard {
   destroy(): void
 }
 
-/**
- * Types events button
- */
+export type TypeConstructorKeyboard = {
+  new (): Keyboard
+}
+
 export enum TYPE_ACTION {
   keydown = "keydown",
   keyup = "keyup",
 }
 
-/**
- * Describe buttons
- */
 export enum BTN {
   w = "KeyW",
   a = "KeyA",

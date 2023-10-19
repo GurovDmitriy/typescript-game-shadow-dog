@@ -12,7 +12,7 @@ export class Initializer implements IInitializer {
     this._observable = new ObservableCreator<ISubscriber, undefined>()
   }
 
-  public update() {
+  public update(): void {
     this._observable.notify(undefined)
   }
 

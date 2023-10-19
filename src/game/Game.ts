@@ -9,7 +9,8 @@ import { settings } from "./userland/settings/settings"
 import { Switcher } from "./framework/switcher/Switcher"
 
 /**
- * Game - create game context and loop for engine
+ * Game
+ * Create game context and loop for engine.
  */
 export class Game implements IGame {
   private readonly _contextEngine: IContextEngine
@@ -20,7 +21,7 @@ export class Game implements IGame {
     this.init()
   }
 
-  public init() {
+  public init(): void {
     this._context = {
       ctx: this._contextEngine.ctx,
       canvas: this._contextEngine.canvas,
@@ -36,14 +37,14 @@ export class Game implements IGame {
     settings(this._context)
   }
 
-  public run() {
+  public run(): void {
     this._context.destroyer.update()
     this._context.physics.update()
     this._context.collision.update()
     this._context.initializer.update()
   }
 
-  public get context() {
+  public get context(): IContextGame {
     return this._context
   }
 }

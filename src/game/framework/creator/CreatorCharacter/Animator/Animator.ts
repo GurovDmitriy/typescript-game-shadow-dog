@@ -91,7 +91,7 @@ export class Animator implements IAnimator {
     }
   }
 
-  public once(value: boolean) {
+  public once(value: boolean): void {
     this._once = value
   }
 

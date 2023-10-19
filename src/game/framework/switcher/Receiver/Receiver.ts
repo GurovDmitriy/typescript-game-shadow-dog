@@ -6,12 +6,12 @@ import { IGame } from "../../../../engine/types"
  * Define action command.
  */
 export class Receiver implements IReceiver {
-  start(game: IGame) {
+  public start(game: IGame): void {
     game.context.keyboard.destroy()
     game.init()
   }
 
-  stop(game: IGame) {
+  public stop(game: IGame): void {
     game.context.camera.setEnd()
   }
 }

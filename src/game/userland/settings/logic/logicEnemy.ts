@@ -1,8 +1,9 @@
 import { IContextGame } from "../../../types"
-import { AdapterCameraEnemy } from "../../adapters/AdapterCameraEnemy"
+import { AdapterCameraEnemy } from "../../adapters/camera/AdapterCameraEnemy"
 import { Bite } from "../../skill/Bite/Bite"
 import { Enemy1 } from "../../model/Enemy1/Enemy1"
 import { Health } from "../../skill/Health/Health"
+import { ICreatorCharacter } from "../../../framework/creator/CreatorCharacter/types"
 
 export function logicEnemy(context: IContextGame, enemy: Enemy1) {
   context.destroyer.subscribe(enemy)
@@ -15,8 +16,9 @@ export function logicEnemy(context: IContextGame, enemy: Enemy1) {
     cb: (model) => {
       if (model) {
         const bite = enemy.subscribeList.bite as Bite
+        const m = model as unknown as ICreatorCharacter
 
-        if (bite) bite.make(model, 10, 1000, 100)
+        if (bite) bite.make(m, 10, 1000, 100)
       }
     },
   })

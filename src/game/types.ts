@@ -14,18 +14,3 @@ export interface IContextGame extends IContextEngine {
   initializer: IInitializer
   switcher: ISwitcher
 }
-
-export interface ISubscribe<T> {
-  subscribe(subscriber: T): UnsubscribeType
-  unsubscribe(index: number): void
-}
-
-export interface IUnsubscribeAuto {
-  addUnsubscribe(unsubscribe: () => void): void
-}
-
-export interface Updatable {
-  update(): void
-}
-
-export type UnsubscribeType = () => void

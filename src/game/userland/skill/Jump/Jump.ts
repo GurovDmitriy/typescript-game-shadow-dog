@@ -24,7 +24,7 @@ export class Jump extends Skill {
     this.active = false
   }
 
-  update(): void {
+  public update(): void {
     if (this._distance > this._distanceCurrent) {
       this._cb()
       this._distanceCurrent += this._power
@@ -38,7 +38,7 @@ export class Jump extends Skill {
     if (this._character.y === 0) this.active = false
   }
 
-  make(distance: number = 200, power: number = 20): void {
+  public make(distance: number = 200, power: number = 20): void {
     if (this._character.y === 0) {
       this.active = true
       this._distance = distance
@@ -47,7 +47,7 @@ export class Jump extends Skill {
     }
   }
 
-  destroy(): void {
+  public destroy(): void {
     this._destroy()
   }
 }

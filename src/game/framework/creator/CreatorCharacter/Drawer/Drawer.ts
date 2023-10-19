@@ -48,7 +48,7 @@ export class Drawer implements IDrawer {
     )
   }
 
-  public once(value: boolean) {
+  public once(value: boolean): void {
     this._animator.once(value)
   }
 

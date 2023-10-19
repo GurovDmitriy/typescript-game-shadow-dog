@@ -4,19 +4,12 @@ import { Background } from "../model/Background/Background"
 import { ShadowDog } from "../model/ShadowDog/ShadowDog"
 import { logicShadowDog } from "./logic/logicShadowDog"
 import { logicBackground } from "./logic/logicBackground"
-import { AI } from "../ai/AI"
-import { logicEnemy } from "./logic/logicEnemy"
-import { Enemy1 } from "../model/Enemy1/Enemy1"
 import { DisplayHealth } from "../display/DisplayHealth/DisplayHealth"
 import { DisplayDistance } from "../display/DisplayDistance/DisplayDistance"
-import { AdapterDisplayDistance } from "../adapters/AdapterDisplayDistance"
-import { AdapterDisplayShadowDogHealth } from "../adapters/AdapterDisplayShadowDogHealth"
+import { AdapterDisplayDistance } from "../adapters/display/AdapterDisplayDistance"
+import { AdapterDisplayShadowDogHealth } from "../adapters/display/AdapterDisplayShadowDogHealth"
 import { Restart } from "../commands/Restart/Restart"
-import { ICamera } from "../../framework/camera/types"
-import { Enemy2 } from "../model/Enemy2/Enemy2"
-import { Enemy3 } from "../model/Enemy3/Enemy3"
-import { Enemy4 } from "../model/Enemy4/Enemy4"
-import { getRandomInteger } from "../../../utils/getRandomInteger"
+import { generateEnemy } from "./generate/generateEnemy"
 
 export function settings(context: IContextGame): void {
   // ******
@@ -42,32 +35,7 @@ export function settings(context: IContextGame): void {
   // ******
   // enemy
   // ******
-  // TODO: separate fragments
-  const enemyType = [Enemy1, Enemy2, Enemy3, Enemy4]
-  const enemyDensity = (distance: number, distanceCurrent: number): boolean =>
-    (distance - distanceCurrent) % 200 === 0
-  const getRandomEnemy = () =>
-    new enemyType[getRandomInteger(0, enemyType.length - 1)](context)
-  const getRandomPositionEnemy = (): [x: number, y: number] => [
-    getRandomInteger(context.canvas.width - 50, context.canvas.width - 100),
-    getRandomInteger(-100, 400),
-  ]
-
-  context.camera.subscribe({
-    update(data: ICamera) {
-      if (enemyDensity(data.distance, data.distanceCurrent)) {
-        const enemy = getRandomEnemy()
-        enemy.plain()
-        enemy.move(...getRandomPositionEnemy())
-
-        enemy.subscribe("ai", new AI(enemy, "random"))
-
-        logicEnemy(context, enemy)
-
-        context.initializer.subscribe(enemy)
-      }
-    },
-  })
+  generateEnemy(context)
 
   // ******
   // display

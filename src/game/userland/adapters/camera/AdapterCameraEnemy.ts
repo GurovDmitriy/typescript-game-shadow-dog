@@ -1,5 +1,5 @@
-import { ICamera, ISubscriber } from "../../framework/camera/types"
-import { IEnemy1 } from "../model/Enemy1/types"
+import { ICamera, ISubscriber } from "../../../framework/camera/types"
+import { IEnemy1 } from "../../model/Enemy1/types"
 
 export class AdapterCameraEnemy implements ISubscriber {
   private _instance: IEnemy1

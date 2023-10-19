@@ -8,7 +8,7 @@ export class AI implements IAI {
   private _character: ICreatorCharacter
   private readonly _mode: "random"
 
-  constructor(character: ICreatorCharacter, mode: "random") {
+  public constructor(character: ICreatorCharacter, mode: "random") {
     this._x = character.x
     this._y = character.y
     this._angle = 0
@@ -16,18 +16,18 @@ export class AI implements IAI {
     this._mode = mode
   }
 
-  public update() {
+  public update(): void {
     this[`_${this._mode}`]()
   }
 
-  private _random() {
+  private _random(): void {
     this._x = this._character.x + this.getRandomInteger(-1, 1)
     this._y = this._character.y + this.getRandomInteger(-1, 1)
 
     this._move()
   }
 
-  private _move() {
+  private _move(): void {
     this._character.move(this._x, this._y)
   }
 

@@ -19,9 +19,9 @@ export class Sit extends Skill {
     this._date = Date.now()
   }
 
-  update(): void {}
+  public update(): void {}
 
-  make(power: number = 5, period: number = 2000): void {
+  public make(power: number = 5, period: number = 2000): void {
     const health = this._character.subscribeList?.health as Health
 
     if (health && Date.now() > this._date + period) {
@@ -33,7 +33,7 @@ export class Sit extends Skill {
     this._cb()
   }
 
-  destroy(): void {
+  public destroy(): void {
     this._destroy()
   }
 }

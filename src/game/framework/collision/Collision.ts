@@ -30,7 +30,7 @@ export class Collision implements ICollision {
     this._observable.unsubscribe(value)
   }
 
-  _findCollision(subscriber: ISubscriber, index: number) {
+  _findCollision(subscriber: ISubscriber, index: number): void {
     const arr = Array.from(this._observable.subscribers)
 
     for (let i = index + 1; i < arr.length; i++) {
