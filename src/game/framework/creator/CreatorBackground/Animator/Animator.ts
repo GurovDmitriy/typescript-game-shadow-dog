@@ -45,18 +45,18 @@ export class Animator implements IAnimator {
 
   run(): void {
     if (this._x <= -this._width) {
-      this._x = this._width + this._x2 - this._speed * this._speedModifier
+      this._x = this._width + this._x2 - this._speed
     }
 
     if (this._x2 <= -this._width) {
-      this._x2 = this._width + this._x - this._speed * this._speedModifier
+      this._x2 = this._width + this._x - this._speed
     }
 
-    this._x = this._x - this._speed * this._speedModifier
-    this._x2 = this._x2 - this._speed * this._speedModifier
+    this._x = Math.floor(this._x - this._speed)
+    this._x2 = Math.floor(this._x2 - this._speed)
   }
 
   updateSpeed(speed: number): void {
-    this._speed = speed
+    this._speed = speed * this._speedModifier
   }
 }

@@ -3,7 +3,7 @@ import { IModel, PositionType } from "../types"
 
 /**
  * DisplayDistance
- * Visualization of game level camera distance
+ * Visualization of the camera distance to the end of the level
  */
 export class DisplayDistance extends Display {
   public constructor(
@@ -12,8 +12,9 @@ export class DisplayDistance extends Display {
     position: PositionType,
     percentage: boolean = true,
     name: string = "Distance",
+    invert: boolean = true,
   ) {
-    super(model, ctx, position, percentage, name)
+    super(model, ctx, position, percentage, name, invert)
   }
 
   public draw(): void {

@@ -16,7 +16,7 @@ export function logicEnemy(context: IContextGame, enemy: Enemy1) {
       if (model) {
         const bite = enemy.subscribeList.bite as Bite
 
-        if (bite) bite.make(model, 10, 1000, 200)
+        if (bite) bite.make(model, 10, 1000, 100)
       }
     },
   })

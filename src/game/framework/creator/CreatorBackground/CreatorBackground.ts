@@ -6,7 +6,7 @@ import { IContextGame } from "../../../types"
 
 /**
  * CreatorBackground
- * Create bg layers and draw in canvas.
+ * Create background layers and draw in canvas.
  */
 export class CreatorBackground implements ICreatorBackground {
   private _drawerList: IDrawer[]

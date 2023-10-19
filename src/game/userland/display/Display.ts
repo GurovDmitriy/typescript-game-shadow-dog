@@ -13,18 +13,21 @@ export abstract class Display implements IDisplay {
   protected _value: number | string
   protected _position: PositionType
   protected _percentage: boolean
+  protected _invert: boolean
 
-  protected constructor(
+  constructor(
     model: IModel,
     ctx: CanvasRenderingContext2D,
     position: PositionType,
     percentage: boolean = true,
     name: string = "",
+    invert: boolean = false,
   ) {
     this._model = model
     this._ctx = ctx
     this._position = position
     this._percentage = percentage
+    this._invert = invert
     this.name = name
   }
 
@@ -53,6 +56,10 @@ export abstract class Display implements IDisplay {
       } else {
         this._value = Math.round((value * 100) / amount)
       }
+    }
+
+    if (this._invert && typeof this._value === "number") {
+      this._value = 100 - this._value
     }
   }
 }

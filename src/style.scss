@@ -5,3 +5,46 @@ body {
 .canvas {
   border: 2px solid #000000;
 }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+
+.box-key {
+  margin-right: 10px;
+}
+
+kbd {
+  display: block;
+  width: min-content;
+  margin: 0 auto;
+  padding: 2px 10px;
+
+  font-size: 20px;
+  font-family: monospace;
+  text-align: center;
+
+  border: 1px solid #000000;
+  border-radius: 4px;
+
+  box-shadow: 2px 2px 0 0;
+}
+
+.description {
+  font-size: 14px;
+  font-family: monospace;
+  text-align: center;
+}
+
+.box-description-game {
+  width: 400px;
+}
+
+.description-game {
+  margin: 4px;
+
+  font-size: 16px;
+  font-family: monospace;
+}

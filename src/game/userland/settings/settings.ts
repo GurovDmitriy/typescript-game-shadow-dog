@@ -42,19 +42,20 @@ export function settings(context: IContextGame): void {
   // ******
   // enemy
   // ******
+  // TODO: separate fragments
   const enemyType = [Enemy1, Enemy2, Enemy3, Enemy4]
-  const enemyFrequency = (distance: number, distanceCurrent: number): boolean =>
-    (distance - distanceCurrent) % 400 === 0
+  const enemyDensity = (distance: number, distanceCurrent: number): boolean =>
+    (distance - distanceCurrent) % 200 === 0
   const getRandomEnemy = () =>
     new enemyType[getRandomInteger(0, enemyType.length - 1)](context)
   const getRandomPositionEnemy = (): [x: number, y: number] => [
     getRandomInteger(context.canvas.width - 50, context.canvas.width - 100),
-    getRandomInteger(-100, 200),
+    getRandomInteger(-100, 400),
   ]
 
   context.camera.subscribe({
     update(data: ICamera) {
-      if (enemyFrequency(data.distance, data.distanceCurrent)) {
+      if (enemyDensity(data.distance, data.distanceCurrent)) {
         const enemy = getRandomEnemy()
         enemy.plain()
         enemy.move(...getRandomPositionEnemy())
@@ -79,7 +80,10 @@ export function settings(context: IContextGame): void {
   const displayDistance = new DisplayDistance(
     new AdapterDisplayDistance(context.camera),
     context.ctx,
-    { x: 20, y: 100 },
+    {
+      x: 20,
+      y: 100,
+    },
   )
 
   // init

@@ -56,9 +56,11 @@ export class Collision implements ICollision {
     return false
   }
 
-  private _circle(rect1: IRect, rect2: IRect): boolean {
-    const modifierArea = 0.5
-
+  private _circle(
+    rect1: IRect,
+    rect2: IRect,
+    modifierArea: number = 0.8,
+  ): boolean {
     const dx = rect2.x + rect2.width / 2 - (rect1.x + rect1.width / 2)
     const dy = rect2.y + rect2.height / 2 - (rect1.y + rect1.height / 2)
 
