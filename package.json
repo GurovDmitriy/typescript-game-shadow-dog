@@ -55,9 +55,6 @@
   "volta": {
     "node": "18.17.1"
   },
-  "dependencies": {
-    "@types/mousetrap": "^1.6.11"
-  },
   "targets": {
     "default": {
       "distDir": "./docs"
