@@ -13,43 +13,37 @@
     "lint": "npm run lint:eslint && npm run lint:stylelint && npm run lint:prettier",
     "lint:eslint": "eslint --fix --ext \".jsx,.js,.ts,.tsx\" --ignore-path .eslintignore .",
     "lint:prettier": "prettier --write \"**/*.{jsx,js,ts,tsx,css,less,scss,html,md}\" --ignore-path .prettierignore",
-    "lint:stylelint": "stylelint --fix \"**/*.{css,less,scss}\" --ignore-path .stylelintignore"
+    "lint:stylelint": "stylelint --fix \"**/*.{css,less,scss}\" --ignore-path .stylelintignore",
+    "test": "jest"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^17.7.0",
-    "@parcel/config-default": "^2.9.3",
-    "@parcel/transformer-raw": "^2.9.3",
-    "@parcel/transformer-sass": "^2.9.3",
-    "@typescript-eslint/eslint-plugin": "^6.5.0",
-    "@typescript-eslint/parser": "^6.5.0",
-    "eslint": "^8.48.0",
+    "@commitlint/cli": "^18.0.0",
+    "@commitlint/config-conventional": "^18.0.0",
+    "@parcel/config-default": "^2.10.0",
+    "@parcel/transformer-raw": "^2.10.0",
+    "@parcel/transformer-sass": "^2.10.0",
+    "@types/jest": "^29.5.6",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "eslint": "^8.52.0",
     "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
-    "parcel": "^2.9.3",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.0.2",
+    "parcel": "^2.10.0",
     "prettier": "3.0.3",
     "prettier-plugin-organize-imports": "^3.2.3",
-    "stylelint": "^15.10.3",
+    "stylelint": "^15.11.0",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-rational-order-fix": "^0.1.9",
-    "stylelint-config-standard-scss": "^10.0.0",
-    "stylelint-order": "^6.0.3"
+    "stylelint-config-standard-scss": "^11.0.0",
+    "stylelint-order": "^6.0.3",
+    "ts-jest": "^29.1.1"
   },
   "lint-staged": {
     "src/**/*.{jsx,js,ts,tsx}": "eslint --fix",
     "src/**/*.{css,less,scss}": "stylelint --fix",
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      "defaults"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
     ]
   },
   "volta": {
