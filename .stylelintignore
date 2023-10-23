@@ -76,3 +76,4 @@ dist
 *.sublime*
 *.html
 .$UML.drawio.bkp
+coverage
