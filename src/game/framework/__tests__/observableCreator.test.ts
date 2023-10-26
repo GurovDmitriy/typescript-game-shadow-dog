@@ -1,7 +1,7 @@
-import { ObservableCreator } from "../ObservableCreator/ObservableCreator"
-import { IObservableCreator } from "../ObservableCreator/types"
+import { ObservableCreator } from "../util/ObservableCreator/ObservableCreator"
+import { IObservableCreator } from "../util/ObservableCreator/types"
 
-describe("Utils Framework: ObservableCreator", () => {
+describe("Framework Utils: ObservableCreator", () => {
   type TSubscriber = { name: string; update?: () => void }
   let subscriber: TSubscriber
   let observableCreator: IObservableCreator<TSubscriber, undefined>

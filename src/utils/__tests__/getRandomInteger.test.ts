@@ -8,13 +8,13 @@ describe("Utils: getRandomInteger", () => {
   ])(
     "$input should be return number between $expected",
     ({ input, expected }) => {
-      // arrange:
+      // Arrange
       const sut = getRandomInteger
 
-      // act:
+      // Act
       const actual = sut(input[0], input[1])
 
-      // assert:
+      // Assert
       expect(actual).toBeGreaterThanOrEqual(expected[0])
       expect(actual).toBeLessThanOrEqual(expected[1])
     },

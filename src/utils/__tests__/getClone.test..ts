@@ -2,26 +2,26 @@ import { getClone } from "../getClone"
 
 describe("Utils: getClone", () => {
   test("should do returns simple clone object", () => {
-    // arrange:
+    // Arrange
     const sut = getClone
     const expected = { name: "name", id: 123 }
 
-    // act:
+    // Act
     const actual = sut({ name: "name", id: 123 })
 
-    // assert:
+    // Assert
     expect(actual).toStrictEqual(expected)
   })
 
   test("should do returns simple clone array", () => {
-    // arrange:
+    // Arrange
     const sut = getClone
     const expected = [1, 2, 3]
 
-    // act:
+    // Act
     const actual = sut([1, 2, 3])
 
-    // assert:
+    // Assert
     expect(actual).toStrictEqual(expected)
   })
 })
