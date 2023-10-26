@@ -77,3 +77,4 @@ dist
 *.html
 .$UML.drawio.bkp
 coverage
+docs

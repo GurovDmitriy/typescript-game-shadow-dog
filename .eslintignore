@@ -91,3 +91,4 @@ pnpm-debug.log*
 *.sublime*
 .$UML.drawio.bkp
 coverage
+docs
