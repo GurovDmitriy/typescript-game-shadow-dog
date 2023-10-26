@@ -16,7 +16,7 @@ export function logicEnemy(context: IContextGame, enemy: Enemy1) {
     cb: (model) => {
       if (model) {
         const bite = enemy.subscribeList.bite as Bite
-        const m = model as unknown as ICreatorCharacter
+        const m = model as unknown as { model: ICreatorCharacter }
 
         if (bite) bite.make(m, 10, 1000, 100)
       }

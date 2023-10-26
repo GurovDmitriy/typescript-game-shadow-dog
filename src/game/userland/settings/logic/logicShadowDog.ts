@@ -23,11 +23,11 @@ export function logicShadowDog(context: IContextGame, shadowDog: ShadowDog) {
       const roll = shadowDog.subscribeList.roll as Roll
 
       if (bite.active) {
-        bite.bind(model as unknown as ICreatorCharacter)
+        bite.bind(model as unknown as { model: ICreatorCharacter })
       }
 
       if (roll.active) {
-        roll.bind(model as unknown as ICreatorCharacter)
+        roll.bind(model as unknown as { model: ICreatorCharacter })
       }
     },
   })

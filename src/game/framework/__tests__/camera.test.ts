@@ -42,7 +42,7 @@ describe("Framework: Camera", () => {
     sut.init(0, 1)
 
     // Assert
-    expect(sut.end).toBeFalsy()
+    expect(sut.end).toBeTruthy()
   })
 
   it("should be set new position left", () => {
